@@ -79,7 +79,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel for Eduforumssss
+                    Laravel for Eduforumss
                 </div>
 
                 <div class="links">
