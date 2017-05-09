@@ -1,38 +1,13 @@
 language: php
+
 php:
-  - '7.0'
-
-env:
-  global:
-      - setup=basic
-      - APP_ENV=testing
-      - APP_DEBUG=true
-      - APP_KEY=xxxx
-      - DB_CONNECTION=mysql
-      - CACHE_DRIVER=file
-      - SESSION_DRIVER=file
-      - QUEUE_DRIVER=sync
-services:
-  - mysql
-  - memcached
-  - redis-server
-
-before_install:
-  - if [[ $TRAVIS_PHP_VERSION != 7.1 ]] ; then phpenv config-rm xdebug.ini; fi
-  - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - pecl install -f redis
-  - travis_retry composer self-update
-
-install:
-  - if [[ $setup = 'basic' ]]; then travis_retry composer install --no-interaction --prefer-dist --no-suggest; fi
-  - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-stable --no-suggest; fi
-  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-lowest --prefer-stable --no-suggest; fi
+  - 7.0
 
 before_script:
-  - mysql -e 'create database ###;'
-  - export DB_DATABASE='###'
-  - export DB_USERNAME=travis
-  - export DB_PASSWORD=travis
+  - cp .env.travis .env
+  - composer self-update
+  - composer install --no-interaction
   - php artisan key:generate
 
-script: vendor/bin/phpunit
+script:
+  - vendor/bin/phpunit
