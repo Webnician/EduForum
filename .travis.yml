@@ -32,7 +32,7 @@ before_script:
   - mysql -e 'create database ###;'
   - export DB_DATABASE='###'
   - export DB_USERNAME=travis
-  - export DB_PASSWORD=
+  - export DB_PASSWORD=travis
   - php artisan key:generate
 
 script: vendor/bin/phpunit
