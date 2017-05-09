@@ -5,14 +5,15 @@ php:
 env:
   global:
       - setup=basic
-      - APP_ENV=staging
+      - APP_ENV=testing
       - APP_DEBUG=true
       - APP_KEY=xxxx
-      - DB_CONNECTION=sqlite
+      - DB_CONNECTION=mysql
       - CACHE_DRIVER=file
       - SESSION_DRIVER=file
       - QUEUE_DRIVER=sync
 services:
+  - mysql
   - memcached
   - redis-server
 
@@ -26,5 +27,12 @@ install:
   - if [[ $setup = 'basic' ]]; then travis_retry composer install --no-interaction --prefer-dist --no-suggest; fi
   - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-stable --no-suggest; fi
   - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-lowest --prefer-stable --no-suggest; fi
+
+before_script:
+  - mysql -e 'create database ###;'
+  - export DB_DATABASE='###'
+  - export DB_USERNAME=travis
+  - export DB_PASSWORD=
+  - php artisan key:generate
 
 script: vendor/bin/phpunit
