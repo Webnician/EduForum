@@ -2,7 +2,7 @@ language: php
 php:
 - 7.0
 addons:
-  ssh_known_hosts: eduforum.online
+  ssh_known_hosts: 107.170.53.95
 before_script:
 - cp .env.travis .env
 - composer self-update
