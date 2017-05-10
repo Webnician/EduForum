@@ -17,8 +17,7 @@ script:
 #  - bash deploy.sh
 
 before_deploy:
-- openssl aes-256-cbc -K $encrypted_55286a5d4eb4_key -iv $encrypted_55286a5d4eb4_iv
- -in deploys.enc -out /tmp/deploys -d
+- openssl aes-256-cbc -K $encrypted_55286a5d4eb4_key -iv $encrypted_55286a5d4eb4_iv -in deploys.enc -out /tmp/deploys -d
 #- openssl aes-256-cbc -K $encrypted_<...>_key -iv $encrypted_<...>_iv -in deploys.enc -out /tmp/deploys -d
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/deploys
