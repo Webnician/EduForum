@@ -12,7 +12,7 @@ script:
 - vendor/bin/phpunit
 before_install:
 - openssl aes-256-cbc -K $encrypted_bb3964dbe7be_key -iv $encrypted_bb3964dbe7be_iv
-  -in deploys.enc -out deploys -d
+  -in deploys.enc -out /tmp/deploys -d
 before_deploy:
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/deploys
