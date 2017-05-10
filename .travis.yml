@@ -19,7 +19,7 @@ before_deploy:
 - ssh-add /tmp/deploys
 
 after_success:
-- git remote add deploy deploy@ 107.170.53.95
+- git remote add deploy deploy@107.170.53.95:/var/repo/site.git
   - git push deploy
 #deploy:
 #  provider: script
