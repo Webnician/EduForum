@@ -17,9 +17,13 @@ before_deploy:
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/deploys
 - ssh-add /tmp/deploys
-deploy:
-  provider: script
-  skip_cleanup: true
-  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/eduforum deploy@107.170.53.95:/var/repo/site.git
-  on:
-    branch: master
+
+after_success:
+- git remote add deploy deploy@ 107.170.53.95
+  - git push deploy
+#deploy:
+#  provider: script
+#  skip_cleanup: true
+#  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/eduforum deploy@107.170.53.95:/var/repo/site.git
+#  on:
+#    branch: master
