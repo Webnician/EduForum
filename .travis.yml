@@ -10,15 +10,12 @@ before_script:
 - php artisan key:generate
 script:
 - vendor/bin/phpunit
-#before_install:
-#- openssl aes-256-cbc -K $encrypted_55286a5d4eb4_key -iv $encrypted_55286a5d4eb4_iv
-#  -in deploys.enc -out deploys -d
-#after_success:
-#  - bash deploy.sh
+
+before_install:
+- openssl aes-256-cbc -K $encrypted_55286a5d4eb4_key -iv $encrypted_55286a5d4eb4_iv
+  -in deploys.enc -out deploys -d
 
 before_deploy:
-- openssl aes-256-cbc -K $encrypted_55286a5d4eb4_key -iv $encrypted_55286a5d4eb4_iv -in deploys.enc -out /tmp/deploys -d
-#- openssl aes-256-cbc -K $encrypted_<...>_key -iv $encrypted_<...>_iv -in deploys.enc -out /tmp/deploys -d
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/deploys
 - ssh-add /tmp/deploys
@@ -29,3 +26,5 @@ deploy:
   script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/eduforum deploy@107.170.53.95:/var/repo/site.git
   on:
     branch: master
+
+
