@@ -19,4 +19,5 @@ before_deploy:
 - chmod 600 /tmp/id_rsanew
 - ssh-add /tmp/id_rsanew
 after_success:
-- git remote add deploying deploy@107.170.53.95:/var/repo/site.git - git push deploying
+- git remote add deploying git@107.170.53.95:/var/repo/site.git
+- git push deploying
