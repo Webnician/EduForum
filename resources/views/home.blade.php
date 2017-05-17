@@ -9,9 +9,17 @@
 
                 <div class="panel-body">
                     You are logged in!
+
+
                 </div>
             </div>
         </div>
     </div>
+
+        <example></example>
+
+
 </div>
 @endsection
+
+

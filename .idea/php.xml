@@ -2,7 +2,11 @@
 <project version="4">
   <component name="PhpProjectServersManager">
     <servers>
-      <server host="eduforum.local" id="d1159811-e95d-4a96-92a5-259534122ac5" name="php 7 vagrant" />
+      <server host="eduforum.local" id="d1159811-e95d-4a96-92a5-259534122ac5" name="php 7 vagrant" use_path_mappings="true">
+        <path_mappings>
+          <mapping local-root="$PROJECT_DIR$" remote-root="/home/vagrant/Code/eduforum/eduforum" />
+        </path_mappings>
+      </server>
     </servers>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7" />
