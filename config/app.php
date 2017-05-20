@@ -163,6 +163,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Kodeine\Acl\AclServiceProvider::class,
+//        App\Providers\ProfileServiceProvider::class,
 
         /*
          * Package Service Providers...

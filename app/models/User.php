@@ -2,15 +2,16 @@
 
 namespace App\models;
 
+use Kodeine\Acl\Traits\HasRole;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Database\Eloquent\Model as Model;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 //use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use Kodeine\Acl\Traits\HasRole;
 
 class User extends  Model implements AuthenticatableContract, CanResetPasswordContract
 {
@@ -18,6 +19,23 @@ class User extends  Model implements AuthenticatableContract, CanResetPasswordCo
     use Notifiable, Authenticatable, CanResetPassword, HasRole;
 
 
+    public function getCurrentUserId()
+    {
+        return get_current_user()->id;
+    }
+    public function getCurrentUserRoles()
+    {
+        return Auth::user()->getRoles();
+    }
+
+    public function canViewProifle($role)
+    {
+
+//       $admin = $user->getCurrentUserRoles();
+//        $admin = $user->hasRole('administrator');
+//        return Auth::user()->is($role);
+        return Auth::user()->isRole('superadmin');
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -36,4 +54,6 @@ class User extends  Model implements AuthenticatableContract, CanResetPasswordCo
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
 }
