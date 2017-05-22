@@ -50,6 +50,12 @@ class Role_table_seeder extends Seeder
         $roleAdmin->save();
 
         $roleAdmin = new Role();
+        $roleAdmin->name = 'Grader';
+        $roleAdmin->slug = 'grader';
+        $roleAdmin->description = 'manage course grades';
+        $roleAdmin->save();
+
+        $roleAdmin = new Role();
         $roleAdmin->name = 'Student';
         $roleAdmin->slug = 'student';
         $roleAdmin->description = 'manage schedule and assignments';

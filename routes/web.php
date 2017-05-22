@@ -49,3 +49,13 @@ Route::get('/user/{id}', function (App\models\User $id) {
          }
 
 })->name('userprofile');
+
+//Route::get('/profile-user/userlisting', function(){
+//    $institution = Auth::user()->institution;
+//        return view('/profile-user/userlisting', $institution);
+////return view('pro', Auth::user() );
+//})->name('instusers');
+
+Route::get('/roles', 'ProfileController@roles')->name('roles');
+
+Route::get('/users', 'ProfileController@users')->name('users');
