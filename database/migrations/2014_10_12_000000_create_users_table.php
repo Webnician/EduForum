@@ -22,8 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('title')->nullable();
             $table->integer('score')->nullable();
             $table->integer('institution')->nullable();
-            $table->string('biography')->nullable();
-            $table->binary('avatar')->nullable();
+            $table->string('biography', 1000)->nullable();
+            $table->string('avatar')->nullable();
 
             $table->rememberToken();
             $table->timestamps();

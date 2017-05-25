@@ -16,9 +16,34 @@ window.Vue = require('vue');
  */
 
 Vue.component('example', require('./components/Example.vue'));
+Vue.component('user', require('./components/User.vue'));
+// Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content');
 
-const app = new Vue({
-    el: '#app'
+const userd = new Vue({
+    el: '#app',
+    data: {
+        // seen: true,
+        tabs: [
+            { name: 'First' },
+            { name: 'Second' }
+        ]
+    },
+    components: {
+        'my-comp': {
+            template: "#mycomp",
+            props: ['tabs'],
+        }
+    }
 });
 
+// const app = new Vue({
+//     el: '#app'
+// });
+
+// var app = new Vue({
+//     el: '#app',
+//     data: {
+//         message: 'Hello Vue!'
+//     }
+// });
 

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 use Kodeine\Acl\Traits\HasRole;
+use Illuminate\Database\Eloquent\Model;
 use Kodeine\Acl\Models\Eloquent\Role;
 use Kodeine\Acl\Models\Eloquent\Permission;
 //use Kodeine\Acl\Traits\HasPermission;
@@ -38,13 +40,21 @@ class ProfileController extends Controller
     }
     public function roles()
     {
-
-        $user = Auth::user();
-        if( $user->hasRole('superadmin') ||  $user->hasRole('admin')) {
-            return view('/profile-user/role');
+        if(Auth::check())
+        {
+            $user = Auth::user();
+            if ($user->hasRole('superadmin') || $user->hasRole('admin'))
+            {
+                return view('/profile-user/role');
+            }
+            else
+            {
+                return view('home');
+            }
         }
-        else{
-            return view('home' );
+        else
+        {
+            return view('home');
         }
     }
 
@@ -52,17 +62,22 @@ class ProfileController extends Controller
     {
         if(Auth::check()) {
             $user = Auth::user();
-            if ($user->can('create.admin', 'create.instadmin', 'create.instsubadmins', 'create.instructors', 'create.students', 'create.graders', 'create.observers', 'create.guests')) {
-            return view('/profile-user/userlist');
+            if($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin') || $user->hasRole('persadmin') || $user->hasRole('instructor'))
+            {
+                if ($user->hasRole('superadmin') || $user->hasRole('admin'))
+                {
+                  $users = User::all();
+                }
+                if ($user->hasRole('instadmin') || $user->hasRole('persadmin') || $user->hasRole('instructor'))
+                {
+                    $id = $user['institution'];
+                    $users = User::where('institution', $id)->get();
+                }
+                $users = $users->toArray();
+                return view('/profile-user/userlist')->with('users', $users);
             }
-            if ($user->can('create.instsubadmins', 'create.instructors', 'create.students', 'create.graders', 'create.observers', 'create.guests')) {
-               $id['inst'] = $user['institution'];
-
-                $id = array_merge($id, (array)$user['institution']);
-                                return view('/profile-user/userlisting', $id);
-//                return redirect()->route('instusers');
-            }
-            else {
+            else
+            {
                 return view('home');
             }
         }
@@ -77,6 +92,45 @@ class ProfileController extends Controller
 //        else{
 //            return view('home' );
 //        }
+    }
+
+    public function userUpdate()
+    {
+
+            $input = Input::get();
+            if($input['actions'] == 'delete')
+            {
+                dd($input['actions']);
+            }
+            if($input['actions'] == 'update') {
+
+
+//            $this->validate($input, [
+//                  'actions' => 'required',
+//                  'fname'   => 'required',
+//                  'lname'   => 'required',
+//            ]);
+                $user_id    = $input['id'];
+                $the_action = $input['actions'];
+                $first_name = $input['fname'];
+                $last_name = $input['lname'];
+                $email_address = $input['email'];
+                $title = $input['title'];
+                $institution = $input['institution'];
+                $avatar_source = $input['avatar'];
+                $biography = $input['biography'];
+
+                $the_user                = User::find($user_id);
+                $the_user->fname         = $first_name;
+                $the_user->lname         = $last_name;
+                $the_user->email         = $email_address;
+                $the_user->title         = $title;
+                $the_user->institution   = $institution;
+                $the_user->avatar        = $avatar_source;
+                $the_user->biography     = $biography;
+                $the_user->save();
+                return redirect()->route('userprofile', $user_id);
+        }
     }
 
 

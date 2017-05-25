@@ -39,16 +39,36 @@ Route::get('/profile', 'ProfileController@index')->name('prof');
 
 //Route::get('/user/{id}',  'ProfileController@user')->name('userroute');
 
-Route::get('/user/{id}', function (App\models\User $id) {
-    $current_user_id = Auth::user()->id;
-     if( Auth::user()->hasRole('superadmin') || $current_user_id == $id['id']) {
-         return view('pro', $id);
-         }
-         else{
-             return view('pro', Auth::user() );
-         }
+Route::get('/user/{id}', function (App\models\User $id)
+        {
+            $current_user_id = Auth::user()->id;
+            if( Auth::user()->hasRole('superadmin') || $current_user_id == $id['id'])
+            {
+                return view('pro', $id);
+            }
+            else
+            {
+                return view('pro', Auth::user() );
+            }
+         })->name('userprofile');
 
-})->name('userprofile');
+Route::get('/user/{id}/edit', function (App\models\User $id)
+{
+    $current_user_id = Auth::user()->id;
+    if( Auth::user()->hasRole('superadmin') || $current_user_id == $id['id'])
+    {
+        return view('profile-user.usereditor', $id);
+//        return view('profile-user.useredit2', $id);
+    }
+    else
+    {
+//        return view('profile-user.usereditor', Auth::user() );
+    }
+})->name('userprofileeditor');
+
+Route::post('user/update', 'ProfileController@userUpdate')->name('updateuser');
+
+
 
 //Route::get('/profile-user/userlisting', function(){
 //    $institution = Auth::user()->institution;

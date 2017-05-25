@@ -3,18 +3,35 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-12 ">
                 <div class="panel panel-default">
-                    <div class="panel-heading">User List View</div>
+                    <div class="panel-heading">User Listing</div>
 
                     <div class="panel-body">
-                        this will be the list of users based off of institution
+
                         @permission('create.admin|create.instadmin')
-                        <div>Eduforum Admins</div>
+
+
+                        {{--<div>Eduforum Admins</div>--}}
                         @endpermission
-                        <div>Inst Admins</div>
-                        <div>Instructors</div>
-                        <div>Students</div>
+                        <div style="text-align: center; border-bottom: 2px ridge grey" class="row">
+                            <div class="col-lg-1">ID</div>
+                            <div class="col-lg-3">First Name</div>
+                            <div class="col-lg-3">Last Name</div>
+                            <div class="col-lg-3">Email</div>
+                            <div class="col-lg-2"></div>
+                        </div>
+                        @foreach($users as $user)
+
+                            <div style="text-align: center" class="row">
+                                <div class="col-lg-1">{{ $user['id'] }}</div>
+                                <div class="col-lg-3">{{ $user['fname'] }} </div>
+                                <div class="col-lg-3">{{ $user['lname'] }}</div>
+                                <div class="col-lg-3">{{ $user['email'] }}</div>
+                                <div class="col-lg-2"><a class="btn-primary" href="{{ route('userprofileeditor', $user['id']) }}">Edit User</a></div>
+                            </div>
+                        @endforeach
+
 
 
                     </div>
@@ -22,7 +39,7 @@
             </div>
         </div>
 
-        <example></example>
+        {{--<example></example>--}}
 
 
     </div>

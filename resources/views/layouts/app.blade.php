@@ -19,6 +19,7 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+    <meta id="token" name="token" content="{{ csrf_token() }}">
 </head>
 <body>
     <div id="app">
@@ -43,7 +44,9 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/profile') }}">Profile</a>
+                        <a href="{{ url('/users') }}">User List</a>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
