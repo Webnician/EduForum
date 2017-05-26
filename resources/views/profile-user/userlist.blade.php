@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-12 ">
                 <div class="panel panel-default">
-                    <div class="panel-heading">User Listing</div>
+                    <div class="panel-heading">User Listing<span style="float: right"> <a class="btn-info" style="display: block;margin-left: auto;margin-right: auto; text-align: center" href="{{ route('usercreator') }}">Create New User</a></span> </div>
 
                     <div class="panel-body">
 

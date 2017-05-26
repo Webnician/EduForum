@@ -860,17 +860,6 @@ var userd = new Vue({
     }
 });
 
-// const app = new Vue({
-//     el: '#app'
-// });
-
-// var app = new Vue({
-//     el: '#app',
-//     data: {
-//         message: 'Hello Vue!'
-//     }
-// });
-
 /***/ }),
 /* 10 */
 /***/ (function(module, exports) {
@@ -1829,26 +1818,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 var x = document.getElementById('been').value;
 var isTrueSet = x == 'true';
+
+var y = document.getElementById('showadd').value;
+var showAddButton = y == 'true';
+
+//   var theinsts =
+//   var z = document.getElementById('institution').value;
+//   if (!!z)
+//   {
+//       theinstitution = z;
+//   }
+
+//   var z = document.getElementById('institution').value;
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['email', 'id', 'fname', 'lname', 'avatar', 'title', 'institution', 'biography'],
+    props: ['allowinst', 'btntext', 'actions', 'emails', 'ids', 'fnames', 'lnames', 'avatars', 'titles', 'institutions', 'biographys'],
 
     data: function data() {
         return {
-            id: '',
-            fname: '',
-            lname: '',
-            avatar: '',
-            email: '',
-            title: '',
-            biography: '',
-            institution: '',
+            id: this.ids,
+            fname: this.fnames,
+            lname: this.lnames,
+            avatar: this.avatars,
+            email: this.emails,
+            title: this.titles,
+            biography: this.biographys,
+            institution: this.institutions,
             csrf: "",
             seen: false,
-            been: false
+            been: false,
+            showaddbut: false,
+            action: this.actions,
+            buttontext: this.btntext,
+            allowinstitution: this.allowinst
         };
     },
     mounted: function mounted() {
@@ -1856,6 +1864,8 @@ var isTrueSet = x == 'true';
         //            this.seen = window.vis.seen
 
         this.seen = isTrueSet;
+        this.showaddbut = showAddButton;
+        //            this.institution = theinstitution;
     }
 });
 
@@ -31955,7 +31965,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('form', {
     attrs: {
       "method": "POST",
-      "action": "/user/update"
+      "action": _vm.action
     }
   }, [_c('input', {
     attrs: {
@@ -32111,7 +32121,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "col-lg-12 col-sm-12"
-  }, [_c('span', [_vm._v("Institution : " + _vm._s(_vm.institution))]), _c('br'), _vm._v(" "), (_vm.seen) ? _c('input', {
+  }, [_c('span', [_vm._v("Institution : " + _vm._s(_vm.institution))]), _c('br'), _vm._v(" "), (_vm.allowinstitution) ? _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -32131,7 +32141,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.institution = $event.target.value
       }
     }
-  }) : _vm._e()])])]), _vm._v(" "), _c('div', {
+  }) : _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "institution"
+    },
+    domProps: {
+      "value": _vm.institution
+    }
+  })])])]), _vm._v(" "), _c('div', {
     staticClass: "row",
     staticStyle: {
       "margin-top": "3%"
@@ -32177,7 +32195,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("Update User")]) : _vm._e()])]), _vm._v(" "), _c('form', {
+  }, [_vm._v(_vm._s(_vm.buttontext))]) : _vm._e()])]), _vm._v(" "), (_vm.showaddbut) ? _c('form', {
     staticStyle: {
       "margin-top": "1%"
     },
@@ -32217,7 +32235,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("Delete User")]) : _vm._e()]), _vm._v(" "), _c('a', {
+  }, [_vm._v("Delete User")]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('a', {
     attrs: {
       "href": "/user/{id}"
     }

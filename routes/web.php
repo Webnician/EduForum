@@ -23,11 +23,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-//Route::get('user/{id}', function (App\models\User $id) {
-//    return view('profile');
-////    $id->email;
-////    return view('', ['name' => 'James']);
-//})->name('profiles');
 Route::get('test', function()
 {
     return 'welcome to eduforum';
@@ -62,19 +57,17 @@ Route::get('/user/{id}/edit', function (App\models\User $id)
     }
     else
     {
-//        return view('profile-user.usereditor', Auth::user() );
+        return view('profile-user.usereditor', Auth::user() );
     }
 })->name('userprofileeditor');
 
+
+Route::get('/creator', 'ProfileController@userCreateCont')->name('usercreator');
+
 Route::post('user/update', 'ProfileController@userUpdate')->name('updateuser');
 
+Route::post('user/create', 'ProfileController@userCreate')->name('createuser');
 
-
-//Route::get('/profile-user/userlisting', function(){
-//    $institution = Auth::user()->institution;
-//        return view('/profile-user/userlisting', $institution);
-////return view('pro', Auth::user() );
-//})->name('instusers');
 
 Route::get('/roles', 'ProfileController@roles')->name('roles');
 

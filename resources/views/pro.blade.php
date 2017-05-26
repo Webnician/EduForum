@@ -4,23 +4,9 @@
 
     <div class="container">
         <input hidden id="been" value="false"/>
-        {{--<div class="row">--}}
-            {{--<div class="col-md-8 col-md-offset-2">--}}
-                {{--<div class="panel panel-default">--}}
-                    {{--<div class="panel-heading">User Profile test</div>--}}
+        <input hidden id="showadd" value="true"/>
 
-                    {{--<div class="panel-body">--}}
-                        {{--You are logged in!--}}
-                        {{--{{ $id }}--}}
-                        {{--{{ $email }}--}}
-                        {{--<a class="btn-primary" href="{{ route('userprofileeditor', $id) }}">Edit User</a>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-
-        {{--<example></example>--}}
-        <user :id="{{ $id }}" email="{{ $email }}" fname="{{ $fname }}" lname="{{ $lname }}" avatar="{{ $avatar }}" title="{{ $title }}" institution="{{ $institution }}" biography="{{ $biography }}"></user>
+        <user :ids="{{ $id }}" btntext="Update User" :allowinst="false"  actions="/user/update" emails="{{ $email }}" fnames="{{ $fname }}" lnames="{{ $lname }}" avatars="{{ $avatar }}" titles="{{ $title }}" institutions="{{ $institution }}" biographys="{{ $biography }}"></user>
         <a class="btn-info" style="max-width:10%;display: block;margin-left: auto;margin-right: auto; text-align: center" href="{{ route('userprofileeditor', $id) }}">Edit User</a>
 
     </div>

@@ -8,7 +8,8 @@
                     <div class="panel-heading">Edit Profile</div>
 
                     <div class="panel-body">
-                        <form method="POST" action="/user/update">
+                        <form method="POST" v-bind:action="action" >
+                            <!--action="/user/update"-->
                             <input type="hidden" name="_token" :value="csrf">
                             <input type="hidden" name="actions" value="update">
                             <input type="hidden" name="id" :value="id">
@@ -43,7 +44,8 @@
                                 </div>
                                 <div class="col-lg-12 col-sm-12">
                                     <span>Institution : {{ institution }}</span><br/>
-                                    <input  v-if="seen" name="institution" v-model="institution" placeholder="Change Institution"/>
+                                    <input  v-if="allowinstitution" name="institution" v-model="institution" placeholder="Change Institution"/>
+                                    <input v-else type="hidden" name="institution" :value="institution">
                                 </div>
                             </div>
                         </div>
@@ -54,10 +56,10 @@
                             </div>
                         </div>
                         <div class="row" style="margin-top: 3%">
-                            <button  v-if="seen" class="btn-info" style="display: block;margin-left: auto;margin-right: auto" type="submit">Update User</button>
+                            <button  v-if="seen" class="btn-info" style="display: block;margin-left: auto;margin-right: auto" type="submit">{{ buttontext }}</button>
                         </div>
                         </form>
-                        <form style="margin-top: 1%" method="POST" action="/user/update">
+                        <form v-if="showaddbut" style="margin-top: 1%" method="POST" action="/user/update">
                             <input type="hidden" name="_token" :value="csrf">
                             <input type="hidden" name="id" :value="id">
                             <input type="hidden" name="actions" value="delete">
@@ -77,23 +79,40 @@
 
    var x = document.getElementById('been').value;
    var isTrueSet = (x == 'true');
+
+   var y = document.getElementById('showadd').value;
+   var showAddButton = (y == 'true');
+
+//   var theinsts =
+//   var z = document.getElementById('institution').value;
+//   if (!!z)
+//   {
+//       theinstitution = z;
+//   }
+
+//   var z = document.getElementById('institution').value;
+
     export default {
         props:
-            [ 'email','id', 'fname', 'lname', 'avatar', 'title', 'institution', 'biography'],
+            [ 'allowinst', 'btntext', 'actions', 'emails','ids', 'fnames', 'lnames', 'avatars', 'titles', 'institutions', 'biographys'],
 
         data(){
             return {
-                id: '',
-                fname: '',
-                lname: '',
-                avatar: '',
-                email: '',
-                title: '',
-                biography: '',
-                institution: '',
+                id: this.ids,
+                fname: this.fnames,
+                lname: this.lnames,
+                avatar: this.avatars,
+                email: this.emails,
+                title: this.titles,
+                biography: this.biographys,
+                institution: this.institutions,
                 csrf: "",
                 seen: false,
-                been: false
+                been: false,
+                showaddbut: false,
+                action: this.actions,
+                buttontext: this.btntext,
+                allowinstitution: this.allowinst
             }
         },
 
@@ -102,6 +121,9 @@
 //            this.seen = window.vis.seen
 
             this.seen = isTrueSet;
+            this.showaddbut = showAddButton;
+//            this.institution = theinstitution;
+
         }
     }
 

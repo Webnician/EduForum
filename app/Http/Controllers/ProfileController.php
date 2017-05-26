@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Kodeine\Acl\Traits\HasRole;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Model;
 use Kodeine\Acl\Models\Eloquent\Role;
 use Kodeine\Acl\Models\Eloquent\Permission;
@@ -86,12 +87,6 @@ class ProfileController extends Controller
             return redirect('/login');
         }
 
-//        if( $user->hasRole('superadmin') ||  $user->hasRole('admin')) {
-//            return view('/profile-user/users');
-//        }
-//        else{
-//            return view('home' );
-//        }
     }
 
     public function userUpdate()
@@ -100,7 +95,10 @@ class ProfileController extends Controller
             $input = Input::get();
             if($input['actions'] == 'delete')
             {
-                dd($input['actions']);
+                $user_id    = $input['id'];
+                $user = User::find($user_id);
+                $user->delete();
+                return redirect()->route('users');
             }
             if($input['actions'] == 'update') {
 
@@ -130,6 +128,72 @@ class ProfileController extends Controller
                 $the_user->biography     = $biography;
                 $the_user->save();
                 return redirect()->route('userprofile', $user_id);
+        }
+
+        else
+        {
+            return view('home');
+        }
+    }
+
+    public function userCreateCont()
+    {
+        if(Auth::check()) {
+            $user = Auth::user();
+            if($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin') || $user->hasRole('persadmin') || $user->hasRole('instructor'))
+            {
+                if ($user->hasRole('superadmin') || $user->hasRole('admin'))
+                {
+                    return view('profile-user.user-creator');
+                }
+                if ($user->hasRole('instadmin') || $user->hasRole('persadmin') || $user->hasRole('instructor'))
+                {
+//                    dd($user);
+                    return view('profile-user.user-creator')->with('institution', $user['institution']);
+                }
+            }
+            else
+            {
+                return view('home');
+            }
+        }
+        else
+        {
+            return redirect('/login');
+        }
+
+    }
+
+    public function userCreate()
+    {
+        $input = Input::get();
+        if($input['actions'] == 'update')
+        {
+            $user_id    = $input['id'];
+            $the_action = $input['actions'];
+            $first_name = $input['fname'];
+            $last_name = $input['lname'];
+            $email_address = $input['email'];
+            $title = $input['title'];
+            $institution = $input['institution'];
+            $avatar_source = $input['avatar'];
+            $biography = $input['biography'];
+
+            $the_user                = new User();
+            $the_user->password      = Hash::make('secret');
+            $the_user->fname         = $first_name;
+            $the_user->lname         = $last_name;
+            $the_user->email         = $email_address;
+            $the_user->title         = $title;
+            $the_user->institution   = $institution;
+            $the_user->avatar        = $avatar_source;
+            $the_user->biography     = $biography;
+            $the_user->save();
+            return redirect()->route('users');
+        }
+        else
+        {
+            return view('home');
         }
     }
 

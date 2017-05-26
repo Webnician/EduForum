@@ -35,15 +35,3 @@ const userd = new Vue({
         }
     }
 });
-
-// const app = new Vue({
-//     el: '#app'
-// });
-
-// var app = new Vue({
-//     el: '#app',
-//     data: {
-//         message: 'Hello Vue!'
-//     }
-// });
-
