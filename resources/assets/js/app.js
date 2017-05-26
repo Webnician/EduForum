@@ -17,6 +17,10 @@ window.Vue = require('vue');
 
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('user', require('./components/User.vue'));
+Vue.component('calendar', require('./components/Calendar.vue'));
+Vue.component('schedule', require('./components/Schedule.vue'));
+Vue.component('contact', require('./components/Contact.vue'));
+Vue.component('vmenu', require('./components/vMenu.vue'));
 // Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content');
 
 const userd = new Vue({

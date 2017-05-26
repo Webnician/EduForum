@@ -21,8 +21,8 @@
                                     <img style="display: block;margin-left: auto;margin-right: auto" :src="avatar" />
                                 </div>
                                 <div class="col-lg-12 col-sm-12">
-                                    <span  v-if="seen">Avatar Src : {{ avatar }}</span><br/>
-                                    <input  v-if="seen" name="avatar" style="width:100%" v-model="avatar" placeholder="Change Avatar Src"/>
+                                    <!--<span  v-if="seen">Avatar Src : {{ avatar }}</span><br/>-->
+                                    <input class="top-margin"  v-if="seen" name="avatar" style="width:100%" v-model="avatar" placeholder="Change Avatar Src"/>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-12">
@@ -34,15 +34,15 @@
                                     <span>Last Name : {{ lname }}</span><br/>
                                     <input  v-if="seen" name="lname" v-model="lname" placeholder="Change Last Name"/>
                                 </div>
-                                <div class="col-lg-6 col-sm-12">
+                                <div class="col-lg-6 col-sm-12 top-margin">
                                     <span>Email : {{ email }}</span><br/>
                                     <input  v-if="seen" name="email" v-model="email" placeholder="Change Email"/>
                                 </div>
-                                <div class="col-lg-6 col-sm-12">
+                                <div class="col-lg-6 col-sm-12 top-margin">
                                     <span>Title : {{ title }}</span><br/>
                                     <input  v-if="seen" name="title" v-model="title" placeholder="Change Title"/>
                                 </div>
-                                <div class="col-lg-12 col-sm-12">
+                                <div class="col-lg-12 col-sm-12 top-margin">
                                     <span>Institution : {{ institution }}</span><br/>
                                     <input  v-if="allowinstitution" name="institution" v-model="institution" placeholder="Change Institution"/>
                                     <input v-else type="hidden" name="institution" :value="institution">
@@ -66,7 +66,7 @@
                             <button  v-if="seen" class="btn-info" style="display: block;margin-left: auto;margin-right: auto" type="submit">Delete User</button>
                         </form>
 
-                        <a href="/user/{id}">Back</a>
+                        <!--<a href="/user/{id}">Back</a>-->
                     </div>
                 </div>
             </div>
@@ -76,13 +76,14 @@
 </template>
 
 <script>
-
+    if (document.getElementById('been')) {
    var x = document.getElementById('been').value;
    var isTrueSet = (x == 'true');
-
-   var y = document.getElementById('showadd').value;
-   var showAddButton = (y == 'true');
-
+   }
+    if (document.getElementById('showadd')) {
+        var y = document.getElementById('showadd').value;
+        var showAddButton = (y == 'true');
+    }
 //   var theinsts =
 //   var z = document.getElementById('institution').value;
 //   if (!!z)

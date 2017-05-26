@@ -1,13 +1,53 @@
 
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans|Khula|Slabo+27px|Source+Sans+Pro);
 
 // Variables
 @import "variables";
 
 // Bootstrap
 @import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+//@import url(https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css);
+
+$background-color             : #8da8c5;
+$lighter-border-color         : #eef2f6;
+$darker-background-color      : #1b6d85;
+$linen                        : #FAF0E6;
+$seashell                     : #FFF5EE;
+$slabo                        :  'Slabo 27px', serif;
+$khula                        :  'Khula', sans-serif;
+$sourcesans                   :  'Source Sans Pro', sans-serif;
+$droidsans                    :  'Droid Sans', sans-serif;
+$raleway                      : 'Raleway', sans-serif;
+
+.center{
+  text-align:center;
+}
+.ctr-block{
+  display:block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.top-margin{
+  margin-top:2%;
+}
 
 body {
-  background-color: #FAEBD7;
+  background-color: $background-color;
+  font-family: $droidsans;
+}
+.btn-info{
+  border: 2px ridge $lighter-border-color;
+  background-color: $darker-background-color;
+}
+
+.panel{
+  background-color: $lighter-border-color;
+  box-shadow: 5px 5px 5px #888888;
+}
+
+.comp-main-div
+{
+  max-width: 32%;
 }
