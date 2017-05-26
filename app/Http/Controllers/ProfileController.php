@@ -140,16 +140,23 @@ class ProfileController extends Controller
     {
         if(Auth::check()) {
             $user = Auth::user();
+            $args = [];
             if($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin') || $user->hasRole('persadmin') || $user->hasRole('instructor'))
             {
                 if ($user->hasRole('superadmin') || $user->hasRole('admin'))
                 {
-                    return view('profile-user.user-creator')->with('institution', $user['institution']);;
+                    $args['allowinst'] = 'true';
+                    $args['institution'] = $user['institution'];
+//                    dd($args);
+                    return view('profile-user.user-creator')->with('args', $args);
                 }
                 if ($user->hasRole('instadmin') || $user->hasRole('persadmin') || $user->hasRole('instructor'))
                 {
-//                    dd($user);
-                    return view('profile-user.user-creator')->with('institution', $user['institution']);
+                    $args['allowinst'] = 'false';
+                    $args['institution'] = $user['institution'];
+//                    dd($args);
+                    return view('profile-user.user-creator')->with('args', $args);
+//                    return view('profile-user.user-creator')->with('institution', $user['institution']);
                 }
             }
             else
