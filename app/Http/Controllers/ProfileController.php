@@ -144,7 +144,7 @@ class ProfileController extends Controller
             {
                 if ($user->hasRole('superadmin') || $user->hasRole('admin'))
                 {
-                    return view('profile-user.user-creator');
+                    return view('profile-user.user-creator')->with('institution', $user['institution']);;
                 }
                 if ($user->hasRole('instadmin') || $user->hasRole('persadmin') || $user->hasRole('instructor'))
                 {
