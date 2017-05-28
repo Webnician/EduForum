@@ -1905,6 +1905,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['viewer', 'operation', 'buttxt', 'creator', 'actions', 'toedit', 'institutiondescription', 'institutionid', 'institutionlogo', 'institutionname', 'institutionwebsite', 'institutionipedsid', 'institutionsystem', 'adminfname', 'adminlname', 'adminid'],
@@ -32606,12 +32608,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "display": "block",
       "margin-left": "auto",
-      "margin-right": "auto"
+      "margin-right": "auto",
+      "max-width": "80%"
     },
     attrs: {
       "src": _vm.logo
     }
   })]), _vm._v(" "), _c('div', {
+    staticClass: "row top-margin"
+  }, [_c('div', {
     staticClass: "col-lg-12 col-sm-12"
   }, [(_vm.allowedit) ? _c('input', {
     directives: [{
@@ -32637,11 +32642,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.logo = $event.target.value
       }
     }
-  }) : _vm._e()])]), _vm._v(" "), _c('div', {
+  }) : _vm._e()])])]), _vm._v(" "), _c('div', {
     staticClass: "col-lg-6 col-sm-12"
   }, [_c('div', {
-    staticClass: "row"
-  }, [_c('span', [_vm._v("Website : " + _vm._s(_vm.website))]), _c('br'), _vm._v(" "), _c('div', {
+    staticClass: "row top-margin"
+  }, [_c('span', {
+    staticClass: "left-margin"
+  }, [_vm._v("Website : " + _vm._s(_vm.website))]), _c('br'), _vm._v(" "), _c('div', {
     staticClass: "col-lg-12 col-sm-12"
   }, [(_vm.allowedit) ? _c('input', {
     directives: [{
@@ -32668,7 +32675,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "row top-margin"
-  }, [_c('span', [_vm._v("System : " + _vm._s(_vm.system))]), _c('br'), _vm._v(" "), _c('div', {
+  }, [_c('span', {
+    staticClass: "left-margin"
+  }, [_vm._v("System : " + _vm._s(_vm.system))]), _c('br'), _vm._v(" "), _c('div', {
     staticClass: "col-lg-12 col-sm-12 "
   }, [(_vm.allowedit) ? _c('input', {
     directives: [{
@@ -32695,7 +32704,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "row top-margin"
-  }, [_c('span', [_vm._v("Ipeds Id : " + _vm._s(_vm.ipeds))]), _c('br'), _vm._v(" "), _c('div', {
+  }, [_c('span', {
+    staticClass: "left-margin"
+  }, [_vm._v("Ipeds Id : " + _vm._s(_vm.ipeds))]), _c('br'), _vm._v(" "), _c('div', {
     staticClass: "col-lg-12 col-sm-12 "
   }, [(_vm.allowedit) ? _c('input', {
     directives: [{
@@ -32722,7 +32733,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }) : _vm._e()])])])]), _vm._v(" "), _c('div', {
     staticClass: "row top-margin"
-  }, [_c('span', [_vm._v("Admin : " + _vm._s(_vm.adminfirstname) + " " + _vm._s(_vm.adminlastname))]), _c('br'), _vm._v(" "), _c('div', {
+  }, [_c('span', {
+    staticClass: "left-margin"
+  }, [_vm._v("Admin : " + _vm._s(_vm.adminfirstname) + " " + _vm._s(_vm.adminlastname))]), _c('br'), _vm._v(" "), _c('div', {
     staticClass: "col-lg-12 col-sm-12 "
   }, [(_vm.allowedit) ? _c('input', {
     directives: [{

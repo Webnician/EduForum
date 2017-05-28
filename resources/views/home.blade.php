@@ -24,10 +24,14 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-12">
-                    <schedule></schedule>
+                    <div class="row">
+                        <schedule></schedule>
+                    </div>
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-12">
-                    <calendar></calendar>
+                    <div class="row">
+                        <calendar></calendar>
+                    </div>
                 </div>
             </div>
 

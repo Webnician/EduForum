@@ -16,28 +16,30 @@
                         <div class="row">
                             <div class="col-lg-6 col-sm-12">
                                  <div class="col-lg-12 col-sm-12">
-                                      <img style="display: block;margin-left: auto;margin-right: auto" :src="logo" />
+                                      <img style="display: block;margin-left: auto;margin-right: auto; max-width: 80%" :src="logo" />
                                 </div>
-                                 <div class="col-lg-12 col-sm-12">
-                                     <!--<span  v-if="seen">Avatar Src : {{ avatar }}</span><br/>-->
-                                    <input v-if="allowedit" class="top-margin"  name="logo" style="width:100%" v-model="logo" placeholder="Change Logo Src"/>
-                                 </div>
+                                <div class="row top-margin">
+                                    <div class="col-lg-12 col-sm-12">
+                                         <!--<span  v-if="seen">Avatar Src : {{ avatar }}</span><br/>-->
+                                        <input v-if="allowedit" class="top-margin"  name="logo" style="width:100%" v-model="logo" placeholder="Change Logo Src"/>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-lg-6 col-sm-12">
-                                <div class="row">
-                                    <span>Website : {{ website }}</span><br/>
+                                <div class="row top-margin">
+                                    <span class="left-margin">Website : {{ website }}</span><br/>
                                     <div class="col-lg-12 col-sm-12">
                                         <input v-if="allowedit"  name="website" style="width:100%" v-model="website" placeholder="Change Website"/>
                                     </div>
                                 </div>
                                 <div class="row top-margin">
-                                    <span>System : {{ system }}</span><br/>
+                                    <span class="left-margin">System : {{ system }}</span><br/>
                                     <div class="col-lg-12 col-sm-12 ">
                                         <input v-if="allowedit"  name="system" style="width:100%" v-model="system" placeholder="Change System"/>
                                     </div>
                                 </div>
                                 <div class="row top-margin">
-                                    <span>Ipeds Id : {{ ipeds }}</span><br/>
+                                    <span class="left-margin">Ipeds Id : {{ ipeds }}</span><br/>
                                     <div class="col-lg-12 col-sm-12 ">
                                         <input v-if="allowedit"  name="ipeds" style="width:100%" v-model="ipeds" placeholder="Change Ipeds Id"/>
                                     </div>
@@ -45,7 +47,7 @@
                             </div>
                         </div>
                         <div class="row top-margin">
-                            <span>Admin : {{  adminfirstname }} {{ adminlastname }}</span><br/>
+                            <span class="left-margin">Admin : {{  adminfirstname }} {{ adminlastname }}</span><br/>
                             <div class="col-lg-12 col-sm-12 ">
 
                                 <input v-if="allowedit"  name="adminid" style="width:100%" v-model="adminident" placeholder="Change Admin Id"/>
