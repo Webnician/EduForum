@@ -72,3 +72,15 @@ Route::post('user/create', 'ProfileController@userCreate')->name('createuser');
 Route::get('/roles', 'ProfileController@roles')->name('roles');
 
 Route::get('/users', 'ProfileController@users')->name('users');
+
+Route::get('/institutions', 'InstitutionController@allInstitutions')->name('institution-list');
+
+Route::get('/institution/{id}', 'InstitutionController@singleInstitution')->name('single-institution');
+
+Route::get('/institution/{id}/edit', 'InstitutionController@editInstitution')->name('edit-institution');
+
+Route::get('/institution/create', 'InstitutionController@createInstitution')->name('create-institution');
+
+Route::post('institution/update', 'InstitutionController@instUpdate')->name('update-institution');
+
+Route::post('institution/create', 'InstitutionController@instCreate')->name('create-institution');

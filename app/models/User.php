@@ -23,6 +23,11 @@ class User extends  Model implements AuthenticatableContract, CanResetPasswordCo
     {
         return get_current_user()->id;
     }
+    public static function get_user_by_id($id)
+    {
+        $user = User::find($id);
+        return $user;
+    }
     public function getCurrentUserRoles()
     {
         return Auth::user()->getRoles();

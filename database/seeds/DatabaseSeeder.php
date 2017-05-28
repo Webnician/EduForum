@@ -18,5 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call (d2017_05_21_Add_Permissions_to_Roles::class);
         $this->call(d2017_05_21_Initial_Users_Seed::class);
         $this->call(d2017_05_21_Make_Super_Admin::class);
+        $this->call(d2017_05_27_Institution_Table_seeder::class);
+        $this->call(d2017_05_27_User_Inst_Seed::class);
     }
 }
