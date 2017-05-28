@@ -48,6 +48,7 @@
                         <li><a href="{{ url('/home') }}"><i class="fa fa-home" aria-hidden="true"></i></a></li>
                         <li><a href="{{ url('/profile') }}"><i class="fa fa-user-circle" aria-hidden="true"></i></a></li>
                         <li><a href="{{ url('/users') }}">User List</a></li>
+                        <li><a href="{{ url('/institutions') }}">Institution List</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
