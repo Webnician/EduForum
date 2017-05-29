@@ -96,20 +96,20 @@ class InstitutionController extends Controller
         }
     }
 
-    public function createInstitution($id)
+    public function createInstitution()
     {
         if(Auth::check())
         {
             $user = Auth::user();
             if ($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin'))
             {
-                $institution = Institution::get_institution($id);
-                $admin = User::get_user_by_id($institution['admin_id']);
-                $institution['adminfname'] = $admin['fname'];
-                $institution['adminlname'] = $admin['lname'];
-                $institution['adminid'] = $admin['id'];
+//                $institution = Institution::get_institution($id);
+//                $admin = User::get_user_by_id($institution['admin_id']);
+//                $institution['adminfname'] = $admin['fname'];
+//                $institution['adminlname'] = $admin['lname'];
+//                $institution['adminid'] = $admin['id'];
 //                dd($institution);
-                return view('/institution/instcreate')->with('institutions', $institution);
+                return view('/institution/instcreate');
             }
             else
             {
@@ -128,11 +128,12 @@ class InstitutionController extends Controller
 //        dd($input);
         $input = Input::get();
 //        dd($input);
-        if($input['actions'] == 'delete') {
+        if($input['actions'] == 'delete')
+        {
             $inst_id    = $input['id'];
-            $inst       = User::find($inst_id);
+            $inst       = Institution::find($inst_id);
             $inst->delete();
-            return redirect()->route('/institutions');
+            return redirect()->route('institution-list');
         }
         if($input['actions'] == 'update')
         {
@@ -156,11 +157,42 @@ class InstitutionController extends Controller
             $the_institution->save();
             return redirect()->route('institution-list');
         }
+        else
+        {
+            return view('home');
+        }
     }
 
-    public function instCreate()
+    public function instInsert()
     {
+        $input = Input::get();
+        if($input['actions'] == 'insert')
+        {
+//            $id          = $input['id'];
+            $name        = $input['name'];
+            $admin_id    = $input['adminid'];
+            $logo        = $input['logo'];
+            $website     = $input['website'];
+            $system      = $input['system'];
+            $ipeds       = $input['ipeds'];
+            $description = $input['description'];
 
+            $the_institution                          = new Institution();
+            $the_institution->institution_name        = $name;
+            $the_institution->admin_id                = $admin_id;
+            $the_institution->logo                    = $logo;
+            $the_institution->website                 = $website;
+            $the_institution->system_id               = $system;
+            $the_institution->ipeds_id                = $ipeds;
+            $the_institution->description             = $description;
+            $the_institution->save();
+            return redirect()->route('institution-list');
+
+        }
+        else
+        {
+            return view('home');
+        }
     }
 
     /**

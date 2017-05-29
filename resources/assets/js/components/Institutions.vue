@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 ">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Institution Component</div>
+                    <div class="panel-heading">Institution Component<span style="float: right"> <a class="btn-info" style="display: block;margin-left: auto;margin-right: auto; text-align: center" href="/institution">Create New Institution</a></span></div>
 
                     <div class="panel-body">
                         <h3 class="list-heading">Institutions</h3>

@@ -68,11 +68,11 @@
 
                     </div>
                     </form>
-                    <form v-if="allowedit" style="margin-top: 1%" method="POST" v-bind:action="action">
+                    <form v-if="editor" style="margin-top: 1%" method="POST" v-bind:action="action">
                         <input type="hidden" name="_token" :value="csrf">
                         <input type="hidden" name="id" :value="id">
                         <input type="hidden" name="actions" value="delete">
-                        <button  class="btn-info" style="display: block;margin-left: auto;margin-right: auto" type="submit">Delete User</button>
+                        <button  class="btn-info" style="display: block;margin-left: auto;margin-right: auto" type="submit">Delete Institution</button>
                     </form>
                     <button  v-if="viewing" class="btn-info" v-on:click="viewtoedit" style=" display: block;margin-left: auto;margin-right: auto" type="button">{{ buttontext }}</button>
                 </div>
@@ -85,7 +85,7 @@
 <script>
     export default {
         props:
-            ['viewer', 'operation', 'buttxt', 'creator', 'actions', 'toedit', 'institutiondescription', 'institutionid', 'institutionlogo', 'institutionname', 'institutionwebsite', 'institutionipedsid', 'institutionsystem', 'adminfname', 'adminlname', 'adminid'],
+            ['editmode', 'viewer', 'operation', 'buttxt', 'creator', 'actions', 'toedit', 'institutiondescription', 'institutionid', 'institutionlogo', 'institutionname', 'institutionwebsite', 'institutionipedsid', 'institutionsystem', 'adminfname', 'adminlname', 'adminid'],
 
         data(){
             return {
@@ -105,7 +105,8 @@
                 creating : this.creator,
                 buttontext : this.buttxt,
                 oper : this.operation,
-                viewing : this.viewer
+                viewing : this.viewer,
+                editor : this.editmode
 //                id: institutionlist.id
 //                id: this.ids,
 //                link: this.inst.id
@@ -117,6 +118,7 @@
                 {
                  this.allowedit = true;
                  this.viewing = false;
+                 this.editor = true;
                  this.action = '/institution/update';
                  this.oper = 'update';
                  this.buttontext = 'Update Institution';

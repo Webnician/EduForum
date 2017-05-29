@@ -1909,7 +1909,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['viewer', 'operation', 'buttxt', 'creator', 'actions', 'toedit', 'institutiondescription', 'institutionid', 'institutionlogo', 'institutionname', 'institutionwebsite', 'institutionipedsid', 'institutionsystem', 'adminfname', 'adminlname', 'adminid'],
+    props: ['editmode', 'viewer', 'operation', 'buttxt', 'creator', 'actions', 'toedit', 'institutiondescription', 'institutionid', 'institutionlogo', 'institutionname', 'institutionwebsite', 'institutionipedsid', 'institutionsystem', 'adminfname', 'adminlname', 'adminid'],
 
     data: function data() {
         return {
@@ -1929,7 +1929,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             creating: this.creator,
             buttontext: this.buttxt,
             oper: this.operation,
-            viewing: this.viewer
+            viewing: this.viewer,
+            editor: this.editmode
             //                id: institutionlist.id
             //                id: this.ids,
             //                link: this.inst.id
@@ -1940,6 +1941,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         viewtoedit: function viewtoedit() {
             this.allowedit = true;
             this.viewing = false;
+            this.editor = true;
             this.action = '/institution/update';
             this.oper = 'update';
             this.buttontext = 'Update Institution';
@@ -32803,7 +32805,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v(_vm._s(_vm.buttontext))]) : _vm._e()])]), _vm._v(" "), (_vm.allowedit) ? _c('form', {
+  }, [_vm._v(_vm._s(_vm.buttontext))]) : _vm._e()])]), _vm._v(" "), (_vm.editor) ? _c('form', {
     staticStyle: {
       "margin-top": "1%"
     },
@@ -32843,7 +32845,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("Delete User")])]) : _vm._e(), _vm._v(" "), (_vm.viewing) ? _c('button', {
+  }, [_vm._v("Delete Institution")])]) : _vm._e(), _vm._v(" "), (_vm.viewing) ? _c('button', {
     staticClass: "btn-info",
     staticStyle: {
       "display": "block",
@@ -32992,9 +32994,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-lg-12 col-md-12 col-sm-12 "
   }, [_c('div', {
     staticClass: "panel panel-default"
-  }, [_c('div', {
-    staticClass: "panel-heading"
-  }, [_vm._v("Institution Component")]), _vm._v(" "), _c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
   }, [_c('h3', {
     staticClass: "list-heading"
@@ -33016,7 +33016,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("\n                            " + _vm._s(inst.id) + " - " + _vm._s(inst.institution_name) + " ")])])
   }))])])])])])
-},staticRenderFns: []}
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "panel-heading"
+  }, [_vm._v("Institution Component"), _c('span', {
+    staticStyle: {
+      "float": "right"
+    }
+  }, [_c('a', {
+    staticClass: "btn-info",
+    staticStyle: {
+      "display": "block",
+      "margin-left": "auto",
+      "margin-right": "auto",
+      "text-align": "center"
+    },
+    attrs: {
+      "href": "/institution"
+    }
+  }, [_vm._v("Create New Institution")])])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

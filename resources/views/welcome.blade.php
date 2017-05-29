@@ -4,6 +4,13 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon.png') }}">
+        <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}" sizes="32x32">
+        <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}" sizes="16x16">
+        <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" >
+        {{--<link rel="manifest" href="/manifest.json">--}}
+        <link rel="mask-icon" href="{{ asset('images/favicon.png') }}" color="#5bbad5">
+        <meta name="theme-color" content="#ffffff">
 
         <title>EduForum</title>
 
