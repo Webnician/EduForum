@@ -20,5 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(d2017_05_21_Make_Super_Admin::class);
         $this->call(d2017_05_27_Institution_Table_seeder::class);
         $this->call(d2017_05_27_User_Inst_Seed::class);
+        $this->call(CourseTableSeeder::class);
+        $this->call(UserCourseTableSeeder::class);
     }
 }

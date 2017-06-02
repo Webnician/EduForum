@@ -22,6 +22,7 @@ class CreateInstitutionsTable extends Migration
             $table->integer('ipeds_id')->nullable();
             $table->integer('system_id')->nullable();
             $table->integer('admin_id')->unsigned()->index()->foreign()->references("id")->on("users")->onDelete("cascade");
+            $table->integer('score')->nullable();
             $table->timestamps();
         });
     }

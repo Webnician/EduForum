@@ -85,4 +85,12 @@ Route::post('/institution/insert', 'InstitutionController@instInsert')->name('in
 
 Route::post('institution/update', 'InstitutionController@instUpdate')->name('update-institution');
 
+Route::get('/courses', 'CourseController@viewCourses')->name('view-courses');
+
+Route::get('/course', 'CourseController@createCourse')->name('create-course');
+
+Route::get('/course/{id}', 'CourseController@viewSingleCourse')->name('single-course');
+
+Route::get('/course/{id}/edit', 'CourseController@editCourse')->name('edit-course');
+
 //Route::post('institution/create', 'InstitutionController@instCreate')->name('create-institution');
