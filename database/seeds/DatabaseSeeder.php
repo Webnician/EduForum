@@ -22,5 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(d2017_05_27_User_Inst_Seed::class);
         $this->call(CourseTableSeeder::class);
         $this->call(UserCourseTableSeeder::class);
+        $this->call(User_Contact_Seeder::class);
+        $this->call(Institution_Contact_Seeder::class);
     }
 }

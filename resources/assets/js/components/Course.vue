@@ -33,8 +33,8 @@
                                     <h3>Instructor Information</h3>
                                     <div class="row top-margin">
 
-                                        <span class="left-margin">Instructior : {{ teacherfirstname }} {{ teacherlastname }} </span>
-                                        <span style="margin-left: 10%">
+                                        <span class="left-margin">Instructor : {{ teacherfirstname }} {{ teacherlastname }} </span>
+                                        <span v-if="editor" style="margin-left: 10%">
                                              <a class="btn-secondary btn-primary" :href="'/user/'+ teacherident" v-model="teacherident">
                                             View Instructor </a>
                                         </span>
@@ -44,6 +44,13 @@
 
                                     </div>
 
+                                </div>
+                            </div>
+                            <div class="row top-margin">
+
+                                <div class="col-lg-12 col-sm-12 ">
+                                    <span>Description : </span><br/>
+                                    <textarea name="description" style="width: 100%; height:100px" v-model="description" placeholder="Description"/>
                                 </div>
                             </div>
 
@@ -77,7 +84,7 @@
 //    id = "{{ $course['id'] }}" course_name = "{{ $course['course_name'] }}" teacher_id="{{ $course['teacher_id'] }}" teacherfname = "{{ $course['teacherfname'] }}"
 //    teacherlname = "{{ $course['teacherlname'] }}" score = " {{ $course['score'] }}" department_id = " {{ $course['department_id'] }}"
         props:
-            ['buttxt', 'operation', 'actions', 'editmode', 'viewer', 'toedit', 'creator', 'id', 'course_name', 'teacher_id', 'teacherfname', 'teacherlname', 'score', 'deparmtent_id'],
+            ['buttxt', 'operation', 'actions', 'editmode', 'viewer', 'toedit', 'creator', 'id', 'course_name', 'teacher_id', 'teacherfname', 'teacherlname', 'score', 'deparmtent_id', 'desc'],
 
         data(){
             return {
@@ -89,6 +96,7 @@
                 teacherident : this.teacher_id,
                 course_score : this.score,
                 course_department : this.department_id,
+                description : this.desc,
                 action : this.actions,
                 allowedit : this.toedit,
                 creating : this.creator,
@@ -108,9 +116,9 @@
                     this.allowedit = true;
                     this.viewing = false;
                     this.editor = true;
-                    this.action = '/institution/update';
+                    this.action = '/course/update';
                     this.oper = 'update';
-                    this.buttontext = 'Update Institution';
+                    this.buttontext = 'Update Course';
                 }
 
             },

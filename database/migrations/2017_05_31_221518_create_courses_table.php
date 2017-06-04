@@ -19,6 +19,7 @@ class CreateCoursesTable extends Migration
             $table->integer('teacher_id')->unsigned()->index()->foreign()->references("id")->on("users");
             $table->integer('department_id')->nullable();
             $table->integer('score')->nullable();
+            $table->string('description', 1000)->nullable();
             $table->timestamps();
         });
     }

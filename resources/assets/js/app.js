@@ -25,6 +25,9 @@ Vue.component('institutions', require('./components/Institutions.vue'));
 Vue.component('institution', require('./components/Institution.vue'));
 Vue.component('courses', require('./components/Courses.vue'));
 Vue.component('course', require('./components/Course.vue'));
+Vue.component('singleuser', require('./components/SingleUser.vue'));
+Vue.component('userlist', require('./components/UserList.vue'));
+
 // Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content');
 
 const userd = new Vue({

@@ -75,15 +75,141 @@ class CourseController extends Controller
         }
     }
 
-    public function createCourse()
-    {
-
-    }
 
     public function editCourse($id)
     {
-
+        if(Auth::check())
+        {
+            $user = Auth::user();
+            if ($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin'))
+            {
+                $course                  = Course::get_course($id);
+                $teacher                 = User::get_user_by_id($course['teacher_id']);
+                $course['teacherfname']  = $teacher['fname'];
+                $course['teacherlname']  = $teacher['lname'];
+                $course['teacherid']     = $teacher['id'];
+                $course['editmode']      = "true";
+                $course['buttxt']        = "Update Course";
+                $course['viewer']        = "false";
+                $course['operation']     = "update";
+                $course['actions']       = "/course/update";
+                $course['toedit']        = "true";
+                $course['creator']       = "false";
+//                dd($institution);
+                return view('/courses/course')->with('course', $course);
+            }
+            else
+            {
+                return view('home');
+            }
+        }
+        else
+        {
+            return view('home');
+        }
     }
+
+    public function createCourse()
+    {
+        if(Auth::check())
+        {
+            $user = Auth::user();
+            if ($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin'))
+            {
+                $course                  = [];
+                $course['id']            = NULL;
+                $course['course_name']   = NULL;
+                $course['teacherfname']  = NULL;
+                $course['teacherlname']  = NULL;
+                $course['teacher_id']    = NULL;
+                $course['score']         = NULL;
+                $course['department_id'] = NULL;
+                $course['description']   = NULL;
+                $course['editmode']      = "false";
+                $course['buttxt']        = "Create Course";
+                $course['viewer']        = "false";
+                $course['operation']     = "insert";
+                $course['actions']       = "/course/insert";
+                $course['toedit']        = "true";
+                $course['creator']       = "true";
+//                dd($institution);
+                return view('/courses/course')->with('course', $course);
+            }
+            else
+            {
+                return view('home');
+            }
+        }
+        else
+        {
+            return view('home');
+        }
+    }
+
+    public function updateCourse()
+    {
+        $input = Input::get();
+//        dd($input);
+        if($input['actions'] == 'delete')
+        {
+            $course_id    = $input['id'];
+            $course       = Course::find($course_id);
+            $course->delete();
+            return redirect()->route('course-list');
+        }
+        if($input['actions'] == 'update')
+        {
+            $id                          = $input['id'];
+            $name                        = $input['name'];
+            $department_id               = $input['department_id'];
+            $teacher_id                  = $input['teacherid'];
+            $description                 = $input['description'];
+
+
+            $the_course                 = Course::find($id);
+            $the_course->course_name    = $name;
+            $the_course->teacher_id     = $teacher_id;
+            $the_course->department_id  = $department_id;
+            $the_course->description    = $description;
+
+            $the_course->save();
+            return redirect()->route('course-list');
+        }
+        else
+        {
+            return view('home');
+        }
+    }
+
+    public function insertCourse()
+    {
+
+        $input = Input::get();
+//        dd($input);
+
+        if($input['actions'] == 'insert')
+        {
+            $name                           = $input['name'];
+            $department_id                  = $input['department_id'];
+            $teacher_id                     = $input['teacherid'];
+            $description                    = $input['description'];
+
+
+            $the_course                     = new Course();
+            $the_course->course_name        = $name;
+            $the_course->teacher_id         = $teacher_id;
+            $the_course->department_id      = $department_id;
+            $the_course->description        = $description;
+
+            $the_course->save();
+            return redirect()->route('course-list');
+        }
+        else
+        {
+            return view('home');
+        }
+    }
+
 
     public function index()
     {
