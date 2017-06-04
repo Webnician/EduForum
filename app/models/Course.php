@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\UserCourse;
 
 class Course extends Model
 {
@@ -17,6 +18,8 @@ class Course extends Model
         $course = Course::find($id);
         return $course;
     }
+
+
 
     protected $fillable = [
         'course_name', 'teacher_id', 'department_id',

@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container">
-        {{--{{ dd($user) }}--}}
+        {{--{{ dd($courses) }}--}}
 
         <singleuser buttxt = "{{ $user['buttxt'] }}" operation = "{{ $user['operation'] }}" actions = "{{ $user['actions'] }}"
                      :editmode = "{{ $user['editmode'] }}" :viewer = "{{ $user['viewer'] }}" :toedit = "{{ $user['toedit'] }}"
@@ -13,7 +13,8 @@
                      biographys="{{ $user['biography'] }}" addresses = " {{$user['address']}}"
                 citys = " {{$user['city']}}" states = "{{$user['state']}}" zips = "{{ $user['zip']}}" countrys = "{{$user['country']}}" phones = "{{$user['phone']}}"
                      types = "{{$user['type']}}"></singleuser>
-
-
+@if( !empty($courses))
+        <usercourse :courselist = "{{ $courses }}"></usercourse>
+@endif
     </div>
 @endsection

@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use App\models\UserContact;
 //use App\models\Contact;
 use App\models\User;
+use App\UserCourse;
+use App\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
@@ -14,6 +16,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Model;
 use Kodeine\Acl\Models\Eloquent\Role;
 use Kodeine\Acl\Models\Eloquent\Permission;
+use function MongoDB\BSON\toJSON;
+
 //use Kodeine\Acl\Traits\HasPermission;
 
 
@@ -62,150 +66,150 @@ class ProfileController extends Controller
         }
     }
 
-    public function users()
-    {
-        if(Auth::check()) {
-            $user = Auth::user();
-            if($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin') || $user->hasRole('persadmin') || $user->hasRole('instructor'))
-            {
-                if ($user->hasRole('superadmin') || $user->hasRole('admin'))
-                {
-                  $users = User::all();
-                }
-                if ($user->hasRole('instadmin') || $user->hasRole('persadmin') || $user->hasRole('instructor'))
-                {
-                    $id = $user['institution'];
-                    $users = User::where('institution', $id)->get();
-                }
-                $users = $users->toArray();
-                return view('/profile-user/userlist')->with('users', $users);
-            }
-            else
-            {
-                return view('home');
-            }
-        }
-        else
-        {
-            return redirect('/login');
-        }
-
-    }
-
-    public function userUpdate()
-    {
-
-            $input = Input::get();
-            if($input['actions'] == 'delete')
-            {
-                $user_id    = $input['id'];
-                $user = User::find($user_id);
-                $user->delete();
-                return redirect()->route('users');
-            }
-            if($input['actions'] == 'update') {
-
-
-//            $this->validate($input, [
-//                  'actions' => 'required',
-//                  'fname'   => 'required',
-//                  'lname'   => 'required',
-//            ]);
-                $user_id    = $input['id'];
-                $the_action = $input['actions'];
-                $first_name = $input['fname'];
-                $last_name = $input['lname'];
-                $email_address = $input['email'];
-                $title = $input['title'];
-                $institution = $input['institution'];
-                $avatar_source = $input['avatar'];
-                $biography = $input['biography'];
-
-                $the_user                = User::find($user_id);
-                $the_user->fname         = $first_name;
-                $the_user->lname         = $last_name;
-                $the_user->email         = $email_address;
-                $the_user->title         = $title;
-                $the_user->institution   = $institution;
-                $the_user->avatar        = $avatar_source;
-                $the_user->biography     = $biography;
-                $the_user->save();
-                return redirect()->route('userprofile', $user_id);
-        }
-
-        else
-        {
-            return view('home');
-        }
-    }
-
-    public function userCreateCont()
-    {
-        if(Auth::check()) {
-            $user = Auth::user();
-            $args = [];
-            if($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin') || $user->hasRole('persadmin') || $user->hasRole('instructor'))
-            {
-                if ($user->hasRole('superadmin') || $user->hasRole('admin'))
-                {
-                    $args['allowinst'] = 'true';
-                    $args['institution'] = $user['institution'];
-//                    dd($args);
-                    return view('profile-user.user-creator')->with('args', $args);
-                }
-                if ($user->hasRole('instadmin') || $user->hasRole('persadmin') || $user->hasRole('instructor'))
-                {
-                    $args['allowinst'] = 'false';
-                    $args['institution'] = $user['institution'];
-//                    dd($args);
-                    return view('profile-user.user-creator')->with('args', $args);
-//                    return view('profile-user.user-creator')->with('institution', $user['institution']);
-                }
-            }
-            else
-            {
-                return view('home');
-            }
-        }
-        else
-        {
-            return redirect('/login');
-        }
-
-    }
-
-    public function userCreate()
-    {
-        $input = Input::get();
-        if($input['actions'] == 'update')
-        {
-            $user_id    = $input['id'];
-            $the_action = $input['actions'];
-            $first_name = $input['fname'];
-            $last_name = $input['lname'];
-            $email_address = $input['email'];
-            $title = $input['title'];
-            $institution = $input['institution'];
-            $avatar_source = $input['avatar'];
-            $biography = $input['biography'];
-
-            $the_user                = new User();
-            $the_user->password      = Hash::make('secret');
-            $the_user->fname         = $first_name;
-            $the_user->lname         = $last_name;
-            $the_user->email         = $email_address;
-            $the_user->title         = $title;
-            $the_user->institution   = $institution;
-            $the_user->avatar        = $avatar_source;
-            $the_user->biography     = $biography;
-            $the_user->save();
-            return redirect()->route('users');
-        }
-        else
-        {
-            return view('home');
-        }
-    }
+//    public function users()
+//    {
+//        if(Auth::check()) {
+//            $user = Auth::user();
+//            if($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin') || $user->hasRole('persadmin') || $user->hasRole('instructor'))
+//            {
+//                if ($user->hasRole('superadmin') || $user->hasRole('admin'))
+//                {
+//                  $users = User::all();
+//                }
+//                if ($user->hasRole('instadmin') || $user->hasRole('persadmin') || $user->hasRole('instructor'))
+//                {
+//                    $id = $user['institution'];
+//                    $users = User::where('institution', $id)->get();
+//                }
+//                $users = $users->toArray();
+//                return view('/profile-user/userlist')->with('users', $users);
+//            }
+//            else
+//            {
+//                return view('home');
+//            }
+//        }
+//        else
+//        {
+//            return redirect('/login');
+//        }
+//
+//    }
+//
+//    public function userUpdate()
+//    {
+//
+//            $input = Input::get();
+//            if($input['actions'] == 'delete')
+//            {
+//                $user_id    = $input['id'];
+//                $user = User::find($user_id);
+//                $user->delete();
+//                return redirect()->route('users');
+//            }
+//            if($input['actions'] == 'update') {
+//
+//
+////            $this->validate($input, [
+////                  'actions' => 'required',
+////                  'fname'   => 'required',
+////                  'lname'   => 'required',
+////            ]);
+//                $user_id    = $input['id'];
+//                $the_action = $input['actions'];
+//                $first_name = $input['fname'];
+//                $last_name = $input['lname'];
+//                $email_address = $input['email'];
+//                $title = $input['title'];
+//                $institution = $input['institution'];
+//                $avatar_source = $input['avatar'];
+//                $biography = $input['biography'];
+//
+//                $the_user                = User::find($user_id);
+//                $the_user->fname         = $first_name;
+//                $the_user->lname         = $last_name;
+//                $the_user->email         = $email_address;
+//                $the_user->title         = $title;
+//                $the_user->institution   = $institution;
+//                $the_user->avatar        = $avatar_source;
+//                $the_user->biography     = $biography;
+//                $the_user->save();
+//                return redirect()->route('userprofile', $user_id);
+//        }
+//
+//        else
+//        {
+//            return view('home');
+//        }
+//    }
+//
+//    public function userCreateCont()
+//    {
+//        if(Auth::check()) {
+//            $user = Auth::user();
+//            $args = [];
+//            if($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin') || $user->hasRole('persadmin') || $user->hasRole('instructor'))
+//            {
+//                if ($user->hasRole('superadmin') || $user->hasRole('admin'))
+//                {
+//                    $args['allowinst'] = 'true';
+//                    $args['institution'] = $user['institution'];
+////                    dd($args);
+//                    return view('profile-user.user-creator')->with('args', $args);
+//                }
+//                if ($user->hasRole('instadmin') || $user->hasRole('persadmin') || $user->hasRole('instructor'))
+//                {
+//                    $args['allowinst'] = 'false';
+//                    $args['institution'] = $user['institution'];
+////                    dd($args);
+//                    return view('profile-user.user-creator')->with('args', $args);
+////                    return view('profile-user.user-creator')->with('institution', $user['institution']);
+//                }
+//            }
+//            else
+//            {
+//                return view('home');
+//            }
+//        }
+//        else
+//        {
+//            return redirect('/login');
+//        }
+//
+//    }
+//
+//    public function userCreate()
+//    {
+//        $input = Input::get();
+//        if($input['actions'] == 'update')
+//        {
+//            $user_id    = $input['id'];
+//            $the_action = $input['actions'];
+//            $first_name = $input['fname'];
+//            $last_name = $input['lname'];
+//            $email_address = $input['email'];
+//            $title = $input['title'];
+//            $institution = $input['institution'];
+//            $avatar_source = $input['avatar'];
+//            $biography = $input['biography'];
+//
+//            $the_user                = new User();
+//            $the_user->password      = Hash::make('secret');
+//            $the_user->fname         = $first_name;
+//            $the_user->lname         = $last_name;
+//            $the_user->email         = $email_address;
+//            $the_user->title         = $title;
+//            $the_user->institution   = $institution;
+//            $the_user->avatar        = $avatar_source;
+//            $the_user->biography     = $biography;
+//            $the_user->save();
+//            return redirect()->route('users');
+//        }
+//        else
+//        {
+//            return view('home');
+//        }
+//    }
 
     public function viewUsers()
     {
@@ -239,6 +243,22 @@ class ProfileController extends Controller
             {
                 $user                   = User::get_user_by_id($id);
                 $contact                = UserContact::get_contact_by_user_id($id);
+                $courses                = UserCourse::get_courses_by_user($id);
+
+                $course2 = [];
+                $counter = 0;
+                foreach ($courses as $course)
+                {
+                    $course2[$counter]['course'] = Course::get_course($course['course_id']);
+                    $course2[$counter]['course']['user_course_id'] = $course['id'];
+                    $course2[$counter]['course']['user_id'] = $course['user_id'];
+                    $course2[$counter]['course']['course_id'] = $course['course_id'];
+                    $counter++;
+                }
+
+                $course2 = \GuzzleHttp\json_encode($course2);
+
+//                dd($course2);
                 $user['address']        = $contact['contact_address'];
                 $user['city']           = $contact['contact_city'];
                 $user['state']          = $contact['contact_state'];
@@ -255,7 +275,7 @@ class ProfileController extends Controller
                 $user['toedit']         = "false";
                 $user['creator']        = "false";
 //                dd($contact);
-                return view('/profile-user/user')->with('user', $user);
+                return view('/profile-user/user')->with('user', $user)->with('courses', $course2);
             }
             else
             {

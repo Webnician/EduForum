@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\UserCourse;
 use Illuminate\Http\Request;
 use App\models\User;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +52,7 @@ class CourseController extends Controller
             {
                 $course                  = Course::get_course($id);
                 $teacher                 = User::get_user_by_id($course['teacher_id']);
+                $students                = UserCourse::get_users_by_course($id);
                 $course['teacherfname']  = $teacher['fname'];
                 $course['teacherlname']  = $teacher['lname'];
                 $course['teacherid']     = $teacher['id'];
