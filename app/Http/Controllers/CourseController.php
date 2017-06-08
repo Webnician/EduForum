@@ -53,6 +53,22 @@ class CourseController extends Controller
                 $course                  = Course::get_course($id);
                 $teacher                 = User::get_user_by_id($course['teacher_id']);
                 $students                = UserCourse::get_users_by_course($id);
+
+
+                $student2 = [];
+                $counter = 0;
+                foreach ($students as $student)
+                {
+                    $student2[$counter]['student']                    = User::get_user_by_id($student['user_id']);
+                    $student2[$counter]['student']['user_course_id']  = $student['id'];
+                    $student2[$counter]['student']['user_id']         = $student['user_id'];
+                    $student2[$counter]['student']['course_id']       = $student['course_id'];
+                    $counter++;
+                }
+
+                $student2 = \GuzzleHttp\json_encode($student2);
+//                dd($student2);
+
                 $course['teacherfname']  = $teacher['fname'];
                 $course['teacherlname']  = $teacher['lname'];
                 $course['teacherid']     = $teacher['id'];
@@ -63,8 +79,9 @@ class CourseController extends Controller
                 $course['actions']       = "";
                 $course['toedit']        = "false";
                 $course['creator']       = "false";
+                $course['allowuser']     = "true";
 //                dd($institution);
-                return view('/courses/course')->with('course', $course);
+                return view('/courses/course')->with('course', $course)->with('students', $student2);
             }
             else
             {
@@ -97,6 +114,7 @@ class CourseController extends Controller
                 $course['actions']       = "/course/update";
                 $course['toedit']        = "true";
                 $course['creator']       = "false";
+                $course['allowuser']     = "true";
 //                dd($institution);
                 return view('/courses/course')->with('course', $course);
             }
@@ -134,6 +152,7 @@ class CourseController extends Controller
                 $course['actions']       = "/course/insert";
                 $course['toedit']        = "true";
                 $course['creator']       = "true";
+                $course['allowuser']     = "false";
 //                dd($institution);
                 return view('/courses/course')->with('course', $course);
             }
@@ -209,6 +228,25 @@ class CourseController extends Controller
         else
         {
             return view('home');
+        }
+    }
+
+    public function registrationDelete()
+    {
+        if(Auth::check())
+        {
+            $user = Auth::user();
+            if ($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin'))
+            {
+                $input          = Input::get();
+                $id             = $input['id'];
+                $route          = $input['return_method'];
+                $return_id      = $input['return_id'];
+                $registration   = UserCourse::find($id);
+                $registration->delete();
+                return redirect()->back();
+//                dd($registration);
+            }
         }
     }
 

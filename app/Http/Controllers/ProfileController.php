@@ -249,10 +249,10 @@ class ProfileController extends Controller
                 $counter = 0;
                 foreach ($courses as $course)
                 {
-                    $course2[$counter]['course'] = Course::get_course($course['course_id']);
-                    $course2[$counter]['course']['user_course_id'] = $course['id'];
-                    $course2[$counter]['course']['user_id'] = $course['user_id'];
-                    $course2[$counter]['course']['course_id'] = $course['course_id'];
+                    $course2[$counter]['course']                    = Course::get_course($course['course_id']);
+                    $course2[$counter]['course']['user_course_id']  = $course['id'];
+                    $course2[$counter]['course']['user_id']         = $course['user_id'];
+                    $course2[$counter]['course']['course_id']       = $course['course_id'];
                     $counter++;
                 }
 
@@ -480,6 +480,8 @@ class ProfileController extends Controller
             return view('home');
         }
     }
+
+
 
 
     /**

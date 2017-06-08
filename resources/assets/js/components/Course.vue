@@ -84,12 +84,12 @@
 //    id = "{{ $course['id'] }}" course_name = "{{ $course['course_name'] }}" teacher_id="{{ $course['teacher_id'] }}" teacherfname = "{{ $course['teacherfname'] }}"
 //    teacherlname = "{{ $course['teacherlname'] }}" score = " {{ $course['score'] }}" department_id = " {{ $course['department_id'] }}"
         props:
-            ['buttxt', 'operation', 'actions', 'editmode', 'viewer', 'toedit', 'creator', 'id', 'course_name', 'teacher_id', 'teacherfname', 'teacherlname', 'score', 'deparmtent_id', 'desc'],
+            ['buttxt', 'operation', 'actions', 'editmode', 'viewer', 'toedit', 'creator', 'ids', 'course_name', 'teacher_id', 'teacherfname', 'teacherlname', 'score', 'deparmtent_id', 'desc'],
 
         data(){
             return {
                 csrf: "",
-                id : this.id,
+                id : this.ids,
                 name : this.course_name,
                 teacherfirstname : this.teacherfname,
                 teacherlastname : this.teacherlname,

@@ -108,4 +108,6 @@ Route::get('/user/{id}/edit', 'ProfileController@editUser')->name('edit-user');
 Route::post('/user/update', 'ProfileController@updateUser')->name('update-user');
 
 Route::post('/user/insert', 'ProfileController@insertUser')->name('insert-course');
+
+Route::post('/registration/delete', 'CourseController@registrationDelete')->name('remove-registration');
 //Route::post('institution/create', 'InstitutionController@instCreate')->name('create-institution');

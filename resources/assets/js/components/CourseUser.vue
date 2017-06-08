@@ -3,24 +3,21 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 ">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Registered Courses<span style="float: right"> <a class="btn-info" style="display: block;margin-left: auto;margin-right: auto; text-align: center" href="">Add to New Course </a></span></div>
+                    <div class="panel-heading">Registered Students<span style="float: right"> <a class="btn-info" style="display: block;margin-left: auto;margin-right: auto; text-align: center" href="">Add New User to Course </a></span></div>
 
                     <div class="panel-body">
-                        <h3 class="list-heading">Courses</h3>
+                        <h3 class="list-heading">Students</h3>
                         <ul style=" text-decoration: underline;">
-
-                            <li v-for="course of courselist">
+                            <li v-for="student of studentlist">
                                 <form method="POST" action="/registration/delete">
-                                <a :href="'/course/'+ course.id" v-model="course.id">
-                                    {{ course.course.id }} {{ course.course.course_name }}</a>
-
-                                    <input type="hidden" name="id" :value="course.course.user_course_id">
+                                <a :href="'/user/'+ student.student.id" v-model="student.student.id">
+                                    {{ student.student.id }} {{ student.student.fname}} {{ student.student.lname}} {{ student.student.email}}</a>
+                                    <input type="hidden" name="id" :value="student.student.user_course_id">
                                     <input type="hidden" name="_token" :value="csrf">
-                                    <input type="hidden" name="return_id" :value="course.course.user_id">
-                                    <input type="hidden" name="return_method" value="/user/">
+                                    <input type="hidden" name="return_id" :value="student.student.course_id">
+                                    <input type="hidden" name="return_method" value="/course/">
                                     <button  class="btn-info" style="display: inline-block;margin-left: 10%;margin-right: auto" type="submit">Delete Registration</button>
                                 </form>
-
                             </li>
                         </ul>
                     </div>
@@ -34,16 +31,20 @@
 <script>
     export default {
         props:
-            ['courselist'],
-
+            ['studentlist'],
         data(){
             return {
-                 csrf: "",
+                csrf: "",
             }
         },
 
         mounted() {
             this.csrf = window.Laravel.csrfToken
+
         }
+
+
+
+
     }
 </script>

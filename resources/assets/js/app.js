@@ -28,6 +28,7 @@ Vue.component('course', require('./components/Course.vue'));
 Vue.component('singleuser', require('./components/SingleUser.vue'));
 Vue.component('userlist', require('./components/UserList.vue'));
 Vue.component('usercourse', require('./components/UserCourse.vue'));
+Vue.component('courseuser', require('./components/CourseUser.vue'));
 
 // Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content');
 
