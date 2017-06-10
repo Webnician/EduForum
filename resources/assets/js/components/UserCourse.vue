@@ -3,8 +3,7 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 ">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Registered Courses<span style="float: right"> <a class="btn-info" style="display: block;margin-left: auto;margin-right: auto; text-align: center" href="">Add to New Course </a></span></div>
-
+                    <div class="panel-heading">Registered Courses<span style="float: right"> <a class="btn-info" style="display: block;margin-left: auto;margin-right: auto; text-align: center" :href="'/registration/user/' + user + '/create'" v-model="user">Add to New Course </a></span></div>
                     <div class="panel-body">
                         <h3 class="list-heading">Courses</h3>
                         <ul style=" text-decoration: underline;">
@@ -16,8 +15,6 @@
 
                                     <input type="hidden" name="id" :value="course.course.user_course_id">
                                     <input type="hidden" name="_token" :value="csrf">
-                                    <input type="hidden" name="return_id" :value="course.course.user_id">
-                                    <input type="hidden" name="return_method" value="/user/">
                                     <button  class="btn-info" style="display: inline-block;margin-left: 10%;margin-right: auto" type="submit">Delete Registration</button>
                                 </form>
 
@@ -34,7 +31,7 @@
 <script>
     export default {
         props:
-            ['courselist'],
+            ['courselist', 'user'],
 
         data(){
             return {

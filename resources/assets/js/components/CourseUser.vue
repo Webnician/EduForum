@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 ">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Registered Students<span style="float: right"> <a class="btn-info" style="display: block;margin-left: auto;margin-right: auto; text-align: center" href="">Add New User to Course </a></span></div>
+                    <div class="panel-heading">Registered Students<span style="float: right"> <a class="btn-info" style="display: block;margin-left: auto;margin-right: auto; text-align: center" :href="'/registration/course/'+ course +'/create'" v-model="course">Add New User to Course </a></span></div>
 
                     <div class="panel-body">
                         <h3 class="list-heading">Students</h3>
@@ -14,8 +14,6 @@
                                     {{ student.student.id }} {{ student.student.fname}} {{ student.student.lname}} {{ student.student.email}}</a>
                                     <input type="hidden" name="id" :value="student.student.user_course_id">
                                     <input type="hidden" name="_token" :value="csrf">
-                                    <input type="hidden" name="return_id" :value="student.student.course_id">
-                                    <input type="hidden" name="return_method" value="/course/">
                                     <button  class="btn-info" style="display: inline-block;margin-left: 10%;margin-right: auto" type="submit">Delete Registration</button>
                                 </form>
                             </li>
@@ -31,7 +29,7 @@
 <script>
     export default {
         props:
-            ['studentlist'],
+            ['studentlist', 'course'],
         data(){
             return {
                 csrf: "",

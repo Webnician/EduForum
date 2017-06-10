@@ -110,4 +110,12 @@ Route::post('/user/update', 'ProfileController@updateUser')->name('update-user')
 Route::post('/user/insert', 'ProfileController@insertUser')->name('insert-course');
 
 Route::post('/registration/delete', 'CourseController@registrationDelete')->name('remove-registration');
+
+Route::get('/registration/user/{id}/create', 'CourseController@registrationUserCreate')->name('create-registration');
+
+Route::get('/registration/course/{id}/create', 'CourseController@registrationCourseCreate')->name('create-registration');
+
+Route::post('/registration/insert', 'CourseController@registrationInsert')->name('insert-registration');
+
+//Route::get('registration', )
 //Route::post('institution/create', 'InstitutionController@instCreate')->name('create-institution');

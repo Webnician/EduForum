@@ -14,7 +14,7 @@
                 citys = " {{$user['city']}}" states = "{{$user['state']}}" zips = "{{ $user['zip']}}" countrys = "{{$user['country']}}" phones = "{{$user['phone']}}"
                      types = "{{$user['type']}}"></singleuser>
 @if( !empty($courses))
-        <usercourse :courselist = "{{ $courses }}"></usercourse>
+        <usercourse :courselist = "{{ $courses }}" :user= "{{ $user['id'] }}"></usercourse>
 @endif
     </div>
 @endsection

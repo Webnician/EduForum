@@ -240,8 +240,6 @@ class CourseController extends Controller
             {
                 $input          = Input::get();
                 $id             = $input['id'];
-                $route          = $input['return_method'];
-                $return_id      = $input['return_id'];
                 $registration   = UserCourse::find($id);
                 $registration->delete();
                 return redirect()->back();
@@ -250,6 +248,55 @@ class CourseController extends Controller
         }
     }
 
+    public function registrationUserCreate($id)
+    {
+        if(Auth::check())
+        {
+            $user = Auth::user();
+            if ($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin'))
+            {
+                $student = User::get_user_by_id($id);
+                $courselist = Course::get_all_courses();
+//                dd($student);
+                return view('/courses/registration')->with('student', $student)->with('courselist', $courselist);
+            }
+        }
+    }
+
+    public function registrationCourseCreate($id)
+    {
+        if(Auth::check())
+        {
+            $user = Auth::user();
+            if ($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin'))
+            {
+               $course  = Course::get_course($id);
+               $studentlist   = User::get_all_users();
+//                dd($registration);
+                return view('/courses/registration')->with('course', $course)->with('studentlist', $studentlist);
+            }
+        }
+    }
+
+    public function registrationInsert()
+    {
+        $input = Input::get();
+//        dd($input);
+        if($input['actions'] == 'course-insert') {
+            $registration = new UserCourse();
+            $registration->user_id = $input['usertocourse'];
+            $registration->course_id = $input['course'];
+            $registration->save();
+            return redirect('/course/'.$input['course']);
+        }
+        if($input['actions'] == 'user-insert') {
+            $registration = new UserCourse();
+            $registration->course_id = $input['coursetouser'];
+            $registration->user_id = $input['student'];
+            $registration->save();
+            return redirect('/user/'.$input['student']);
+        }
+    }
 
     public function index()
     {

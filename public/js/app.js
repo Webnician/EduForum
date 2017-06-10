@@ -856,6 +856,7 @@ Vue.component('singleuser', __webpack_require__(57));
 Vue.component('userlist', __webpack_require__(60));
 Vue.component('usercourse', __webpack_require__(59));
 Vue.component('courseuser', __webpack_require__(51));
+Vue.component('register', __webpack_require__(87));
 
 // Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content');
 
@@ -1962,11 +1963,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['studentlist'],
+    props: ['studentlist', 'course'],
     data: function data() {
         return {
             csrf: ""
@@ -2621,12 +2620,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['courselist'],
+    props: ['courselist', 'user'],
 
     data: function data() {
         return {
@@ -33656,7 +33652,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-lg-12 col-md-12 col-sm-12 "
   }, [_c('div', {
     staticClass: "panel panel-default"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_vm._v("Registered Courses"), _c('span', {
+    staticStyle: {
+      "float": "right"
+    }
+  }, [_c('a', {
+    staticClass: "btn-info",
+    staticStyle: {
+      "display": "block",
+      "margin-left": "auto",
+      "margin-right": "auto",
+      "text-align": "center"
+    },
+    attrs: {
+      "href": '/registration/user/' + _vm.user + '/create'
+    },
+    model: {
+      value: (_vm.user),
+      callback: function($$v) {
+        _vm.user = $$v
+      },
+      expression: "user"
+    }
+  }, [_vm._v("Add to New Course ")])])]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
   }, [_c('h3', {
     staticClass: "list-heading"
@@ -33697,20 +33717,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       domProps: {
         "value": _vm.csrf
       }
-    }), _vm._v(" "), _c('input', {
-      attrs: {
-        "type": "hidden",
-        "name": "return_id"
-      },
-      domProps: {
-        "value": course.course.user_id
-      }
-    }), _vm._v(" "), _c('input', {
-      attrs: {
-        "type": "hidden",
-        "name": "return_method",
-        "value": "/user/"
-      }
     }), _vm._v(" "), _c('button', {
       staticClass: "btn-info",
       staticStyle: {
@@ -33723,26 +33729,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("Delete Registration")])])])
   }))])])])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "panel-heading"
-  }, [_vm._v("Registered Courses"), _c('span', {
-    staticStyle: {
-      "float": "right"
-    }
-  }, [_c('a', {
-    staticClass: "btn-info",
-    staticStyle: {
-      "display": "block",
-      "margin-left": "auto",
-      "margin-right": "auto",
-      "text-align": "center"
-    },
-    attrs: {
-      "href": ""
-    }
-  }, [_vm._v("Add to New Course ")])])])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -33827,7 +33814,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-lg-12 col-md-12 col-sm-12 "
   }, [_c('div', {
     staticClass: "panel panel-default"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_vm._v("Registered Students"), _c('span', {
+    staticStyle: {
+      "float": "right"
+    }
+  }, [_c('a', {
+    staticClass: "btn-info",
+    staticStyle: {
+      "display": "block",
+      "margin-left": "auto",
+      "margin-right": "auto",
+      "text-align": "center"
+    },
+    attrs: {
+      "href": '/registration/course/' + _vm.course + '/create'
+    },
+    model: {
+      value: (_vm.course),
+      callback: function($$v) {
+        _vm.course = $$v
+      },
+      expression: "course"
+    }
+  }, [_vm._v("Add New User to Course ")])])]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
   }, [_c('h3', {
     staticClass: "list-heading"
@@ -33868,20 +33879,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       domProps: {
         "value": _vm.csrf
       }
-    }), _vm._v(" "), _c('input', {
-      attrs: {
-        "type": "hidden",
-        "name": "return_id"
-      },
-      domProps: {
-        "value": student.student.course_id
-      }
-    }), _vm._v(" "), _c('input', {
-      attrs: {
-        "type": "hidden",
-        "name": "return_method",
-        "value": "/course/"
-      }
     }), _vm._v(" "), _c('button', {
       staticClass: "btn-info",
       staticStyle: {
@@ -33894,26 +33891,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("Delete Registration")])])])
   }))])])])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "panel-heading"
-  }, [_vm._v("Registered Students"), _c('span', {
-    staticStyle: {
-      "float": "right"
-    }
-  }, [_c('a', {
-    staticClass: "btn-info",
-    staticStyle: {
-      "display": "block",
-      "margin-left": "auto",
-      "margin-right": "auto",
-      "text-align": "center"
-    },
-    attrs: {
-      "href": ""
-    }
-  }, [_vm._v("Add New User to Course ")])])])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -44593,6 +44571,349 @@ module.exports = function(module) {
 __webpack_require__(9);
 module.exports = __webpack_require__(10);
 
+
+/***/ }),
+/* 79 */,
+/* 80 */,
+/* 81 */,
+/* 82 */,
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */,
+/* 87 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(88),
+  /* template */
+  __webpack_require__(89),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Users\\olafbroms\\Desktop\\dev\\homeTest\\scorecard\\eduforum\\eduforum\\resources\\assets\\js\\components\\Registration.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Registration.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-54b283b8", Component.options)
+  } else {
+    hotAPI.reload("data-v-54b283b8", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 88 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['studenta', 'coursea', 'studentlista', 'courselista', 'addusertocoursea', 'addcoursetousera'],
+
+    data: function data() {
+        return {
+            id: this.ids,
+            student: this.studenta,
+            course: this.coursea,
+            studentlist: this.studentlista,
+            courselist: this.courselista,
+            addusertocourse: this.addusertocoursea,
+            addcoursetouser: this.addcoursetousera,
+            action: '/registration/insert',
+            csrf: "",
+            selected: ''
+
+        };
+    },
+    mounted: function mounted() {
+        this.csrf = window.Laravel.csrfToken;
+    }
+});
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "container"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12 "
+  }, [_c('div', {
+    staticClass: "panel panel-default"
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_vm._v("Edit Profile")]), _vm._v(" "), _c('div', {
+    staticClass: "panel-body"
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "_token"
+    },
+    domProps: {
+      "value": _vm.csrf
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "actions",
+      "value": "update"
+    }
+  }), _vm._v(" "), (_vm.addcoursetouser) ? _c('div', {
+    staticClass: "row"
+  }, [_c('form', {
+    attrs: {
+      "method": "POST",
+      "action": _vm.action
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "_token"
+    },
+    domProps: {
+      "value": _vm.csrf
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "actions",
+      "value": "user-insert"
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "student"
+    },
+    domProps: {
+      "value": _vm.student.id
+    }
+  }), _vm._v(" "), _c('h3', [_vm._v("Add Course Registration")]), _vm._v(" "), _c('h4', [_vm._v(" User : " + _vm._s(_vm.student.id) + " - " + _vm._s(_vm.student.fname) + " " + _vm._s(_vm.student.lname))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.selected),
+      expression: "selected"
+    }],
+    staticStyle: {
+      "text-decoration": "underline"
+    },
+    attrs: {
+      "name": "coursetouser"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.selected = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "disabled": "",
+      "value": ""
+    }
+  }, [_vm._v("Please select A Course")]), _vm._v(" "), _vm._l((_vm.courselist), function(course) {
+    return _c('option', {
+      domProps: {
+        "value": course.id
+      }
+    }, [_vm._v("\n                                    " + _vm._s(course.id) + " " + _vm._s(course.course_name) + "\n                                ")])
+  })], 2), _vm._v(" "), _vm._m(0)])]) : _vm._e(), _vm._v(" "), (_vm.addusertocourse) ? _c('div', {
+    staticClass: "row"
+  }, [_c('form', {
+    attrs: {
+      "method": "POST",
+      "action": _vm.action
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "_token"
+    },
+    domProps: {
+      "value": _vm.csrf
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "actions",
+      "value": "course-insert"
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "course"
+    },
+    domProps: {
+      "value": _vm.course.id
+    }
+  }), _vm._v(" "), _c('h2', [_vm._v("Add User to this Course")]), _vm._v(" "), _c('h4', [_vm._v(" Course : " + _vm._s(_vm.course.id) + " - " + _vm._s(_vm.course.course_name) + " ")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.selected),
+      expression: "selected"
+    }],
+    staticStyle: {
+      "text-decoration": "underline"
+    },
+    attrs: {
+      "name": "usertocourse"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.selected = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "disabled": "",
+      "value": ""
+    }
+  }, [_vm._v("Please select A Student to Add")]), _vm._v(" "), _vm._l((_vm.studentlist), function(student) {
+    return _c('option', {
+      domProps: {
+        "value": student.id
+      }
+    }, [_vm._v("\n                                    " + _vm._s(student.id) + " " + _vm._s(student.fname) + " " + _vm._s(student.lname) + "\n                                ")])
+  })], 2), _vm._v(" "), _vm._m(1)])]) : _vm._e()])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row",
+    staticStyle: {
+      "margin-top": "3%"
+    }
+  }, [_c('button', {
+    staticClass: "btn-info",
+    staticStyle: {
+      "display": "block",
+      "margin-left": "auto",
+      "margin-right": "auto"
+    },
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("Add Registration")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row",
+    staticStyle: {
+      "margin-top": "3%"
+    }
+  }, [_c('button', {
+    staticClass: "btn-info",
+    staticStyle: {
+      "display": "block",
+      "margin-left": "auto",
+      "margin-right": "auto"
+    },
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("Add Registration")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-54b283b8", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
