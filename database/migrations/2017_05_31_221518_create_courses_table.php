@@ -20,6 +20,8 @@ class CreateCoursesTable extends Migration
             $table->integer('department_id')->nullable();
             $table->integer('score')->nullable();
             $table->string('description', 1000)->nullable();
+            $table->datetime('course_start_date')->nullable();
+            $table->datetime('course_end_date')->nullable();
             $table->timestamps();
         });
     }

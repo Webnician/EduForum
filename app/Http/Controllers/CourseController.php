@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Kodeine\Acl\Traits\HasRole;
 use App\Institution;
+use Carbon\Carbon;
 
 class CourseController extends Controller
 {
@@ -145,6 +146,8 @@ class CourseController extends Controller
                 $course['score']         = NULL;
                 $course['department_id'] = NULL;
                 $course['description']   = NULL;
+                $course['course_start_date']   = NULL;
+                $course['course_end_date']   = NULL;
                 $course['editmode']      = "false";
                 $course['buttxt']        = "Create Course";
                 $course['viewer']        = "false";
@@ -185,13 +188,20 @@ class CourseController extends Controller
             $department_id               = $input['department_id'];
             $teacher_id                  = $input['teacherid'];
             $description                 = $input['description'];
+            $start                       = $input['course_start'];
+            $end                         = $input['course_end'];
+            $start                       = Carbon::parse($start)->format('Y-m-d H:i:s');
+            $end                         = Carbon::parse($end)->format('Y-m-d H:i:s');
 
 
-            $the_course                 = Course::find($id);
-            $the_course->course_name    = $name;
-            $the_course->teacher_id     = $teacher_id;
-            $the_course->department_id  = $department_id;
-            $the_course->description    = $description;
+
+            $the_course                     = Course::find($id);
+            $the_course->course_name        = $name;
+            $the_course->teacher_id         = $teacher_id;
+            $the_course->department_id      = $department_id;
+            $the_course->description        = $description;
+            $the_course->course_start_date  = $start;
+            $the_course->course_end_date    = $end;
 
             $the_course->save();
             return redirect()->route('course-list');
@@ -214,6 +224,10 @@ class CourseController extends Controller
             $department_id                  = $input['department_id'];
             $teacher_id                     = $input['teacherid'];
             $description                    = $input['description'];
+            $start                       = $input['course_start'];
+            $end                         = $input['course_end'];
+            $start                       = Carbon::parse($start)->format('Y-m-d H:i:s');
+            $end                         = Carbon::parse($end)->format('Y-m-d H:i:s');
 
 
             $the_course                     = new Course();
@@ -221,6 +235,8 @@ class CourseController extends Controller
             $the_course->teacher_id         = $teacher_id;
             $the_course->department_id      = $department_id;
             $the_course->description        = $description;
+            $the_course->course_start_date  = $start;
+            $the_course->course_end_date    = $end;
 
             $the_course->save();
             return redirect()->route('course-list');

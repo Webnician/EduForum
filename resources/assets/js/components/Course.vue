@@ -27,6 +27,14 @@
                                         <span class="left-margin">Course Rating : {{  course_score }}</span><br/>
                                         <input v-if="allowedit"  name="course_score" style="width:100%" v-model="course_score" placeholder="Course Score" readonly/>
                                     </div>
+                                    <div class="row top-margin" >
+                                        <span class="left-margin">Course Start Date : {{  course_start_date }}</span><br/>
+                                        <input v-if="allowedit" data-provide="datepicker"  type="text" class="form-control"  name="course_start" style="width:100%" v-model="course_start_date" :value="course_start_date" placeholder="Update Start Date" />
+                                    </div>
+                                    <div class="row top-margin">
+                                        <span class="left-margin">Course End Date : {{  course_end_date }}</span><br/>
+                                        <input v-if="allowedit" data-provide="datepicker" type="text" class="form-control"  name="course_end" style="width:100%" v-model="course_end_date" :value="course_end_date"  placeholder="Update End Date" />
+                                    </div>
 
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
@@ -84,13 +92,15 @@
 //    id = "{{ $course['id'] }}" course_name = "{{ $course['course_name'] }}" teacher_id="{{ $course['teacher_id'] }}" teacherfname = "{{ $course['teacherfname'] }}"
 //    teacherlname = "{{ $course['teacherlname'] }}" score = " {{ $course['score'] }}" department_id = " {{ $course['department_id'] }}"
         props:
-            ['buttxt', 'operation', 'actions', 'editmode', 'viewer', 'toedit', 'creator', 'ids', 'course_name', 'teacher_id', 'teacherfname', 'teacherlname', 'score', 'deparmtent_id', 'desc'],
+            ['buttxt', 'operation', 'actions', 'editmode', 'viewer', 'toedit', 'creator', 'ids', 'course_name', 'start_date', 'end_date', 'teacher_id', 'teacherfname', 'teacherlname', 'score', 'department_id', 'desc'],
 
         data(){
             return {
                 csrf: "",
                 id : this.ids,
                 name : this.course_name,
+                course_start_date : this.start_date,
+                course_end_date : this.end_date,
                 teacherfirstname : this.teacherfname,
                 teacherlastname : this.teacherlname,
                 teacherident : this.teacher_id,
@@ -119,7 +129,8 @@
                     this.action = '/course/update';
                     this.oper = 'update';
                     this.buttontext = 'Update Course';
-                }
+                },
+
 
             },
         mounted() {

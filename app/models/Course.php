@@ -22,6 +22,6 @@ class Course extends Model
 
 
     protected $fillable = [
-        'course_name', 'teacher_id', 'department_id',
+        'course_name', 'teacher_id', 'department_id', 'description', 'course_start_date', 'course_end_date'
     ];
 }

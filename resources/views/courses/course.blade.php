@@ -6,7 +6,7 @@
         {{--{{ dd($course) }}--}}
         <course buttxt = "{{ $course['buttxt'] }}" operation = "{{ $course['operation'] }}" actions = "{{ $course['actions'] }}"
         :editmode = "{{ $course['editmode'] }}" :viewer = "{{ $course['viewer'] }}" :toedit = "{{ $course['toedit'] }}" :creator = "{{ $course['creator'] }}"
-        ids = "{{ $course['id'] }}" course_name = "{{ $course['course_name'] }}" teacher_id="{{ $course['teacher_id'] }}" teacherfname = "{{ $course['teacherfname'] }}"
+        ids = "{{ $course['id'] }}" course_name = "{{ $course['course_name'] }}" start_date="{{ $course['course_start_date'] }}" end_date="{{ $course['course_end_date'] }}" teacher_id="{{ $course['teacher_id'] }}" teacherfname = "{{ $course['teacherfname'] }}"
         teacherlname = "{{ $course['teacherlname'] }}" score = " {{ $course['score'] }}" department_id = " {{ $course['department_id'] }}" desc=" {{ $course['description'] }}"
         ></course>
 
