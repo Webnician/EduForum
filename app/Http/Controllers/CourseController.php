@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Course;
 use App\UserCourse;
+use App\UserPreferences;
 use Illuminate\Http\Request;
 use App\models\User;
 use Illuminate\Support\Facades\Auth;
@@ -313,6 +314,118 @@ class CourseController extends Controller
             return redirect('/user/'.$input['student']);
         }
     }
+
+    public function viewSingleClass($id)
+    {
+        if(Auth::check()) {
+            $user = Auth::user();
+            if ($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin'))
+            {
+
+                $course                  = Course::get_course($id);
+                $teacher                 = User::get_user_by_id($course['teacher_id']);
+                $students                = UserCourse::get_users_by_course($id);
+                $preferences             = UserPreferences::getClassPrefsByUser($user['id']);
+                $uiblock                 = [];
+                $course_preferences      = [];
+
+                if(isset($preferences[0]['class_layout_preferences']))
+                {
+                    $course_preferences = $preferences[0]['class_layout_preferences'];
+                    $course_preferences = \GuzzleHttp\json_decode($course_preferences);
+//                    dd($course_preferences);
+                }
+                else
+                {
+                    $course_preferences['first']            = "classdocs";
+                    $course_preferences['second']           = 'classlist';
+                    $course_preferences['third']            = "classschedule";
+                    $course_preferences['fourth']           = "assignmentlist";
+                    $course_preferences                     = \GuzzleHttp\json_encode($course_preferences);
+                    $preferences                            = UserPreferences::find($preferences[0]['id']);
+                    $preferences->class_layout_preferences  = $course_preferences;
+                    $preferences->save();
+                    $course_preferences                     = \GuzzleHttp\json_decode($course_preferences);
+
+                }
+
+
+
+                $student2 = [];
+                $counter = 0;
+                foreach ($students as $student)
+                {
+                    $student2[$counter]['student']                    = User::get_user_by_id($student['user_id']);
+                    $student2[$counter]['student']['user_course_id']  = $student['id'];
+                    $student2[$counter]['student']['user_id']         = $student['user_id'];
+                    $student2[$counter]['student']['course_id']       = $student['course_id'];
+                    $counter++;
+                }
+                $student2 = \GuzzleHttp\json_encode($student2);
+
+                $course['editmode']      = "false";
+                $course['buttxt']        = "Edit Course";
+                $course['viewer']        = "true";
+                $course['operation']     = "";
+                $course['actions']       = "";
+                $course['toedit']        = "false";
+                $course['creator']       = "false";
+                $course['allowuser']     = "true";
+
+                $uiblock['first']        = $course_preferences->first;
+                $uiblock['second']       = $course_preferences->second;
+                $uiblock['third']        = $course_preferences->third;
+                $uiblock['fourth']       = $course_preferences->fourth;
+                $uiblock                 = \GuzzleHttp\json_encode($uiblock);
+
+                $uiblock2[0]['title']        = $course_preferences->first;
+                $uiblock2[1]['title']       = $course_preferences->second;
+                $uiblock2[2]['title']        = $course_preferences->third;
+                $uiblock2[3]['title']       = $course_preferences->fourth;
+                $uiblock2                 = \GuzzleHttp\json_encode($uiblock2);
+//                dd($uiblock2);
+
+                return view('/courses/class')->with('course', $course)->with('students', $student2)->with('teacher', $teacher)->with('blocks', $uiblock2);
+            }
+            else
+            {
+                return view('home');
+            }
+            }
+        else
+        {
+            return view('home');
+        }
+
+    }
+
+    public function UserPreferencesUpdate()
+    {
+        if(Auth::check())
+        {
+            $user = Auth::user();
+            $input = Input::get();
+
+//            dd($input);
+
+            $preferences             = UserPreferences::getClassPrefsByUser($user['id']);
+            $course_preferences = [];
+
+            $course_preferences['first']            = $input['block0'];
+            $course_preferences['second']           = $input['block1'];
+            $course_preferences['third']            = $input['block2'];
+            $course_preferences['fourth']           = $input['block3'];
+            $course_preferences                     = \GuzzleHttp\json_encode($course_preferences);
+            $preferences                            = UserPreferences::find($preferences[0]['id']);
+            $preferences->class_layout_preferences  = $course_preferences;
+            $preferences->save();
+            return redirect()->back();
+
+
+        }
+
+    }
+
 
     public function index()
     {

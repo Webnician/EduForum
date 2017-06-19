@@ -5,9 +5,14 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+
 require('./bootstrap');
 
 window.Vue = require('vue');
+
+
+
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -30,10 +35,17 @@ Vue.component('userlist', require('./components/UserList.vue'));
 Vue.component('usercourse', require('./components/UserCourse.vue'));
 Vue.component('courseuser', require('./components/CourseUser.vue'));
 Vue.component('register', require('./components/Registration.vue'));
+Vue.component('class', require('./components/Class.vue'));
+Vue.component('classschedule', require('./components/ClassSchedule.vue'));
+Vue.component('classlist', require('./components/ClassList.vue'));
+Vue.component('assignmentlist', require('./components/AssignmentList.vue'));
+Vue.component('classdocs', require('./components/ClassDocuments.vue'));
+
 
 // Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content');
 
 const userd = new Vue({
+
     el: '#app',
     data: {
         // seen: true,

@@ -91,6 +91,8 @@ Route::get('/course', 'CourseController@createCourse')->name('create-course');
 
 Route::get('/course/{id}', 'CourseController@viewSingleCourse')->name('single-course');
 
+Route::get('/class/{id}', 'CourseController@viewSingleClass')->name('single-class');
+
 Route::get('/course/{id}/edit', 'CourseController@editCourse')->name('edit-course');
 
 Route::post('/course/update', 'CourseController@updateCourse')->name('update-course');
@@ -116,6 +118,8 @@ Route::get('/registration/user/{id}/create', 'CourseController@registrationUserC
 Route::get('/registration/course/{id}/create', 'CourseController@registrationCourseCreate')->name('create-registration');
 
 Route::post('/registration/insert', 'CourseController@registrationInsert')->name('insert-registration');
+
+Route::post('/classpreferences/update', 'CourseController@UserPreferencesUpdate')->name('update-user-class-preferences');
 
 //Route::get('registration', )
 //Route::post('institution/create', 'InstitutionController@instCreate')->name('create-institution');
