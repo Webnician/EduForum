@@ -35,6 +35,6 @@ class CreateInstitutionContactTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('institution_contact');
     }
 }
