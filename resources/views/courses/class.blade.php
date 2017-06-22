@@ -4,7 +4,7 @@
 
     <div class="container">
         {{--{{ dd($blocks) }}--}}
-        <class :students = "{{ $students }}" :teacher = "{{ $teacher }}" :course = "{{ $course }}" :blocks = "{{ $blocks }}"></class>
+        <class :students = "{{ $students }}" :teacher = "{{ $teacher }}" :course = "{{ $course }}" :blocks = "{{ $blocks }}" :user=" {{ $user }}" :adminuser="{{ $course['admin'] }}"></class>
 
     </div>
 

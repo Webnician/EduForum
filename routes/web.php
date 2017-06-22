@@ -2,6 +2,10 @@
 
 use App\models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -120,6 +124,11 @@ Route::get('/registration/course/{id}/create', 'CourseController@registrationCou
 Route::post('/registration/insert', 'CourseController@registrationInsert')->name('insert-registration');
 
 Route::post('/classpreferences/update', 'CourseController@UserPreferencesUpdate')->name('update-user-class-preferences');
+
+Route::get('files',  'UploadController@getFileUploader')->name('file-uploader');
+
+Route::post('/files/upload', 'UploadController@uploadFile')->name('upload-files');
+
 
 //Route::get('registration', )
 //Route::post('institution/create', 'InstitutionController@instCreate')->name('create-institution');

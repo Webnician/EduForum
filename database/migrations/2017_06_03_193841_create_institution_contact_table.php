@@ -30,7 +30,7 @@ class CreateInstitutionContactTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
+     *2017
      * @return void
      */
     public function down()

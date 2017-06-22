@@ -6,10 +6,14 @@
                     <div class="panel-heading">Menu Component</div>
 
                     <div class="panel-body">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Learning to Learn - LI1104</a></li>
-                        <li><a href="#">Introduction to IS - CS102</a></li>
-                        <li><a href="#">Algebra 1 - MATH100</a></li>
+                        <!--<li><a href="#">Home</a></li>-->
+                        <!--<li><a href="#">Learning to Learn - LI1104</a></li>-->
+                        <!--<li><a href="#">Introduction to IS - CS102</a></li>-->
+                        <!--<li><a href="#">Algebra 1 - MATH100</a></li>-->
+                        <ul v-if="mycourses">
+                            <li v-for="courses in mycourses" ><a :href="'class/' + courses.course_id" >{{courses.title}}</a></li>
+                        </ul>
+
                     </div>
                 </div>
             </div>
@@ -20,6 +24,18 @@
 
 <script>
     export default {
+
+        props: [ 'courses',],
+
+        data(){
+
+
+            return {
+                mycourses   : this.courses,
+                csrf        : "",
+
+            }
+        },
         mounted() {
             console.log('Component mounted.')
         }

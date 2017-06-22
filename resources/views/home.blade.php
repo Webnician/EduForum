@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-md-4 col-lg-4 col-sm-12">
                     <div class="row">
-                        <vmenu></vmenu>
+                        <vmenu :courses = "{{ $courses }}"></vmenu>
                     </div>
                     <div class="row">
                         <contact></contact>

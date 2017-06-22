@@ -44,29 +44,22 @@
 
     export default {
         props:
-            ['students', 'teacher', 'course', 'blocks'],
+            ['students', 'teacher', 'course', 'blocks', 'user', 'adminuser'],
 
         data(){
 
 
             return {
-//                firstspot: 'ClassSection' + this.blocks.second,
-//                secondspot: 'ClassSection' + this.blocks.third,
-                csrf: "",
-//                firsttag : this.first,
-                theuiblock : this.blocks,
-                maincont : 'mainContent',
-                secondaryContentArray: ['col-lg-3 col-md-3 col-sm-12', 'componentBlock'],
-                mainContentArray: ['col-lg-6 col-md-6 col-sm-12', 'mainComponentBlock'],
-//                spot1 : this.blocks[0].title,
-//                spot2 : this.blocks[1].title,
-//                spot3 : this.blocks[2].title,
-//                spot4 : this.blocks[3].title,
-//                spot5 : Home3,
-//                spot6 : Home3,
-                studentlist : this.students,
-                theclass    : this.course,
-                instructor  : this.teacher,
+                csrf                    : "",
+                theuiblock              : this.blocks,
+                maincont                : 'mainContent',
+                secondaryContentArray   : ['col-lg-3 col-md-3 col-sm-12', 'componentBlock'],
+                mainContentArray        : ['col-lg-6 col-md-6 col-sm-12', 'mainComponentBlock'],
+                studentlist             : this.students,
+                theclass                : this.course,
+                instructor              : this.teacher,
+                admin                   : this.adminuser,
+                currentuser             : this.user,
 
             }
         },
@@ -121,6 +114,14 @@
                             students: this.studentlist,
                             teacher : this.instructor,
                             course  : this.theclass,
+                        }
+                    }
+                    if (block.title === 'fileupload') {
+                        return {
+                            teacher     : this.instructor,
+                            course      : this.theclass,
+                            user        : this.currentuser,
+                            adminuser   : this.admin,
                         }
                     }
                 }
