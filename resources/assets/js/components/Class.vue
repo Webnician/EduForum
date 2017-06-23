@@ -44,7 +44,7 @@
 
     export default {
         props:
-            ['students', 'teacher', 'course', 'blocks', 'user', 'adminuser'],
+            ['students', 'teacher', 'course', 'blocks', 'user', 'adminuser', 'schedule'],
 
         data(){
 
@@ -60,6 +60,7 @@
                 instructor              : this.teacher,
                 admin                   : this.adminuser,
                 currentuser             : this.user,
+                schedule_items          : this.schedule,
 
             }
         },
@@ -109,11 +110,13 @@
                             course  : this.theclass,
                         }
                     }
-                    if (block.title === 'classschedule') {
+                    if (block.title === 'schedule') {
                         return {
                             students: this.studentlist,
                             teacher : this.instructor,
                             course  : this.theclass,
+                            schedule: this.schedule_items,
+                            theuser : this.currentuser,
                         }
                     }
                     if (block.title === 'fileupload') {

@@ -6,14 +6,18 @@
                     <div class="panel-heading">Menu Component</div>
 
                     <div class="panel-body">
-                        <!--<li><a href="#">Home</a></li>-->
-                        <!--<li><a href="#">Learning to Learn - LI1104</a></li>-->
-                        <!--<li><a href="#">Introduction to IS - CS102</a></li>-->
-                        <!--<li><a href="#">Algebra 1 - MATH100</a></li>-->
-                        <ul v-if="mycourses">
-                            <li v-for="courses in mycourses" ><a :href="'class/' + courses.course_id" >{{courses.title}}</a></li>
-                        </ul>
-
+                        <div  v-if="showcourses">
+                            <h3>Registrations</h3>
+                            <ul >
+                                <li v-for="courses in mycourses" ><a :href="'class/' + courses.course_id" >{{courses.title}}</a></li>
+                            </ul>
+                        </div>
+                        <div   v-if="showtaught">
+                            <h3>Teaching</h3>
+                            <ul >
+                                <li v-for="courses in taught" ><a :href="'class/' + courses.id" >{{courses.course_name}}</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -25,18 +29,42 @@
 <script>
     export default {
 
-        props: [ 'courses',],
+        props: [ 'courses', 'taughtcourses'],
 
         data(){
 
 
             return {
                 mycourses   : this.courses,
+                taught      : this.taughtcourses,
                 csrf        : "",
+                showcourses : true,
+                showtaught  : true,
 
             }
         },
+        methods:{
+            showTaught: function(taught) {
+                if(taught.length <= 0)
+                {
+                    this.showtaught = false;
+                }
+            },
+            showCourses: function(mycourses)
+            {
+              if(mycourses.length <= 0)
+              {
+                  this.showcourses = false;
+              }
+            }
+
+        },
+        beforeMount(){
+            this.showCourses(this.mycourses);
+            this.showTaught(this.taught);
+        },
         mounted() {
+
             console.log('Component mounted.')
         }
     }

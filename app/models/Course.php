@@ -19,6 +19,12 @@ class Course extends Model
         return $course;
     }
 
+    public static function get_courses_by_teacher($id)
+    {
+        $courses = Course::where('teacher_id', $id)->get();
+        return $courses;
+    }
+
 
 
     protected $fillable = [

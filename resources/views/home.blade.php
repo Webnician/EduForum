@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-md-4 col-lg-4 col-sm-12">
                     <div class="row">
-                        <vmenu :courses = "{{ $courses }}"></vmenu>
+                        <vmenu :courses = "{{ $regcourses }}" :taughtcourses="{{$taughtcourses}}"></vmenu>
                     </div>
                     <div class="row">
                         <contact></contact>
@@ -25,7 +25,7 @@
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-12">
                     <div class="row">
-                        <schedule></schedule>
+                        <schedule :schedule = "{{ $schedule_items }}" :theuser = "{{ $user }}"></schedule>
                     </div>
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-12">

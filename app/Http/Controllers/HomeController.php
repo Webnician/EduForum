@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\models\UserContact;
+use App\ScheduleItems;
 use Illuminate\Http\Request;
 use App\models\User;
 use Illuminate\Support\Facades\Auth;
@@ -29,14 +30,16 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $courses = UserCourse::get_courses_by_user($user['id']);
+        $registeredcourses  = UserCourse::get_courses_by_user($user['id']);
+        $taughtcourses      = Course::get_courses_by_teacher($user['id']);
+        $schedule_items     = ScheduleItems::get_schedule_items_for_user($user);
         $iterator = 0;
-        foreach ($courses as $course)
+        foreach ($registeredcourses as $course)
         {
             $course = Course::get_course($course['course_id']);
-            $courses[$iterator]['title'] = $course['course_name'];
+            $registeredcourses[$iterator]['title'] = $course['course_name'];
             $iterator++;
         }
-        return view('home')->with('user', $user)->with('courses', $courses);
+        return view('home')->with('user', $user)->with('regcourses', $registeredcourses)->with('taughtcourses', $taughtcourses)->with('schedule_items', $schedule_items);
     }
 }

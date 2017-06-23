@@ -1850,7 +1850,7 @@ var Home3 = {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['students', 'teacher', 'course', 'blocks', 'user', 'adminuser'],
+    props: ['students', 'teacher', 'course', 'blocks', 'user', 'adminuser', 'schedule'],
 
     data: function data() {
 
@@ -1864,7 +1864,8 @@ var Home3 = {
             theclass: this.course,
             instructor: this.teacher,
             admin: this.adminuser,
-            currentuser: this.user
+            currentuser: this.user,
+            schedule_items: this.schedule
 
         };
     },
@@ -1908,11 +1909,13 @@ var Home3 = {
                     course: this.theclass
                 };
             }
-            if (block.title === 'classschedule') {
+            if (block.title === 'schedule') {
                 return {
                     students: this.studentlist,
                     teacher: this.instructor,
-                    course: this.theclass
+                    course: this.theclass,
+                    schedule: this.schedule_items,
+                    theuser: this.currentuser
                 };
             }
             if (block.title === 'fileupload') {
@@ -2749,10 +2752,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
+    props: ['schedule', 'theuser'],
+
+    data: function data() {
+
+        return {
+            schedule_items: this.schedule,
+            user: this.theuser
+
+        };
     }
 });
 
@@ -3202,20 +3216,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-    props: ['courses'],
+    props: ['courses', 'taughtcourses'],
 
     data: function data() {
 
         return {
             mycourses: this.courses,
-            csrf: ""
+            taught: this.taughtcourses,
+            csrf: "",
+            showcourses: true,
+            showtaught: true
 
         };
     },
+
+    methods: {
+        showTaught: function showTaught(taught) {
+            if (taught.length <= 0) {
+                this.showtaught = false;
+            }
+        },
+        showCourses: function showCourses(mycourses) {
+            if (mycourses.length <= 0) {
+                this.showcourses = false;
+            }
+        }
+
+    },
+    beforeMount: function beforeMount() {
+        this.showCourses(this.mycourses);
+        this.showTaught(this.taught);
+    },
     mounted: function mounted() {
+
         console.log('Component mounted.');
     }
 });
@@ -36152,21 +36192,27 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "container"
   }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-lg-4 col-md-4 col-sm-12 "
+    staticClass: "col-lg-12 col-md-12 col-sm-12 "
   }, [_c('div', {
     staticClass: "panel panel-default"
-  }, [_c('div', {
-    staticClass: "panel-heading"
-  }, [_vm._v("Schedule Component")]), _vm._v(" "), _c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
-  }, [_c('span', {
+  }, [_c('ul', _vm._l((_vm.schedule_items), function(item) {
+    return _c('li', [_c('a', [_vm._v(_vm._s(item.type))]), _c('span', {
+      staticStyle: {
+        "float": "right"
+      }
+    }, [_vm._v(_vm._s(item.event_date_time))])])
+  }))])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "panel-heading"
+  }, [_vm._v("Schedule Component"), _c('span', {
     staticStyle: {
       "float": "right"
     }
@@ -36178,12 +36224,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "margin-right": "2%"
     }
-  }, [_vm._v("Add Item")]), _vm._v(" "), _c('i', {
+  }), _vm._v(" "), _c('i', {
     staticClass: "fa fa-calendar-plus-o",
     attrs: {
       "aria-hidden": "true"
     }
-  })])])])])])])])
+  })])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -37347,13 +37393,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel-heading"
   }, [_vm._v("Menu Component")]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
-  }, [(_vm.mycourses) ? _c('ul', _vm._l((_vm.mycourses), function(courses) {
+  }, [(_vm.showcourses) ? _c('div', [_c('h3', [_vm._v("Registrations")]), _vm._v(" "), _c('ul', _vm._l((_vm.mycourses), function(courses) {
     return _c('li', [_c('a', {
       attrs: {
         "href": 'class/' + courses.course_id
       }
     }, [_vm._v(_vm._s(courses.title))])])
-  })) : _vm._e()])])])])])
+  }))]) : _vm._e(), _vm._v(" "), (_vm.showtaught) ? _c('div', [_c('h3', [_vm._v("Teaching")]), _vm._v(" "), _c('ul', _vm._l((_vm.taught), function(courses) {
+    return _c('li', [_c('a', {
+      attrs: {
+        "href": 'class/' + courses.id
+      }
+    }, [_vm._v(_vm._s(courses.course_name))])])
+  }))]) : _vm._e()])])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

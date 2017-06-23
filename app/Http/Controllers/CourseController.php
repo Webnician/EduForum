@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\ScheduleItems;
 use App\UserCourse;
 use App\UserPreferences;
 use Illuminate\Http\Request;
@@ -327,6 +328,7 @@ class CourseController extends Controller
                 $teacher                 = User::get_user_by_id($course['teacher_id']);
                 $students                = UserCourse::get_users_by_course($id);
                 $preferences             = UserPreferences::getClassPrefsByUser($user['id']);
+                $schedule_items          = ScheduleItems::get_schedule_items_for_course($course['id']);
                 $uiblock                 = [];
                 $course_preferences      = [];
                 $student_ids             = [];
@@ -349,7 +351,7 @@ class CourseController extends Controller
                 } else {
                     $course_preferences['first'] = "classdocs";
                     $course_preferences['second'] = 'classlist';
-                    $course_preferences['third'] = "classschedule";
+                    $course_preferences['third'] = "schedule";
                     $course_preferences['fourth'] = "assignmentlist";
                     $course_preferences['fifth'] = "fileupload";
                     $course_preferences = \GuzzleHttp\json_encode($course_preferences);
@@ -399,9 +401,10 @@ class CourseController extends Controller
                 $uiblock2[3]['title'] = $course_preferences->fourth;
                 $uiblock2[4]['title'] = $course_preferences->fifth;
                 $uiblock2 = \GuzzleHttp\json_encode($uiblock2);
-//                dd($uiblock2);
 
-                return view('/courses/class')->with('course', $course)->with('students', $student2)->with('teacher', $teacher)->with('blocks', $uiblock2)->with('user', $user);
+
+
+                return view('/courses/class')->with('course', $course)->with('students', $student2)->with('teacher', $teacher)->with('blocks', $uiblock2)->with('user', $user)->with('schedule', $schedule_items);
             }
             else
             {
