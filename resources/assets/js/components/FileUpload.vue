@@ -41,6 +41,7 @@
 
             return {
                 instructor  : this.teacher,
+                instructor  : this.teacher,
                 theclass    : this.course,
                 currentuser : this.user,
                 csrf        : "",

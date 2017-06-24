@@ -21,6 +21,7 @@ class CreateScheduleItemsTable extends Migration
             $table->integer('course_id')->unsigned()->index()->foreign()->references("id")->on("courses")->nullable();
             $table->integer('institution_id')->unsigned()->index()->foreign()->references("id")->on("institutions")->nullable();
             $table->dateTimeTz('event_date_time')->nullable();
+            $table->dateTimeTz('event_end_time')->nullable();
             $table->text('type')->nullable();
             $table->text('description')->nullable();
             $table->text('location')->nullable();

@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-12 ">
+            <div class="col-lg-12 col-md-12 col-sm-12 ">
                 <div class="panel panel-default">
                     <div class="panel-heading">Contact Component</div>
 

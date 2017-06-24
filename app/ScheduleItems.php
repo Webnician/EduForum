@@ -25,4 +25,6 @@ class ScheduleItems extends Model
     {
 
     }
+
+
 }

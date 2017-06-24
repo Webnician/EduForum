@@ -129,6 +129,9 @@ Route::get('files',  'UploadController@getFileUploader')->name('file-uploader');
 
 Route::post('/files/upload', 'UploadController@uploadFile')->name('upload-files');
 
+Route::post('/schedule/add', 'ScheduleItemController@addScheduleItem')->name('add-schedule-item');
+
+Route::post('/schedule/update', 'ScheduleItemController@updateScheduleItem')->name('update-schedule-item');
 
 //Route::get('registration', )
 //Route::post('institution/create', 'InstitutionController@instCreate')->name('create-institution');
