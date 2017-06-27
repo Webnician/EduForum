@@ -23,7 +23,7 @@ class ScheduleItemController extends Controller
         }
     }
 
-    public function updateScheduleItem()
+    public function ScheduleItemOperations()
     {
 
         if(Auth::check()) {
@@ -38,6 +38,12 @@ class ScheduleItemController extends Controller
 
                 dd($input);
             }
+            if($input['actions'] == 'insert')
+            {
+
+                dd($input);
+            }
+
 
 
 

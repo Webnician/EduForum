@@ -351,7 +351,7 @@ class CourseController extends Controller
                 } else {
                     $course_preferences['first'] = "classdocs";
                     $course_preferences['second'] = 'classlist';
-                    $course_preferences['third'] = "schedule";
+                    $course_preferences['third'] = "classschedule";
                     $course_preferences['fourth'] = "assignmentlist";
                     $course_preferences['fifth'] = "fileupload";
                     $course_preferences = \GuzzleHttp\json_encode($course_preferences);

@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 ">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Schedule Component<span style="float: right"><a href="#"><span style="margin-right: 2%"></span>   <i class="fa fa-calendar-plus-o" aria-hidden="true"></i></a></span></div>
+                    <div class="panel-heading">Schedule Component<span style="float: right"><a v-on:click="addNewItem"><span style="margin-right: 2%"></span>   <i class="fa fa-calendar-plus-o" aria-hidden="true"></i></a></span></div>
 
                     <div class="panel-body">
 
@@ -29,7 +29,7 @@
                     </div>
                     <form action="/schedule/update" method="post" id="scheduleUpdateForm">
                         <input type="hidden" name="_token" :value="csrf">
-                        <input type="hidden" name="actions" value="update">
+                        <input type="hidden" name="actions" :value="submitaction">
                     <input v-if="editing" type="text" v-model="selected_schedule_item.type" name="type">
                         <h4 v-else="editing">{{ selected_schedule_item.type }}</h4>
 
@@ -53,11 +53,19 @@
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div>
                                 <h5>Course : </h5>
-                                {{ selected_schedule_item.course_id }}
+                                <!--<input style="width:100%" v-if="editing" type="text" v-model="selected_schedule_item.course_id" name="course">-->
+                                <!--{{ course.id }}-->
+                                <div v-if="course">
+                                <p v-if="creating">{{ course.id }}</p>
+                                </div>
+                                <p v-if="updating">{{ selected_schedule_item.course_id }}</p>
+
                             </div>
                             <div>
                                 <h5>Institution : </h5>
-                                {{ selected_schedule_item.institution_id }}
+                                <!--<p v-if="creating">{{ inst.id }}</p>-->
+                                <p v-if="updating">{{ selected_schedule_item.institution_id }}</p>
+
                             </div>
                         </div>
                     </div>
@@ -67,8 +75,14 @@
                     <form action="/schedule/update" method="post" id="scheduleDeleteForm">
                         <input type="hidden" name="_token" :value="csrf">
                         <input type="hidden" name="actions" value="delete">
-                        <input type="text" v-model="selected_schedule_item.id" name="itemid">
+                        <input type="hidden" v-model="selected_schedule_item.id" name="itemid">
                     </form>
+                    <div v-if="creating">
+                        <button  class="btn-info" type="button" style="display: inline-block" @click="submitForm">
+                            Add Item
+                        </button>
+                    </div>
+                    <div v-else="creating">
                     <div v-if=" selected_schedule_item.user_id == user.id ">
                         <div class="schedule-buttons" v-if="editing"
                              style=" display: block;margin-left: auto;margin-right: auto; text-align:center;">
@@ -79,8 +93,9 @@
                                 Delete Item
                             </button>
                         </div>
-                        <button v-else="editing"  class="btn-info" v-on:click="viewtoedit" style=" display: block;margin-left: auto;margin-right: auto" type="button">Edit Item</button>
+                        <button v-else="editing"  class="btn-info" @click="viewtoedit" style=" display: block;margin-left: auto;margin-right: auto" type="button">Edit Item</button>
 
+                    </div>
                     </div>
                 </div>
             </modal>
@@ -97,7 +112,7 @@
     Vue.use(vmodal);
 
     export default {
-        props: [ 'schedule', 'theuser'],
+        props: [ 'schedule', 'theuser', 'thecourse', 'theinst'],
 
         data(){
 
@@ -108,6 +123,12 @@
                 user                    : this.theuser,
                 editing                 : false,
                 csrf                    : "",
+                submitaction            : 'update',
+                creating                : false,
+                updating                : false,
+                course                : this.thecourse,
+                inst                 : this.theinst,
+
 
             }
         },
@@ -122,12 +143,15 @@
             get_selected_item(index)
             {
                 this.selected_schedule_item = this.schedule_items[index];
+                this.creating = false;
+                this.updating = true;
                 this.modalShow();
 //                alert(index);
             },
             viewtoedit ()
             {
                 this.editing = true;
+                this.submitaction = 'update';
             },
             submitForm ()
             {
@@ -136,6 +160,18 @@
             submitDelete ()
             {
                 document.getElementById("scheduleDeleteForm").submit();
+            },
+            addNewItem ()
+            {
+
+                this.selected_schedule_item = false;
+                this.submitaction = 'insert';
+                this.editing = true;
+                this.creating = true;
+                this.updating = false;
+                this.modalShow();
+
+//                alert('clicked!');
             }
         },
         mounted() {

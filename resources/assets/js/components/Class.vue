@@ -110,13 +110,14 @@
                             course  : this.theclass,
                         }
                     }
-                    if (block.title === 'schedule') {
+                    if (block.title === 'classschedule') {
                         return {
-                            students: this.studentlist,
-                            teacher : this.instructor,
-                            course  : this.theclass,
-                            schedule: this.schedule_items,
-                            theuser : this.currentuser,
+//                            students    : this.studentlist,
+//                            teacher     : this.instructor,
+                            thecourse   : this.theclass,
+                            schedule    : this.schedule_items,
+                            theuser     : this.currentuser,
+                            anadmin     : this.admin,
                         }
                     }
                     if (block.title === 'fileupload') {

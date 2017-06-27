@@ -11237,13 +11237,14 @@ var Home3 = {
                     course: this.theclass
                 };
             }
-            if (block.title === 'schedule') {
+            if (block.title === 'classschedule') {
                 return {
-                    students: this.studentlist,
-                    teacher: this.instructor,
-                    course: this.theclass,
+                    //                            students    : this.studentlist,
+                    //                            teacher     : this.instructor,
+                    thecourse: this.theclass,
                     schedule: this.schedule_items,
-                    theuser: this.currentuser
+                    theuser: this.currentuser,
+                    anadmin: this.admin
                 };
             }
             if (block.title === 'fileupload') {
@@ -11353,6 +11354,115 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_js_modal__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_js_modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_js_modal__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -11372,18 +11482,76 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
+
+Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_js_modal___default.a);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['teacher', 'course', 'students'],
+    props: ['theuser', 'thecourse', 'schedule', 'anadmin'],
 
     data: function data() {
 
         return {
-            studentlist: this.students,
-            instructor: this.teacher,
-            theclass: this.course
+            user: this.theuser,
+            theclass: this.thecourse,
+            schedule_items: this.schedule,
+            csrf: "",
+            selected_schedule_item: false,
+            closed: true,
+            admin: this.anadmin,
+            creating: false,
+            editing: false,
+            existingopen: false,
+            submitaction: "insert"
 
         };
+    },
+
+
+    methods: {
+        itemShow: function itemShow() {
+            //                this.$modal.show('class-schedule-item');
+            this.existingopen = true;
+            this.closed = false;
+        },
+        itemHide: function itemHide() {
+            //                this.$modal.hide('class-schedule-modal');
+            this.existingopen = false;
+            this.editing = false;
+            this.creating = false;
+            this.closed = true;
+        },
+        get_selected_item: function get_selected_item(index) {
+            this.selected_schedule_item = this.schedule_items[index];
+            this.itemShow();
+            //                alert(index);
+        },
+        clickToCreateItem: function clickToCreateItem() {
+            this.creating = true;
+            this.selected_schedule_item = false;
+            this.editing = true;
+            this.closed = false;
+            this.submitaction = 'insert';
+        },
+        clickToExitCreate: function clickToExitCreate() {
+
+            this.creating = false;
+        },
+        editItem: function editItem() {
+            this.submitaction = 'update';
+            this.editing = true;
+        },
+        submitForm: function submitForm() {
+            document.getElementById("scheduleUpdateForm").submit();
+        },
+        submitDelete: function submitDelete() {
+            document.getElementById("scheduleDeleteForm").submit();
+        }
+    },
+
+    mounted: function mounted() {
+        this.csrf = window.Laravel.csrfToken;
     }
 });
 
@@ -12155,6 +12323,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -12162,7 +12345,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_js_modal___default.a);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['schedule', 'theuser'],
+    props: ['schedule', 'theuser', 'thecourse', 'theinst'],
 
     data: function data() {
 
@@ -12171,7 +12354,12 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_js_modal___default.a);
             selected_schedule_item: false,
             user: this.theuser,
             editing: false,
-            csrf: ""
+            csrf: "",
+            submitaction: 'update',
+            creating: false,
+            updating: false,
+            course: this.thecourse,
+            inst: this.theinst
 
         };
     },
@@ -12186,17 +12374,31 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_js_modal___default.a);
         },
         get_selected_item: function get_selected_item(index) {
             this.selected_schedule_item = this.schedule_items[index];
+            this.creating = false;
+            this.updating = true;
             this.modalShow();
             //                alert(index);
         },
         viewtoedit: function viewtoedit() {
             this.editing = true;
+            this.submitaction = 'update';
         },
         submitForm: function submitForm() {
             document.getElementById("scheduleUpdateForm").submit();
         },
         submitDelete: function submitDelete() {
             document.getElementById("scheduleDeleteForm").submit();
+        },
+        addNewItem: function addNewItem() {
+
+            this.selected_schedule_item = false;
+            this.submitaction = 'insert';
+            this.editing = true;
+            this.creating = true;
+            this.updating = false;
+            this.modalShow();
+
+            //                alert('clicked!');
         }
     },
     mounted: function mounted() {
@@ -46823,7 +47025,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-lg-12 col-md-12 col-sm-12 "
   }, [_c('div', {
     staticClass: "panel panel-default"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_vm._v("Schedule Component"), _c('span', {
+    staticStyle: {
+      "float": "right"
+    }
+  }, [_c('a', {
+    on: {
+      "click": _vm.addNewItem
+    }
+  }, [_c('span', {
+    staticStyle: {
+      "margin-right": "2%"
+    }
+  }), _vm._v(" "), _c('i', {
+    staticClass: "fa fa-calendar-plus-o",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])])]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
   }, [_c('ul', _vm._l((_vm.schedule_items), function(item, index) {
     return _c('li', {
@@ -46890,8 +47111,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('input', {
     attrs: {
       "type": "hidden",
-      "name": "actions",
-      "value": "update"
+      "name": "actions"
+    },
+    domProps: {
+      "value": _vm.submitaction
     }
   }), _vm._v(" "), (_vm.editing) ? _c('input', {
     directives: [{
@@ -46986,7 +47209,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-lg-6 col-md-6 col-sm-12"
-  }, [_c('div', [_c('h5', [_vm._v("Course : ")]), _vm._v("\n                            " + _vm._s(_vm.selected_schedule_item.course_id) + "\n                        ")]), _vm._v(" "), _c('div', [_c('h5', [_vm._v("Institution : ")]), _vm._v("\n                            " + _vm._s(_vm.selected_schedule_item.institution_id) + "\n                        ")])])]), _vm._v(" "), _c('div', {
+  }, [_c('div', [_c('h5', [_vm._v("Course : ")]), _vm._v(" "), (_vm.course) ? _c('div', [(_vm.creating) ? _c('p', [_vm._v(_vm._s(_vm.course.id))]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.updating) ? _c('p', [_vm._v(_vm._s(_vm.selected_schedule_item.course_id))]) : _vm._e()]), _vm._v(" "), _c('div', [_c('h5', [_vm._v("Institution : ")]), _vm._v(" "), (_vm.updating) ? _c('p', [_vm._v(_vm._s(_vm.selected_schedule_item.institution_id))]) : _vm._e()])])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   })]), _vm._v(" "), _c('form', {
     attrs: {
@@ -47016,7 +47239,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "selected_schedule_item.id"
     }],
     attrs: {
-      "type": "text",
+      "type": "hidden",
       "name": "itemid"
     },
     domProps: {
@@ -47028,7 +47251,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.selected_schedule_item.id = $event.target.value
       }
     }
-  })]), _vm._v(" "), (_vm.selected_schedule_item.user_id == _vm.user.id) ? _c('div', [(_vm.editing) ? _c('div', {
+  })]), _vm._v(" "), (_vm.creating) ? _c('div', [_c('button', {
+    staticClass: "btn-info",
+    staticStyle: {
+      "display": "inline-block"
+    },
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.submitForm
+    }
+  }, [_vm._v("\n                        Add Item\n                    ")])]) : _c('div', [(_vm.selected_schedule_item.user_id == _vm.user.id) ? _c('div', [(_vm.editing) ? _c('div', {
     staticClass: "schedule-buttons",
     staticStyle: {
       "display": "block",
@@ -47071,29 +47305,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.viewtoedit
     }
-  }, [_vm._v("Edit Item")])]) : _vm._e()])])], 1)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "panel-heading"
-  }, [_vm._v("Schedule Component"), _c('span', {
-    staticStyle: {
-      "float": "right"
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('span', {
-    staticStyle: {
-      "margin-right": "2%"
-    }
-  }), _vm._v(" "), _c('i', {
-    staticClass: "fa fa-calendar-plus-o",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })])])])
-}]}
+  }, [_vm._v("Edit Item")])]) : _vm._e()])])])], 1)])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -47107,8 +47320,6 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "container"
   }, [_c('div', {
@@ -47119,10 +47330,331 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-heading"
-  }, [_vm._v("Class Schedule")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Class Schedule"), (_vm.admin) ? _c('span', {
+    staticStyle: {
+      "float": "right"
+    }
+  }, [_c('a', {
+    on: {
+      "click": function($event) {
+        _vm.clickToCreateItem()
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-calendar-plus-o",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
-  }, [_vm._v("\n                    At a time when the schedule system is in place, its home shall be here\n                ")])])])])])
-}]}
+  }, [(_vm.closed) ? _c('div', {
+    staticClass: "class-item-list"
+  }, [_c('ul', _vm._l((_vm.schedule_items), function(item, index) {
+    return _c('li', {
+      on: {
+        "click": function($event) {
+          _vm.get_selected_item(index)
+        }
+      }
+    }, [_c('a', [_vm._v(_vm._s(item.type))]), _c('span', {
+      staticStyle: {
+        "float": "right"
+      }
+    }, [_vm._v(_vm._s(item.event_date_time))])])
+  }))]) : _c('div', {
+    attrs: {
+      "id": "class-schedule-item"
+    }
+  }, [_c('div', {
+    staticClass: "container ",
+    staticStyle: {
+      "height": "100%"
+    }
+  }, [_c('div', {
+    staticClass: "col-lg-12 col-md-12 col-sm-12 ",
+    staticStyle: {
+      "background-color": "#8da8c5",
+      "color": "#fff",
+      "margin-top": "3%",
+      "margin-bottom": "3%"
+    }
+  }, [_c('h4', [_vm._v("Schedule Item\n                                    "), _c('button', {
+    staticStyle: {
+      "float": "right",
+      "color": "#665"
+    },
+    on: {
+      "click": function($event) {
+        _vm.itemHide()
+      }
+    }
+  }, [_vm._v("\n                                        X\n                                    ")])]), _vm._v(" "), _c('form', {
+    staticStyle: {
+      "color": "#665"
+    },
+    attrs: {
+      "action": "/schedule/update",
+      "method": "post",
+      "id": "scheduleDeleteForm"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "_token"
+    },
+    domProps: {
+      "value": _vm.csrf
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "actions",
+      "value": "delete"
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "courseid"
+    },
+    domProps: {
+      "value": _vm.theclass.id
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "userid"
+    },
+    domProps: {
+      "value": _vm.user.id
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "itemid"
+    },
+    domProps: {
+      "value": _vm.selected_schedule_item.id
+    }
+  })]), _vm._v(" "), _c('form', {
+    staticStyle: {
+      "color": "#665",
+      "padding-bottom": "2%"
+    },
+    attrs: {
+      "action": "/schedule/update",
+      "method": "post",
+      "id": "scheduleUpdateForm"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "_token"
+    },
+    domProps: {
+      "value": _vm.csrf
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "actions"
+    },
+    domProps: {
+      "value": _vm.submitaction
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "courseid"
+    },
+    domProps: {
+      "value": _vm.theclass.id
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "userid"
+    },
+    domProps: {
+      "value": _vm.user.id
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "itemid"
+    },
+    domProps: {
+      "value": _vm.selected_schedule_item.id
+    }
+  }), _vm._v(" "), _c('h4', [(_vm.editing) ? _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.selected_schedule_item.type),
+      expression: "selected_schedule_item.type"
+    }],
+    staticClass: "ctr-block",
+    attrs: {
+      "type": "text",
+      "name": "type",
+      "placeholder": "Type / Title"
+    },
+    domProps: {
+      "value": (_vm.selected_schedule_item.type)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.selected_schedule_item.type = $event.target.value
+      }
+    }
+  }) : _c('span', [_vm._v(_vm._s(_vm.selected_schedule_item.type))])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_vm._v("\n                                        Start :\n                                            "), (_vm.editing) ? _c('input', _vm._b({
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.selected_schedule_item.event_date_time),
+      expression: "selected_schedule_item.event_date_time"
+    }],
+    staticClass: "ctr-block",
+    attrs: {
+      "type": "datetime-local",
+      "name": "starttime"
+    },
+    domProps: {
+      "value": (_vm.selected_schedule_item.event_date_time)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.selected_schedule_item.event_date_time = $event.target.value
+      }
+    }
+  }, 'input', _vm.selected_schedule_item.event_date_time)) : _c('span', [_vm._v(_vm._s(_vm.selected_schedule_item.event_date_time))])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_vm._v("\n                                        End :\n                                        "), (_vm.editing) ? _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.selected_schedule_item.event_end_time),
+      expression: "selected_schedule_item.event_end_time"
+    }],
+    staticClass: "ctr-block",
+    attrs: {
+      "type": "datetime-local",
+      "name": "endtime"
+    },
+    domProps: {
+      "value": (_vm.selected_schedule_item.event_end_time)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.selected_schedule_item.event_end_time = $event.target.value
+      }
+    }
+  }) : _c('span', [_vm._v(_vm._s(_vm.selected_schedule_item.event_end_time))])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_vm._v("\n                                        Location :\n                                        "), (_vm.editing) ? _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.selected_schedule_item.location),
+      expression: "selected_schedule_item.location"
+    }],
+    staticClass: "ctr-block",
+    attrs: {
+      "type": "text",
+      "name": "location",
+      "placeholder": "Location"
+    },
+    domProps: {
+      "value": (_vm.selected_schedule_item.location)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.selected_schedule_item.location = $event.target.value
+      }
+    }
+  }) : _c('span', [_vm._v(_vm._s(_vm.selected_schedule_item.location))])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_vm._v("\n                                        Description :\n                                        "), (_vm.editing) ? _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.selected_schedule_item.description),
+      expression: "selected_schedule_item.description"
+    }],
+    staticClass: "ctr-block",
+    attrs: {
+      "name": "description",
+      "placeholder": "Description"
+    },
+    domProps: {
+      "value": (_vm.selected_schedule_item.description)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.selected_schedule_item.description = $event.target.value
+      }
+    }
+  }) : _c('span', [_vm._v(_vm._s(_vm.selected_schedule_item.description))])])])])])]), _vm._v(" "), (_vm.admin) ? _c('div', {
+    staticClass: "row"
+  }, [(_vm.existingopen) ? _c('div', {
+    staticClass: "col-lg-12 col-md-12 col-sm-12 ",
+    staticStyle: {}
+  }, [(_vm.editing) ? _c('div', {
+    staticClass: "col-lg-12 col-md-12 col-sm-12 ",
+    staticStyle: {}
+  }, [_c('button', {
+    staticClass: "btn-info ctr-block",
+    staticStyle: {
+      "display": "inline-block"
+    },
+    on: {
+      "click": function($event) {
+        _vm.submitForm()
+      }
+    }
+  }, [_vm._v("Update Item\n                                ")])]) : _c('div', {
+    staticClass: "col-lg-12 col-md-12 col-sm-12 ",
+    staticStyle: {}
+  }, [_c('button', {
+    staticClass: "btn-info ctr-block",
+    staticStyle: {
+      "display": "inline-block"
+    },
+    on: {
+      "click": function($event) {
+        _vm.editItem()
+      }
+    }
+  }, [_vm._v("Edit Item\n                                ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn-info ctr-block",
+    staticStyle: {
+      "display": "inline-block"
+    },
+    on: {
+      "click": function($event) {
+        _vm.submitDelete()
+      }
+    }
+  }, [_vm._v("Delete Item\n                                ")])])]) : _vm._e(), _vm._v(" "), (_vm.creating) ? _c('div', {
+    staticClass: "col-lg-12 col-md-12 col-sm-12 "
+  }, [_c('button', {
+    staticClass: "btn-info ctr-block",
+    staticStyle: {
+      "display": "inline-block"
+    },
+    on: {
+      "click": function($event) {
+        _vm.submitForm()
+      }
+    }
+  }, [_vm._v("Add")])]) : _vm._e()]) : _vm._e()])])])])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
