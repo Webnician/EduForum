@@ -21,6 +21,32 @@ $sourcesans                   :  'Source Sans Pro', sans-serif;
 $droidsans                    :  'Droid Sans', sans-serif;
 $raleway                      : 'Raleway', sans-serif;
 
+$triad-base           : #8DA8C5;
+$triad-red            : #FF2A19;
+$triad-blue           : #007BFF;
+$triad-light-yellow   : #B4CC14;
+$triad-dark-yellow    : #9DB209;
+
+$comp-base            :#8DA8C5;
+$comp-med-blue        :#6794C5;
+$comp-red             :#CF544B;
+$comp-light-green     : #8B925A;
+$comp-dark-green      : #6D7822;
+$comp-brown           : #78633E;
+$comp-khaki           :#C5B08D;
+
+$scheme-base          : #8DA8C5;
+$scheme-1             : #3D3B30;
+$scheme-2             : #E7E247;
+$scheme-3             : #4D5061;
+$scheme-4             : #E9EDDE;
+
+$scheme2-base          : #6794C5;
+$scheme2-1             : #E07A5F;
+$scheme2-2             : #F4F1DE;
+$scheme2-3             : #3D405B;
+$scheme2-4             : #FAECD6;
+
 .center{
   text-align:center;
 }
@@ -37,17 +63,38 @@ $raleway                      : 'Raleway', sans-serif;
 }
 
 body {
-  background-color: $background-color;
+  background-color: $scheme2-base;
   font-family: $droidsans;
+  font-size: 160%;
 }
+
+i{
+
+  color: $scheme2-1;
+}
+
+
+.navbar{
+  background-color: $scheme2-1;
+  i{
+    color: $linen;
+  }
+}
+
 .btn-info{
   border: 2px ridge $lighter-border-color;
   background-color: $darker-background-color;
 }
 
 .panel{
-  background-color: $lighter-border-color;
-  box-shadow: 5px 5px 5px #888888;
+  background-color: $scheme2-2;
+  color: $scheme2-3;
+  box-shadow: 2px 2px 2px $scheme2-1;
+  a{
+    color: $scheme2-3;
+    text-decoration: none;
+  }
+
 }
 
 .comp-main-div

@@ -30,6 +30,9 @@
                     <form action="/schedule/update" method="post" id="scheduleUpdateForm">
                         <input type="hidden" name="_token" :value="csrf">
                         <input type="hidden" name="actions" :value="submitaction">
+                        <input type="hidden" name="userid" :value="user.id">
+                        <input type="hidden" name="courseid" value="">
+                        <input type="hidden" name="itemid" :value="selected_schedule_item.id">
                     <input v-if="editing" type="text" v-model="selected_schedule_item.type" name="type">
                         <h4 v-else="editing">{{ selected_schedule_item.type }}</h4>
 
@@ -49,26 +52,31 @@
                             <p v-else="editing">{{ selected_schedule_item.description }}</p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <div>
-                                <h5>Course : </h5>
-                                <!--<input style="width:100%" v-if="editing" type="text" v-model="selected_schedule_item.course_id" name="course">-->
-                                <!--{{ course.id }}-->
-                                <div v-if="course">
-                                <p v-if="creating">{{ course.id }}</p>
-                                </div>
-                                <p v-if="updating">{{ selected_schedule_item.course_id }}</p>
-
-                            </div>
-                            <div>
-                                <h5>Institution : </h5>
-                                <!--<p v-if="creating">{{ inst.id }}</p>-->
-                                <p v-if="updating">{{ selected_schedule_item.institution_id }}</p>
-
-                            </div>
+                        <div class="row">
+                            Location :
+                            <input class="ctr-block" v-if="editing" type="text" v-model="selected_schedule_item.location" name="location" placeholder="Location">
+                            <span v-else="editing">{{ selected_schedule_item.location }}</span>
                         </div>
-                    </div>
+                    <!--<div class="row">-->
+                        <!--<div class="col-lg-6 col-md-6 col-sm-12">-->
+                            <!--<div>-->
+                                <!--<h5>Course : </h5>-->
+                                <!--&lt;!&ndash;<input style="width:100%" v-if="editing" type="text" v-model="selected_schedule_item.course_id" name="course">&ndash;&gt;-->
+                                <!--&lt;!&ndash;{{ course.id }}&ndash;&gt;-->
+                                <!--<div v-if="course">-->
+                                <!--<p v-if="creating">{{ course.id }}</p>-->
+                                <!--</div>-->
+                                <!--<p v-if="updating">{{ selected_schedule_item.course_id }}</p>-->
+
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--<h5>Institution : </h5>-->
+                                <!--&lt;!&ndash;<p v-if="creating">{{ inst.id }}</p>&ndash;&gt;-->
+                                <!--<p v-if="updating">{{ selected_schedule_item.institution_id }}</p>-->
+
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
                     <div class="row"></div>
 
                     </form >

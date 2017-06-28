@@ -43,7 +43,7 @@
                         </div>
                         <div v-else="closed" id="class-schedule-item">
                             <div class="container " style="height:100%">
-                                <div class="col-lg-12 col-md-12 col-sm-12 " style="background-color: #8da8c5; color:#fff; margin-top: 3%; margin-bottom:3%;">
+                                <div class="col-lg-12 col-md-12 col-sm-12 " style=" margin-top: 3%; margin-bottom:3%;">
                                     <h4 >Schedule Item
                                         <button style="float: right; color:#665" @click="itemHide()">
                                             X

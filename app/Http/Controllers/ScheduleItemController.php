@@ -31,17 +31,24 @@ class ScheduleItemController extends Controller
             $input = Input::get();
             if($input['actions'] == 'update')
             {
-                dd($input);
+//                dd($input);
+                $id = $input['itemid'];
+                ScheduleItems::update_schedule_item($id, $input);
+                return redirect()->back();
             }
             if($input['actions'] == 'delete')
             {
+                $item = ScheduleItems::get_item_by_id($input['itemid']);
+                ScheduleItems::delete_item_with_id($item->id);
+                return redirect()->back();
 
-                dd($input);
             }
             if($input['actions'] == 'insert')
             {
 
-                dd($input);
+//                dd($input);
+                ScheduleItems::create_new_schedule_item($input);
+                return redirect()->back();
             }
 
 
