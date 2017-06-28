@@ -91,7 +91,7 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height the-head" style="background-image: url('/images/eduforumiconnotext.png'); background-repeat: no-repeat; background-size: 100% 200px; ">
+        <div class="flex-center position-ref full-height the-head" style=" background-repeat: no-repeat; background-size: 100% 200px; ">
 
             @if (Route::has('login'))
                 <div class="top-right links">
@@ -116,7 +116,7 @@
 
             <div class="content">
                 {{--<div class="title m-b-md col-lg-12 col-md-12 col-sm-12">--}}
-                <div class="title col-lg-12 col-md-12 col-sm-12">
+                <div class="title col-lg-12 col-md-12 col-sm-12" style="color: linen">
                     Welcome to EduForum
                 </div>
 
