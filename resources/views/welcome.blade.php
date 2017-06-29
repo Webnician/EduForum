@@ -17,6 +17,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Droid+Sans|Khula|Slabo+27px|Source+Sans+Pro" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
         <script>
@@ -35,7 +36,7 @@
             html, body {
 
                 color: #636b6f;
-                font-family: 'Raleway', sans-serif;
+                font-family: 'Droid Sans', sans-serif;
                 font-weight: 100;
                 height: 100vh;
                 margin: 0;

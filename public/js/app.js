@@ -12781,9 +12781,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
+    props: ['user_contacts'],
+
+    data: function data() {
+
+        return {
+            contacts: this.user_contacts
+
+        };
     }
 });
 
@@ -46359,9 +46366,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('h3', {
     staticClass: "list-heading"
   }, [_vm._v("LI1104")]), _vm._v(" "), _c('ul', {
-    staticStyle: {
-      "text-decoration": "underline"
-    }
+    staticStyle: {}
   }, [_c('li', [_c('a', {
     attrs: {
       "href": "#"
@@ -46377,9 +46382,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Willy Wonka")])])]), _vm._v(" "), _c('h3', {
     staticClass: "list-heading"
   }, [_vm._v("CS102")]), _vm._v(" "), _c('ul', {
-    staticStyle: {
-      "text-decoration": "underline"
-    }
+    staticStyle: {}
   }, [_c('li', [_c('a', {
     attrs: {
       "href": "#"

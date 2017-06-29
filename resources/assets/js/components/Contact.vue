@@ -7,13 +7,13 @@
 
                     <div class="panel-body">
                         <h3 class="list-heading">LI1104</h3>
-                        <ul style=" text-decoration: underline;">
+                        <ul style=" ">
                         <li><a href="#">John Bohnam</a></li>
                         <li><a href="#">Billy Jean</a></li>
                         <li><a href="#">Willy Wonka</a></li>
                         </ul>
                         <h3 class="list-heading">CS102</h3>
-                        <ul style=" text-decoration: underline;">
+                        <ul style=" ">
                             <li><a href="#">James Rollins</a></li>
                             <li><a href="#">Larry Niven</a></li>
                             <li><a href="#">Robert Heinlein</a></li>
@@ -29,9 +29,21 @@
 </template>
 
 <script>
+
+
+
+
     export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
+        props: [ 'user_contacts', ],
+
+        data(){
+
+
+            return {
+                contacts: this.user_contacts,
+
+
+            }
+        },
     }
 </script>

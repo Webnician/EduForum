@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\UserCourse;
+use App\models\User;
 
 class Course extends Model
 {
@@ -25,6 +26,14 @@ class Course extends Model
         return $courses;
     }
 
+    public static function get_teacher_by_course($id)
+    {
+        $course = Course::where('id', $id)->get();
+//        dd($course);
+        $teacher_id = $course[0]->teacher_id;
+        $teacher = User::get_user_by_id($teacher_id);
+        return $teacher;
+    }
 
 
     protected $fillable = [

@@ -73,6 +73,23 @@ i{
   color: $scheme2-1;
 }
 
+.homeDivRoot ul{
+  padding-left: 0px;
+}
+.homeDivRoot  li{
+  list-style: none;
+
+  width: 100%;
+
+  border-bottom: 1px ridge $scheme2-3;
+}
+.homeDivRoot  li:nth-child(1)
+{
+  border-top: 1px ridge $scheme2-3;
+}
+.homeDivRoot  li a:link{
+  text-decoration: none;
+}
 
 .navbar{
   background-color: $scheme2-1;
@@ -102,13 +119,17 @@ i{
   max-width: 32%;
 }
 
+.theuserinterface{
+  height:500px;
+}
 .theuserinterface .container
 {
   max-width: 100%;
 }
 
 .theuserinterface .mainComponentBlock{
-  max-height:80%;
+  height:500px;
+  //max-height:80%;
 }
 
 .theuserinterface .componentBlock{

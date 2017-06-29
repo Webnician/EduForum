@@ -11,4 +11,6 @@ class Contact extends Model
         $contact = Contact::find($id);
         return $contact;
     }
+
+
 }
