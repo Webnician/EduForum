@@ -12367,7 +12367,7 @@ var Home3 = {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['students', 'teacher', 'course', 'blocks', 'user', 'adminuser', 'schedule'],
+    props: ['students', 'teacher', 'course', 'blocks', 'user', 'adminuser', 'schedule', 'files'],
 
     data: function data() {
 
@@ -12382,7 +12382,8 @@ var Home3 = {
             instructor: this.teacher,
             admin: this.adminuser,
             currentuser: this.user,
-            schedule_items: this.schedule
+            schedule_items: this.schedule,
+            class_files: this.files
 
         };
     },
@@ -12416,7 +12417,8 @@ var Home3 = {
                 return {
                     students: this.studentlist,
                     teacher: this.instructor,
-                    course: this.theclass
+                    course: this.theclass,
+                    files: this.class_files
                 };
             }
             if (block.title === 'assignmentlist') {
@@ -12478,17 +12480,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['teacher', 'course', 'students'],
+    props: ['teacher', 'course', 'students', 'files'],
 
     data: function data() {
 
         return {
             studentlist: this.students,
             instructor: this.teacher,
-            theclass: this.course
+            theclass: this.course,
+            class_files: this.files
 
         };
     }
@@ -13074,8 +13080,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+//
+//
+//
+//
 //
 //
 //
@@ -13109,11 +13117,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     props: ['teacher', 'course', 'user', 'adminuser'],
 
     data: function data() {
-        var _ref;
 
-        return _ref = {
-            instructor: this.teacher
-        }, _defineProperty(_ref, 'instructor', this.teacher), _defineProperty(_ref, 'theclass', this.course), _defineProperty(_ref, 'currentuser', this.user), _defineProperty(_ref, 'csrf', ""), _defineProperty(_ref, 'isSaving', false), _defineProperty(_ref, 'admin', this.adminuser), _ref;
+        return {
+            instructor: this.teacher,
+            theclass: this.course,
+            currentuser: this.user,
+            csrf: "",
+            isSaving: false,
+            admin: this.adminuser
+        };
     },
 
     methods: {
@@ -47732,8 +47744,6 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "container"
   }, [_c('div', {
@@ -47746,24 +47756,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel-heading"
   }, [_vm._v("Class Documents")]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
-  }, [_c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Home")])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Learning to Learn - LI1104")])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Introduction to IS - CS102")])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Algebra 1 - MATH100")])])])])])])])
-}]}
+  }, _vm._l((_vm.class_files), function(filename, index) {
+    return (_vm.class_files) ? _c('li', [_c('a', {
+      attrs: {
+        "href": '/files/' + filename
+      }
+    }, [_vm._v("File " + _vm._s(index))])]) : _vm._e()
+  }))])])])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -48811,7 +48811,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "value": _vm.currentuser.id
     }
-  }), _vm._v(" "), _c('input', {
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "filename"
+    }
+  }, [_vm._v("Name File")]), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "text",
+      "id": "filename",
+      "name": "filename"
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "file"
+    }
+  }, [_vm._v("Choose File")]), _vm._v(" "), _c('input', {
     staticClass: "input-file",
     attrs: {
       "type": "file",
@@ -48819,13 +48833,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "file",
       "id": "file"
     }
-  }), _vm._v(" "), _c('button', {
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "file-upload-button"
+    }
+  }, [_vm._v("Upload File to Course")]), _vm._v(" "), _c('button', {
+    attrs: {
+      "id": "file-upload-button"
+    },
     on: {
       "click": function($event) {
         _vm.checkForFiles()
       }
     }
-  }, [_vm._v("Send it off")]), _vm._v(" "), (_vm.isSaving) ? _c('p', [_vm._v("\n                           Uploading files...\n                       ")]) : _vm._e()])])])])])]) : _vm._e()
+  }, [_vm._v("Upload")]), _vm._v(" "), (_vm.isSaving) ? _c('p', [_vm._v("\n                           Uploading files...\n                       ")]) : _vm._e()])])])])])]) : _vm._e()
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

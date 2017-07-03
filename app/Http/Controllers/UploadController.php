@@ -12,6 +12,7 @@ use App\models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Course;
 use App\UserCourse;
+use App\Files;
 
 
 
@@ -33,9 +34,21 @@ class UploadController extends Controller
     public function uploadFile(Request $request)
 {
     $input = $request->all();
-    $thefiles = $input['file'];
-//    dd($input);
-    Storage::putFile('coursedocuments/'.$input['course'].'/'.$input['user'], new File($thefiles));
+        Files::uploadFileToDisk($input);
+
         return redirect()->back();
 }
+
+    public function getFilesByClassId($id)
+    {
+        $documents = Files::getFilesByCourseId($id);
+        dd($documents);
+    }
+
+    public function getFileName($course_id, $user_id, $name)
+    {
+//        dd($name);
+        Files::getFileByName($course_id, $user_id, $name);
+    }
+
 }

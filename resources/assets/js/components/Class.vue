@@ -44,7 +44,7 @@
 
     export default {
         props:
-            ['students', 'teacher', 'course', 'blocks', 'user', 'adminuser', 'schedule'],
+            ['students', 'teacher', 'course', 'blocks', 'user', 'adminuser', 'schedule', 'files'],
 
         data(){
 
@@ -61,6 +61,7 @@
                 admin                   : this.adminuser,
                 currentuser             : this.user,
                 schedule_items          : this.schedule,
+                class_files             : this.files,
 
             }
         },
@@ -101,6 +102,7 @@
                             students: this.studentlist,
                             teacher : this.instructor,
                             course  : this.theclass,
+                            files   : this.class_files,
                         }
                     }
                     if (block.title === 'assignmentlist') {

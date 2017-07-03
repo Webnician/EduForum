@@ -11,9 +11,13 @@
                            <input type="hidden" name="_token" :value="csrf">
                            <input type="hidden" name="course" :value="theclass.id">
                            <input type="hidden" name="user" :value="currentuser.id">
+                           <label for="filename">Name File</label>
+                           <input type="text" id="filename" name="filename" />
+                           <label for="file">Choose File</label>
                            <input type="file"  multiple   name="file" id="file"  class="input-file">
                            <!--accept="image/*"-->
-                           <button v-on:click="checkForFiles()">Send it off</button>
+                           <label for="file-upload-button">Upload File to Course</label>
+                           <button id="file-upload-button" v-on:click="checkForFiles()">Upload</button>
                            <p v-if="isSaving">
                                Uploading files...
                            </p>
@@ -40,7 +44,6 @@
 
 
             return {
-                instructor  : this.teacher,
                 instructor  : this.teacher,
                 theclass    : this.course,
                 currentuser : this.user,

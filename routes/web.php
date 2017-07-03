@@ -133,5 +133,7 @@ Route::post('/schedule/add', 'ScheduleItemController@addScheduleItem')->name('ad
 
 Route::post('/schedule/update', 'ScheduleItemController@ScheduleItemOperations')->name('update-schedule-item');
 
+Route::get('/files/coursedocuments/{course_id}/{user_id}/{name}', 'UploadController@getFileName')->name('fetch-file');
+
 //Route::get('registration', )
 //Route::post('institution/create', 'InstitutionController@instCreate')->name('create-institution');

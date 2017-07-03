@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
 use Illuminate\Http\UploadedFile;
+use App\Files;
 
 class CourseController extends Controller
 {
@@ -329,6 +330,8 @@ class CourseController extends Controller
                 $students                = UserCourse::get_users_by_course($id);
                 $preferences             = UserPreferences::getClassPrefsByUser($user['id']);
                 $schedule_items          = ScheduleItems::get_schedule_items_for_course($course['id']);
+                $files                   = Files::getFilesByCourseId($id);
+                $files                   = \GuzzleHttp\json_encode($files);
                 $uiblock                 = [];
                 $course_preferences      = [];
                 $student_ids             = [];
@@ -404,7 +407,9 @@ class CourseController extends Controller
 
 
 
-                return view('/courses/class')->with('course', $course)->with('students', $student2)->with('teacher', $teacher)->with('blocks', $uiblock2)->with('user', $user)->with('schedule', $schedule_items);
+                return view('/courses/class')->with('course', $course)->with('students', $student2)
+                    ->with('teacher', $teacher)->with('blocks', $uiblock2)->with('user', $user)->with('schedule', $schedule_items)
+                    ->with('files', $files);
             }
             else
             {
