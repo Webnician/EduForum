@@ -6,19 +6,26 @@
                     <div class="panel-heading">Contact Component</div>
 
                     <div class="panel-body">
-                        <h3 class="list-heading">LI1104</h3>
-                        <ul style=" ">
-                        <li><a href="#">John Bohnam</a></li>
-                        <li><a href="#">Billy Jean</a></li>
-                        <li><a href="#">Willy Wonka</a></li>
-                        </ul>
-                        <h3 class="list-heading">CS102</h3>
-                        <ul style=" ">
-                            <li><a href="#">James Rollins</a></li>
-                            <li><a href="#">Larry Niven</a></li>
-                            <li><a href="#">Robert Heinlein</a></li>
-                            <li><a href="#">Anne Rice</a></li>
-                            <li><a href="#">Bernard Cornwell</a></li>
+
+                        <ul>
+                            <li v-for="(course, index) in contacts"><span class="contact-course-title">{{ course.name }}</span>
+                                <ul>
+                                    <li v-if="course.instructor_name"><span style="font-weight: bold;">Instructor : </span> {{ course.instructor_name }}
+                                    <br />
+                                        <span v-if="course.instructor_email" >
+                                            <a :href="'mailto:' + course.instructor_email" v-model="course.instructor_email" >Contact</a>
+                                        </span>
+                                    </li>
+                                    <li v-if="currentuser.id != user.id" v-for="(user, index) in course">
+                                        <!--{{ user.fname}} {{ user.lname }}-->
+                                        <a :href="'/user/'+ user.id" v-model="user.id">
+                                             {{ user.fname }} {{ user.lname }}</a>
+                                        <span v-if="user.email" style="float: right">
+                                            <a :href="'mailto:' + user.email" v-model="user.email">Contact</a>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -34,13 +41,14 @@
 
 
     export default {
-        props: [ 'user_contacts', ],
+        props: [ 'user_contacts', 'theuser' ],
 
         data(){
 
 
             return {
-                contacts: this.user_contacts,
+                contacts        : this.user_contacts,
+                currentuser     : this.theuser,
 
 
             }

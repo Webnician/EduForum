@@ -35,7 +35,7 @@
         <style>
             html, body {
 
-                color: #636b6f;
+                /*color: #636b6f;*/
                 font-family: 'Droid Sans', sans-serif;
                 font-weight: 100;
                 height: 100vh;
@@ -74,7 +74,7 @@
             }
 
             .links > a {
-                color: #f7f7f7;
+                /*color: #f7f7f7;*/
                 padding: 0 25px;
                 font-size: 12px;
                 font-weight: 600;
@@ -95,7 +95,7 @@
         <div class="flex-center position-ref full-height the-head" style=" background-repeat: no-repeat; background-size: 100% 200px; ">
 
             @if (Route::has('login'))
-                <div class="top-right links">
+                <div class="top-right links welcome-links">
                     @if (Auth::check())
                         <a href="{{ url('/home') }}">Home</a>
                         <a href="{{ url('/profile') }}">Profile</a>
@@ -115,9 +115,9 @@
                 </div>
             @endif
 
-            <div class="content">
+            <div class="content welcome-content">
                 {{--<div class="title m-b-md col-lg-12 col-md-12 col-sm-12">--}}
-                <div class="title col-lg-12 col-md-12 col-sm-12" style="color: linen">
+                <div class="title col-lg-12 col-md-12 col-sm-12" style="">
                     Welcome to EduForum
                 </div>
 

@@ -41,11 +41,17 @@ $scheme-2             : #E7E247;
 $scheme-3             : #4D5061;
 $scheme-4             : #E9EDDE;
 
-$scheme2-base          : #6794C5;
-$scheme2-1             : #E07A5F;
-$scheme2-2             : #F4F1DE;
-$scheme2-3             : #3D405B;
-$scheme2-4             : #FAECD6;
+$scheme2-base          : #F2EBC7;
+$scheme2-1             : #962D3E;
+$scheme2-2             : #979C9C;
+$scheme2-3             : #343642;
+$scheme2-4             : #348899;
+
+$scheme3-base          : #6794C5;
+$scheme3-1             : #E07A5F;
+$scheme3-2             : #F4F1DE;
+$scheme3-3             : #3D405B;
+$scheme3-4             : #FAECD6;
 
 .center{
   text-align:center;
@@ -63,14 +69,40 @@ $scheme2-4             : #FAECD6;
 }
 
 body {
-  background-color: $scheme2-base;
+  background-color: $linen;
   font-family: $droidsans;
   font-size: 160%;
 }
 
+.welcome-links a:link{
+  color: $scheme3-base;
+}
+
+.welcome-content{
+  color: $scheme3-base;
+}
+
+.header-logo {
+  color: $scheme3-4!important;
+}
+
+.header-nav a{
+
+    color: $scheme3-4!important;
+}
+.header-nav-right a{
+  color: $scheme3-4!important;
+}
+
+
 i{
 
   color: $scheme2-1;
+}
+
+.contact-course-title{
+  font-size: 120%;
+  font-weight: 500;
 }
 
 .homeDivRoot ul{
@@ -92,7 +124,11 @@ i{
 }
 
 .navbar{
-  background-color: $scheme2-1;
+  background-color: $scheme2-4;
+
+  li a:link{
+    color: $linen;
+  }
   i{
     color: $linen;
   }
@@ -104,9 +140,13 @@ i{
 }
 
 .panel{
-  background-color: $scheme2-2;
+  background-color: $scheme2-base;
   color: $scheme2-3;
   box-shadow: 2px 2px 2px $scheme2-1;
+  .panel-heading{
+    background-color: $scheme2-4;
+    color: $linen;
+  }
   a{
     color: $scheme2-3;
     text-decoration: none;

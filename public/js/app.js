@@ -12780,15 +12780,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['user_contacts'],
+    props: ['user_contacts', 'theuser'],
 
     data: function data() {
 
         return {
-            contacts: this.user_contacts
+            contacts: this.user_contacts,
+            currentuser: this.theuser
 
         };
     }
@@ -46349,8 +46357,6 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "container"
   }, [_c('div', {
@@ -46363,48 +46369,55 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel-heading"
   }, [_vm._v("Contact Component")]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
-  }, [_c('h3', {
-    staticClass: "list-heading"
-  }, [_vm._v("LI1104")]), _vm._v(" "), _c('ul', {
-    staticStyle: {}
-  }, [_c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("John Bohnam")])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Billy Jean")])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Willy Wonka")])])]), _vm._v(" "), _c('h3', {
-    staticClass: "list-heading"
-  }, [_vm._v("CS102")]), _vm._v(" "), _c('ul', {
-    staticStyle: {}
-  }, [_c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("James Rollins")])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Larry Niven")])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Robert Heinlein")])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Anne Rice")])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Bernard Cornwell")])])])])])])])])
-}]}
+  }, [_c('ul', _vm._l((_vm.contacts), function(course, index) {
+    return _c('li', [_c('span', {
+      staticClass: "contact-course-title"
+    }, [_vm._v(_vm._s(course.name))]), _vm._v(" "), _c('ul', [(course.instructor_name) ? _c('li', [_c('span', {
+      staticStyle: {
+        "font-weight": "bold"
+      }
+    }, [_vm._v("Instructor : ")]), _vm._v(" " + _vm._s(course.instructor_name) + "\n                                "), _c('br'), _vm._v(" "), (course.instructor_email) ? _c('span', [_c('a', {
+      attrs: {
+        "href": 'mailto:' + course.instructor_email
+      },
+      model: {
+        value: (course.instructor_email),
+        callback: function($$v) {
+          course.instructor_email = $$v
+        },
+        expression: "course.instructor_email"
+      }
+    }, [_vm._v("Contact")])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _vm._l((course), function(user, index) {
+      return (_vm.currentuser.id != user.id) ? _c('li', [_c('a', {
+        attrs: {
+          "href": '/user/' + user.id
+        },
+        model: {
+          value: (user.id),
+          callback: function($$v) {
+            user.id = $$v
+          },
+          expression: "user.id"
+        }
+      }, [_vm._v("\n                                         " + _vm._s(user.fname) + " " + _vm._s(user.lname))]), _vm._v(" "), (user.email) ? _c('span', {
+        staticStyle: {
+          "float": "right"
+        }
+      }, [_c('a', {
+        attrs: {
+          "href": 'mailto:' + user.email
+        },
+        model: {
+          value: (user.email),
+          callback: function($$v) {
+            user.email = $$v
+          },
+          expression: "user.email"
+        }
+      }, [_vm._v("Contact")])]) : _vm._e()]) : _vm._e()
+    })], 2)])
+  }))])])])])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

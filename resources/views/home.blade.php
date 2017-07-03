@@ -22,7 +22,7 @@
                         <vmenu :courses = "{{ $regcourses }}" :taughtcourses="{{$taughtcourses}}"></vmenu>
                     </div>
                     <div class="row">
-                        <contact :user_contacts="{{ $user_contacts }}"></contact>
+                        <contact :user_contacts="{{ $user_contacts }}" :theuser = "{{ $user }}"></contact>
                     </div>
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-12">
