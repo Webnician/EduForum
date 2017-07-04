@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 ">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Schedule Component<span style="float: right"><a v-on:click="addNewItem"><span style="margin-right: 2%"></span>   <i class="fa fa-calendar-plus-o" aria-hidden="true"></i></a></span></div>
+                    <div class="panel-heading">My Schedule<span style="float: right"><a v-on:click="addNewItem"><span style="margin-right: 2%"></span>   <i class="fa fa-calendar-plus-o" aria-hidden="true"></i></a></span></div>
 
                     <div class="panel-body">
 
@@ -57,26 +57,7 @@
                             <input class="ctr-block" v-if="editing" type="text" v-model="selected_schedule_item.location" name="location" placeholder="Location">
                             <span v-else="editing">{{ selected_schedule_item.location }}</span>
                         </div>
-                    <!--<div class="row">-->
-                        <!--<div class="col-lg-6 col-md-6 col-sm-12">-->
-                            <!--<div>-->
-                                <!--<h5>Course : </h5>-->
-                                <!--&lt;!&ndash;<input style="width:100%" v-if="editing" type="text" v-model="selected_schedule_item.course_id" name="course">&ndash;&gt;-->
-                                <!--&lt;!&ndash;{{ course.id }}&ndash;&gt;-->
-                                <!--<div v-if="course">-->
-                                <!--<p v-if="creating">{{ course.id }}</p>-->
-                                <!--</div>-->
-                                <!--<p v-if="updating">{{ selected_schedule_item.course_id }}</p>-->
 
-                            <!--</div>-->
-                            <!--<div>-->
-                                <!--<h5>Institution : </h5>-->
-                                <!--&lt;!&ndash;<p v-if="creating">{{ inst.id }}</p>&ndash;&gt;-->
-                                <!--<p v-if="updating">{{ selected_schedule_item.institution_id }}</p>-->
-
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
                     <div class="row"></div>
 
                     </form >

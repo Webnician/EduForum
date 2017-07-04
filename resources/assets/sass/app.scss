@@ -89,15 +89,17 @@ body {
 .header-nav a{
 
     color: $scheme3-4!important;
+
 }
 .header-nav-right a{
   color: $scheme3-4!important;
+
 }
 
 
 i{
 
-  color: $scheme2-1;
+  color: $scheme3-4;
 }
 
 .contact-course-title{
@@ -257,3 +259,16 @@ max-width:100%;
   max-width:100%;
 }
 
+
+.empty-notif{
+  color: $scheme3-1;
+}
+
+.empty-notif-link {
+  font-size: 120%;
+  color: $scheme3-1;
+
+}
+.empty-notif-link a:any-link{
+  color: $scheme3-1!important;
+}

@@ -239,7 +239,7 @@ class ProfileController extends Controller
         if(Auth::check())
         {
             $user = Auth::user();
-            if ($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin'))
+            if ($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin') || $user['id'] == $id)
             {
                 $user                   = User::get_user_by_id($id);
                 $contact                = UserContact::get_contact_by_user_id($id);

@@ -13543,25 +13543,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -14052,6 +14033,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -46379,9 +46361,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-heading"
-  }, [_vm._v("Contact Component")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Class Contacts")]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
-  }, [_c('ul', _vm._l((_vm.contacts), function(course, index) {
+  }, [(_vm.contacts.length == 0) ? _c('div', {
+    staticClass: "empty-notif"
+  }, [_vm._v("Your classmates will show up here")]) : _vm._e(), _vm._v(" "), _c('ul', _vm._l((_vm.contacts), function(course, index) {
     return _c('li', [_c('span', {
       staticClass: "contact-course-title"
     }, [_vm._v(_vm._s(course.name))]), _vm._v(" "), _c('ul', [(course.instructor_name) ? _c('li', [_c('span', {
@@ -47063,7 +47047,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-heading"
-  }, [_vm._v("Schedule Component"), _c('span', {
+  }, [_vm._v("My Schedule"), _c('span', {
     staticStyle: {
       "float": "right"
     }
@@ -48108,10 +48092,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })
   }), _vm._v(" "), _c('button', {
+    staticClass: "btn-info",
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("Save Settings")])], 2), _vm._v(" "), _c('div', {
+  }, [_vm._v("Save Layout")])], 2), _vm._v(" "), _c('div', {
     staticClass: "row theuserinterface"
   }, [_c('draggable', {
     on: {
@@ -48871,9 +48856,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-heading"
-  }, [_vm._v("Menu Component")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Courses")]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
-  }, [(_vm.showcourses) ? _c('div', [_c('h3', [_vm._v("Registrations")]), _vm._v(" "), _c('ul', _vm._l((_vm.mycourses), function(courses) {
+  }, [(_vm.courses.length == 0) ? _c('div', {
+    staticClass: "empty-notif"
+  }, [_vm._v("Your Courses will show up here"), _c('br'), _c('a', {
+    staticClass: "empty-notif-link",
+    attrs: {
+      "href": "#"
+    }
+  }, [_vm._v(" Register Now!")])]) : _vm._e(), _vm._v(" "), (_vm.showcourses) ? _c('div', [_c('h3', [_vm._v("Registrations")]), _vm._v(" "), _c('ul', _vm._l((_vm.mycourses), function(courses) {
     return _c('li', [_c('a', {
       attrs: {
         "href": 'class/' + courses.course_id

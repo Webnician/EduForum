@@ -15,7 +15,7 @@
         <form action="/classpreferences/update" method="POST">
         <input type="hidden" name="_token" :value="csrf">
         <input type="hidden" v-for="(block, index) in theuiblock" :name="'block'+index"  v-model="block.title" />
-        <button type="submit">Save Settings</button>
+        <button class="btn-info" type="submit">Save Layout</button>
         </form>
 
         <div class="row theuserinterface" >

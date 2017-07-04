@@ -3,9 +3,10 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 ">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Menu Component</div>
+                    <div class="panel-heading">Courses</div>
 
                     <div class="panel-body">
+                        <div class="empty-notif" v-if="courses.length == 0">Your Courses will show up here<br /><a class="empty-notif-link" href="#"> Register Now!</a></div>
                         <div  v-if="showcourses">
                             <h3>Registrations</h3>
                             <ul >

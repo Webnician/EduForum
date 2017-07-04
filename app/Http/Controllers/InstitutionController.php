@@ -195,6 +195,14 @@ class InstitutionController extends Controller
         }
     }
 
+    public function joinInstitution()
+    {
+        $user = Auth::user();
+        $institutions = Institution::get_all_institutions();
+
+        return view('/institution/join-institution-list')->with('institutions', $institutions)->with('user', $user);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

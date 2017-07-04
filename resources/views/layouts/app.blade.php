@@ -73,9 +73,20 @@
                     <ul class="nav navbar-nav header-nav">
                         <li><a href="{{ url('/home') }}"><i class="fa fa-home" aria-hidden="true"></i></a></li>
                         <li><a href="{{ url('/profile') }}"><i class="fa fa-user-circle" aria-hidden="true"></i></a></li>
-                        <li><a href="{{ url('/users') }}">User List</a></li>
+                        {{--{{ dd($user) }}--}}
+
+                        @role('superadmin|admin|instadmin|persadmin')
+                            <li><a href="{{ url('/users') }}">User List</a></li>
+                        @endrole
+                        @role('superadmin|admin')
                         <li><a href="{{ url('/institutions') }}">Institution List</a></li>
+                        @endrole
+                        @role('superadmin|admin|instadmin|contadmin')
                         <li><a href="{{ url('/courses') }}">Course List</a></li>
+                        @endrole
+
+
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->

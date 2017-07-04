@@ -89,6 +89,8 @@ Route::post('/institution/insert', 'InstitutionController@instInsert')->name('in
 
 Route::post('institution/update', 'InstitutionController@instUpdate')->name('update-institution');
 
+Route::get('/join/institution', 'InstitutionController@joinInstitution')->name('join-institution');
+
 Route::get('/courses', 'CourseController@viewCourses')->name('course-list');
 
 Route::get('/course', 'CourseController@createCourse')->name('create-course');

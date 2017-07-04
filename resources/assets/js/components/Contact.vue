@@ -3,10 +3,10 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 ">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Contact Component</div>
+                    <div class="panel-heading">Class Contacts</div>
 
                     <div class="panel-body">
-
+                        <div class="empty-notif" v-if="contacts.length == 0">Your classmates will show up here</div>
                         <ul>
                             <li v-for="(course, index) in contacts"><span class="contact-course-title">{{ course.name }}</span>
                                 <ul>
