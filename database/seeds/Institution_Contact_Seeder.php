@@ -12,7 +12,7 @@ class Institution_Contact_Seeder extends Seeder
     public function run()
     {
 
-        DB::table('institution_contact')->insert([
+        DB::table('inst_contacts')->insert([
             'contact_address' => '123 Circle Ave',
             'contact_city' => 'Burnsville',
             'contact_state' => 'MN',
@@ -21,7 +21,7 @@ class Institution_Contact_Seeder extends Seeder
             'contact_type' => 'public university',
             'institution_id' => 1,
         ]);
-        DB::table('institution_contact')->insert([
+        DB::table('inst_contacts')->insert([
             'contact_address' => '123 Circle Ave',
             'contact_city' => 'Burnsville',
             'contact_state' => 'MN',
@@ -30,7 +30,7 @@ class Institution_Contact_Seeder extends Seeder
             'contact_type' => 'public university',
             'institution_id' => 2,
         ]);
-        DB::table('institution_contact')->insert([
+        DB::table('inst_contacts')->insert([
             'contact_address' => '123 Circle Ave',
             'contact_city' => 'Burnsville',
             'contact_state' => 'MN',

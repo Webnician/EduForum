@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Kodeine\Acl\Traits\HasRole;
 use App\Institution;
+use App\InstContacts;
+use App\InstJoinRequests;
+use Illuminate\Support\Facades\DB;
 
 class InstitutionController extends Controller
 {
@@ -197,10 +200,30 @@ class InstitutionController extends Controller
 
     public function joinInstitution()
     {
-        $user = Auth::user();
-        $institutions = Institution::get_all_institutions();
+        $user               = Auth::user();
+        $institutions       = Institution::get_all_institutions();
 
-        return view('/institution/join-institution-list')->with('institutions', $institutions)->with('user', $user);
+        $join_requests      = InstJoinRequests::get_join_requests_by_user_id($user['id']);
+        $iterator           = 0;
+
+//        dd($join_requests);
+        foreach ($institutions as $institution)
+        {
+
+            $contact            = InstContacts::getInstitutionContactByInstId($institution['id']);
+            $institutions[$iterator]['contact_info'] = $contact;
+            foreach ($join_requests as $request)
+            {
+                if($request['institution_id'] == $institution['id'])
+                {
+                    $institutions[$iterator]['request'] = $request;
+                }
+            }
+            $iterator++;
+        }
+
+        return view('/institution/join-institution-list')->with('institutions', $institutions)->with('user', $user)
+            ->with('join_requests', $join_requests);
     }
 
     /**

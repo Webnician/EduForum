@@ -68,6 +68,10 @@ $scheme3-4             : #FAECD6;
   margin-left:2%;
 }
 
+.right{
+  float: right;
+}
+
 body {
   background-color: $linen;
   font-family: $droidsans;
@@ -112,9 +116,7 @@ i{
 }
 .homeDivRoot  li{
   list-style: none;
-
   width: 100%;
-
   border-bottom: 1px ridge $scheme2-3;
 }
 .homeDivRoot  li:nth-child(1)
@@ -124,6 +126,56 @@ i{
 .homeDivRoot  li a:link{
   text-decoration: none;
 }
+
+.join-inst-div-root  li{
+  list-style: none;
+  width: 100%;
+  border-bottom: 1px ridge $scheme2-3;
+  padding-bottom: 2%;
+  margin-bottom: 3%;
+}
+.join-inst-div-root li:nth-child(1)
+{
+  //border-top: 1px ridge $scheme2-3;
+}
+.join-inst-div-root  li a:link{
+  text-decoration: none;
+}
+
+.inst-join-name{
+  float: left
+}
+.inst-join-location{
+  padding-left:20%;
+}
+
+.request-button{
+  border: 2px ridge #eef2f6;
+  background-color: $comp-med-blue;
+  color: $linen;
+}
+.request-button:hover{
+  color: #fff;
+  background-color: #538db0;
+  border-color: #3d6983;
+}
+
+.request-pending-button{
+background-color: $scheme-2;
+  color: $scheme3-3;
+
+}
+.request-denied-button{
+background-color: $comp-red;
+  color: $scheme3-3;
+
+}
+.request-accepted-button{
+  background-color: $triad-light-yellow;
+  color: $scheme3-3;
+}
+
+
 
 .navbar{
   background-color: $scheme2-4;

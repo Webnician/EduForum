@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+
 
 class Institution extends Model
 {
@@ -12,6 +14,13 @@ class Institution extends Model
         $institutions = Institution::all();
         return $institutions;
     }
+
+    public static function get_paginated_institution_list()
+    {
+        $institutions = DB::table('institutions')->paginate(2);
+        return $institutions;
+    }
+
     public static function get_institution($id)
     {
         $institution = Institution::find($id);

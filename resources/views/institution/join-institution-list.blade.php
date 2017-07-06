@@ -2,5 +2,6 @@
 
 @section('content')
 
-    This is where you will join an institution
+    {{--{{ dd($join_requests) }}--}}
+    <joininstitution :user="{{ $user }}" :institutionlist="{{ $institutions }}" :joinrequests="{{ $join_requests }}"></joininstitution>
 @endsection
