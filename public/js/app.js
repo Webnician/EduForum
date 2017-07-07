@@ -11381,6 +11381,7 @@ Vue.component('assignmentlist', __webpack_require__(59));
 Vue.component('classdocs', __webpack_require__(62));
 Vue.component('fileupload', __webpack_require__(70));
 Vue.component('joininstitution', __webpack_require__(79));
+Vue.component('joinrequests', __webpack_require__(115));
 
 // Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content');
 
@@ -14013,18 +14014,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['userlist'],
+    props: ['userlist', 'persadmins', 'inst'],
 
     data: function data() {
         return {
-            //                id: this.ids,
-            //                link: this.inst.id
+            institution: this.inst,
+            admin: this.persadmins
         };
-    },
-    mounted: function mounted() {
-        console.log('Component mounted.');
     }
 });
 
@@ -46446,7 +46447,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-lg-12 col-md-12 col-sm-12 "
   }, [_c('div', {
     staticClass: "panel panel-default"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_vm._v("User List Component\n                    "), (_vm.admin) ? _c('span', [_c('a', {
+    staticClass: "request-button",
+    staticStyle: {
+      "max-width": "15%",
+      "display": "inline-block",
+      "margin-left": "10%",
+      "margin-right": "auto",
+      "text-align": "center"
+    },
+    attrs: {
+      "href": '/join/institution/' + _vm.institution.id
+    },
+    model: {
+      value: (_vm.institution),
+      callback: function($$v) {
+        _vm.institution = $$v
+      },
+      expression: "institution"
+    }
+  }, [_vm._v("Manage Join Requests")])]) : _vm._e(), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
   }, [_c('h3', {
     staticClass: "list-heading"
@@ -46469,9 +46491,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n                                " + _vm._s(user.id) + " - " + _vm._s(user.fname) + " " + _vm._s(user.lname))])])
   }))])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "panel-heading"
-  }, [_vm._v("User List Component"), _c('span', {
+  return _c('span', {
     staticStyle: {
       "float": "right"
     }
@@ -46486,7 +46506,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "/user"
     }
-  }, [_vm._v("Create New User")])])])
+  }, [_vm._v("Create New User")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -50165,6 +50185,330 @@ module.exports = function(module) {
 __webpack_require__(11);
 module.exports = __webpack_require__(12);
 
+
+/***/ }),
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */,
+/* 112 */,
+/* 113 */,
+/* 114 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['user', 'inst', 'joinrequests'],
+
+    data: function data() {
+
+        return {
+            csrf: "",
+            theuser: this.user,
+            institution: this.inst,
+            requests: this.joinrequests,
+            joinbut: [' request-button'],
+            deniedbut: [' request-button request-denied-button'],
+            pendbut: [' request-button request-pending-button'],
+            acceptedbut: [' request-button request-accepted-button']
+
+        };
+    },
+
+
+    methods: {
+        getClasses: function getClasses(request, index) {
+            if (request.request_status) {
+                switch (request.request_status) {
+                    case 'pending':
+                        return this.pendbut;
+                        break;
+                    case 'denied':
+                        return this.deniedbut;
+                        break;
+                    case 'accepted':
+                        return this.acceptedbut;
+                        break;
+                    default:
+                        return this.joinbut;
+                        break;
+                }
+            } else {
+                return this.joinbut;
+            }
+        },
+
+        getText: function getText(request, index) {
+
+            if (request.request_status) {
+                switch (request.request_status) {
+                    case 'pending':
+                        return 'pending';
+                        break;
+                    case 'denied':
+                        return 'denied';
+                        break;
+                    case 'accepted':
+                        return 'accepted';
+                        break;
+                    default:
+                        return 'standard';
+                        break;
+                }
+            } else {
+                return 'standard';
+            }
+        },
+        getButtonStatus: function getButtonStatus(request) {
+            if (request.request_status) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    },
+
+    mounted: function mounted() {
+        this.csrf = window.Laravel.csrfToken;
+    }
+});
+
+/***/ }),
+/* 115 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(114),
+  /* template */
+  __webpack_require__(116),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Users\\olafbroms\\Desktop\\dev\\homeTest\\scorecard\\eduforum\\eduforum\\resources\\assets\\js\\components\\institution\\JoinRequests.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] JoinRequests.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-053b9084", Component.options)
+  } else {
+    hotAPI.reload("data-v-053b9084", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 116 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "container"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-12 col-md-12 col-sm-12 inst-requests-div-root"
+  }, [_c('div', {
+    staticClass: "panel panel-default"
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_vm._v("Join Requests")]), _vm._v(" "), _c('div', {
+    staticClass: "panel-body"
+  }, [_c('ul', _vm._l((_vm.requests), function(req, index) {
+    return _c('li', [_c('span', [_vm._v(_vm._s(req.theuser.fname) + " " + _vm._s(req.theuser.lname))]), _vm._v(" "), _c('span', {
+      staticStyle: {
+        "margin-left": "5%"
+      }
+    }, [_vm._v(_vm._s(req.theuser.email))]), _vm._v(" "), _c('span', {
+      class: _vm.getClasses(req, index),
+      staticStyle: {
+        "padding": ".5%",
+        "margin-left": "5%"
+      },
+      attrs: {
+        "disabled": _vm.getButtonStatus(req)
+      }
+    }, [(_vm.getText(req, index) == 'pending') ? _c('span', [_vm._v("Status : Pending")]) : _vm._e(), _vm._v(" "), (_vm.getText(req, index) == 'denied') ? _c('span', [_vm._v("Status : Denied")]) : _vm._e(), _vm._v(" "), (_vm.getText(req, index) == 'accepted') ? _c('span', [_vm._v("Status : Accepted")]) : _vm._e(), _vm._v(" "), (_vm.getText(req, index) == 'standard') ? _c('span', [_vm._v("Status : None")]) : _vm._e()]), _vm._v(" "), _c('span', {
+      staticStyle: {
+        "float": "right"
+      }
+    }, [_c('form', {
+      staticStyle: {
+        "display": "inline"
+      },
+      attrs: {
+        "action": "/join/request/update",
+        "method": "post"
+      }
+    }, [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "institution"
+      },
+      domProps: {
+        "value": _vm.institution.id
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "user"
+      },
+      domProps: {
+        "value": _vm.theuser.id
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_token"
+      },
+      domProps: {
+        "value": _vm.csrf
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "newstatus",
+        "value": "accepted"
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "request_id"
+      },
+      domProps: {
+        "value": req.id
+      }
+    }), _vm._v(" "), _c('button', {
+      staticClass: "request-accepted-button",
+      staticStyle: {
+        "color": "white",
+        "text-shadow": "#000 1px 1px 1px 1px"
+      }
+    }, [_vm._v("Accept")])]), _vm._v(" "), _c('form', {
+      staticStyle: {
+        "display": "inline"
+      },
+      attrs: {
+        "action": "/join/request/update",
+        "method": "post"
+      }
+    }, [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "institution"
+      },
+      domProps: {
+        "value": _vm.institution.id
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "user"
+      },
+      domProps: {
+        "value": _vm.theuser.id
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_token"
+      },
+      domProps: {
+        "value": _vm.csrf
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "newstatus",
+        "value": "denied"
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "request_id"
+      },
+      domProps: {
+        "value": req.id
+      }
+    }), _vm._v(" "), _c('button', {
+      staticClass: "request-denied-button",
+      staticStyle: {
+        "color": "white",
+        "text-shadow": "#000 1px 1px 1px 1px"
+      }
+    }, [_vm._v("Deny")])])])])
+  }))])])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-053b9084", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

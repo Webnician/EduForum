@@ -226,6 +226,29 @@ class InstitutionController extends Controller
             ->with('join_requests', $join_requests);
     }
 
+    public function viewInstitutionRequests($id)
+    {
+        if(Auth::check())
+        {
+            $user = Auth::user();
+
+            if ($user->hasRole('superadmin') || $user->hasRole('admin')) {
+            $requests       = InstJoinRequests::get_join_requests_by_inst_id($id);
+            $institution    = User::get_user_institution($user['id']);
+            $institution    = collect($institution);
+            return view('/institution/join-requests')->with('requests', $requests)->with('user', $user)->with('institution', $institution);
+            }
+
+            if ($user->hasRole('persadmin') || $user->hasRole('instadmin'))
+            {
+                $requests       = InstJoinRequests::get_join_requests_by_inst_id($id);
+                $institution    = User::get_user_institution($user['id']);
+                $institution    = collect($institution);
+                return view('/institution/join-requests')->with('requests', $requests)->with('user', $user)->with('institution', $institution);
+            }
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *

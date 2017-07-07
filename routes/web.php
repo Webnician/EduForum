@@ -91,7 +91,11 @@ Route::post('institution/update', 'InstitutionController@instUpdate')->name('upd
 
 Route::get('/join/institution', 'InstitutionController@joinInstitution')->name('join-institution');
 
+Route::get('/join/institution/{id}', 'InstitutionController@viewInstitutionRequests')->name('view-inst-requests');
+
 Route::post('/join/request', 'JoinRequestController@submitNewRequest')->name('submit-join-request');
+
+Route::post('/join/request/update', 'JoinRequestController@updateRequest')->name('update-join-request');
 
 Route::get('/courses', 'CourseController@viewCourses')->name('course-list');
 

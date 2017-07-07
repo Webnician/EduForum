@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 //use App\Contact;
+use App\Institution;
 use App\models\UserContact;
 //use App\models\Contact;
 use App\models\User;
@@ -215,13 +216,28 @@ class ProfileController extends Controller
     {
         if(Auth::check())
         {
+
             $user = Auth::user();
+
             if ($user->hasRole('superadmin') || $user->hasRole('admin'))
             {
-                $users = User::get_all_users();
-                $users = $users->toJson();
-//                dd($institutions);
-                return view('/profile-user/user-list')->with('users', $users);
+                $users          = User::get_all_users();
+                $users          = $users->toJson();
+                $institution    = User::get_user_institution($user['id']);
+                $institution    = collect($institution);
+                return view('/profile-user/user-list')
+                    ->with('users', $users)
+                      ->with('institution', $institution);
+            }
+            elseif ($user->hasRole('instadmin') || $user->hasRole('persadmin'))
+            {
+                $users          = User::get_users_by_user_inst($user['id']);
+                $users          = $users->toJson();
+                $persadmins     = true;
+                $institution    = User::get_user_institution($user['id']);
+                $institution    = collect($institution);
+//                dd($institution);
+                return view('/profile-user/user-list')->with('users', $users)->with('user_admin', $persadmins)->with('institution', $institution);
             }
             else
             {

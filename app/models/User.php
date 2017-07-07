@@ -12,6 +12,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 //use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model as Eloquent;
+use App\UserInst;
+use App\Institution;
+
+
 
 class User extends  Model implements AuthenticatableContract, CanResetPasswordContract
 {
@@ -33,6 +37,32 @@ class User extends  Model implements AuthenticatableContract, CanResetPasswordCo
     {
         $users = User::all();
         return $users;
+    }
+
+    public static function get_user_institution($id)
+    {
+        $user_institution   = UserInst::find($id);
+        $institution        = Institution::get_institution($user_institution['institution_id']);
+        return $institution;
+    }
+
+    public static function get_users_by_user_inst($user_id)
+    {
+        $user               = Auth::user();
+        $user_institution   = UserInst::find($user_id);
+
+        $userslist          = UserInst::where('institution_id', $user_institution['institution_id'])->get();
+
+        $userarray = [];
+        $iterator = 0;
+        foreach ($userslist as $userobj)
+        {
+            $userarray[$iterator] = self::get_user_by_id($userobj['user_id']);
+            $iterator++;
+        }
+        $theusers = collect($userarray);
+
+        return $theusers;
     }
 
     public function getCurrentUserRoles()

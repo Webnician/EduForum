@@ -142,6 +142,18 @@ i{
   text-decoration: none;
 }
 
+.inst-requests-div-root li{
+  list-style: none;
+  width: 100%;
+  border-bottom: 1px ridge $scheme2-3;
+  padding-bottom: 2%;
+  margin-bottom: 3%;
+}
+
+.inst-requests-div-root li a:link{
+  text-decoration: none;
+}
+
 .inst-join-name{
   float: left
 }
@@ -153,6 +165,7 @@ i{
   border: 2px ridge #eef2f6;
   background-color: $comp-med-blue;
   color: $linen;
+  text-decoration: none;
 }
 .request-button:hover{
   color: #fff;
@@ -201,7 +214,7 @@ background-color: $comp-red;
     background-color: $scheme2-4;
     color: $linen;
   }
-  a{
+  .panel-body a{
     color: $scheme2-3;
     text-decoration: none;
   }

@@ -20,4 +20,19 @@ class JoinRequestController extends Controller
           return redirect()->back();
       }
   }
+
+  public function updateRequest()
+  {
+      if(Auth::check())
+      {
+          $user = Auth::user();
+          $input = Input::get();
+
+          if ($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('persadmin') || $user->hasRole('instadmin'))
+          {
+              InstJoinRequests::update_join_request($input['newstatus'], $input['request_id']);
+              return redirect()->back();
+          }
+      }
+  }
 }

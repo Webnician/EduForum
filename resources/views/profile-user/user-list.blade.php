@@ -3,9 +3,12 @@
 @section('content')
 
     <div class="container">
-        {{--{{ dd($courses) }}--}}
-        <userlist :userlist="{{ $users}}"></userlist>
+        {{--{{ dd($institution) }}--}}
 
-
+        @if( empty($user_admin))
+            <userlist :userlist="{{ $users}}" :inst="{{ $institution }}"></userlist>
+        @else
+            <userlist :userlist="{{ $users}}" :persadmins="{{ $user_admin }}" :inst="{{ $institution }}"></userlist>
+        @endif
     </div>
 @endsection

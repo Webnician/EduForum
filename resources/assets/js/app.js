@@ -42,6 +42,7 @@ Vue.component('assignmentlist', require('./components/AssignmentList.vue'));
 Vue.component('classdocs', require('./components/ClassDocuments.vue'));
 Vue.component('fileupload', require('./components/FileUpload.vue'));
 Vue.component('joininstitution', require('./components/institution/JoinInstitution.vue'));
+Vue.component('joinrequests', require('./components/institution/JoinRequests.vue'));
 
 
 // Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content');
