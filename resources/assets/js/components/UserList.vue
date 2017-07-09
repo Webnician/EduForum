@@ -5,10 +5,11 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">User List Component
                         <span v-if="admin"><a style="max-width:15%; display: inline-block;margin-left: 10%;margin-right: auto; text-align: center" class="request-button" v-model="institution" :href="'/join/institution/'+ institution.id" >Manage Join Requests</a></span>
-                        <span style="float: right"> <a class="btn-info" style="display: block;margin-left: auto;margin-right: auto; text-align: center" href="/user">Create New User</a></span>
+
                     </div>
 
                     <div class="panel-body">
+                        <span style="float: right"> <a class="btn-info" style="color:linen; display: block;margin-left: auto;margin-right: auto; text-align: center" href="/user">Create New User</a></span>
                         <h3 class="list-heading">Users</h3>
                         <ul style=" text-decoration: underline;">
                             <li v-for="user in userlist">

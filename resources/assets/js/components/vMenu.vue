@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 ">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Courses</div>
+                    <div class="panel-heading">Courses<span style="float: right"><a href="/join/course"><span style="margin-right: 2%"></span>   <i class="fa fa-plus-square" aria-hidden="true"></i></a></span></div>
 
                     <div class="panel-body">
                         <div class="empty-notif" v-if="courses.length == 0">Your Courses will show up here<br /><a class="empty-notif-link" href="#"> Register Now!</a></div>

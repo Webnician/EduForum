@@ -50,6 +50,14 @@
                                             <input v-if="allowedit"  name="teacherid" style="width:100%" v-model="teacherident" placeholder="Change Teacher Id"/>
                                         </div>
 
+                                        <div class="col-lg-12 col-sm-12 top-margin">
+                                            <input v-if="editinstit"  name="institution_id" style="width:100%" v-model="instit" placeholder="Change Institution Id"/>
+                                            <div v-else="editinstit">
+                                            <span  name="institutionid" style="width:100%" v-model="instit">Institution : {{ instit }}</span>
+                                                <input type="hidden" name="institution_id" v-model="instit" :value="instit"/>
+                                            </div>
+                                        </div>
+
                                     </div>
 
                                 </div>
@@ -92,7 +100,9 @@
 //    id = "{{ $course['id'] }}" course_name = "{{ $course['course_name'] }}" teacher_id="{{ $course['teacher_id'] }}" teacherfname = "{{ $course['teacherfname'] }}"
 //    teacherlname = "{{ $course['teacherlname'] }}" score = " {{ $course['score'] }}" department_id = " {{ $course['department_id'] }}"
         props:
-            ['buttxt', 'operation', 'actions', 'editmode', 'viewer', 'toedit', 'creator', 'ids', 'course_name', 'start_date', 'end_date', 'teacher_id', 'teacherfname', 'teacherlname', 'score', 'department_id', 'desc'],
+            ['buttxt', 'operation', 'actions', 'editmode', 'viewer', 'toedit', 'creator',
+                'ids', 'course_name', 'start_date', 'end_date', 'teacher_id', 'teacherfname',
+                'teacherlname', 'score', 'department_id', 'desc', 'inst', 'editinst'],
 
         data(){
             return {
@@ -113,7 +123,10 @@
                 buttontext : this.buttxt,
                 oper : this.operation,
                 viewing : this.viewer,
-                editor : this.editmode
+                editor : this.editmode,
+                editinstit  :this.editinst,
+                instit      : this.inst,
+
 //                id: institutionlist.id
 //                id: this.ids,
 //                link: this.inst.id

@@ -22,6 +22,14 @@ class UserCourse extends Model
         return $users;
     }
 
+    public static function add_user_to_course($user_id, $course_id)
+    {
+        $user_course = new UserCourse;
+        $user_course->user_id = $user_id;
+        $user_course->course_id = $course_id;
+        $user_course->save();
+    }
+
     public static function get_user_objects_by_course($id)
     {
         $user_collect = [];

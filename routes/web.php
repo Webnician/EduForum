@@ -111,6 +111,13 @@ Route::post('/course/update', 'CourseController@updateCourse')->name('update-cou
 
 Route::post('/course/insert', 'CourseController@insertCourse')->name('insert-course');
 
+Route::get('/join/course', 'CourseController@joinCourse')->name('join-course');
+
+Route::post('/join/request/course', 'CourseRequestController@submitNewRequest')->name('submit-course-join-request');
+
+Route::post('/join/request/course/update', 'CourseRequestController@updateRequest')->name('update-course-join-request');
+
+
 Route::get('/users', 'ProfileController@viewUsers')->name('user-list');
 
 Route::get('/user', 'ProfileController@createUser')->name('create-user');

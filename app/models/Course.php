@@ -14,6 +14,12 @@ class Course extends Model
         return $courses;
     }
 
+    public static function get_courses_by_institution($id)
+    {
+        $courses = Course::where('institution_id', $id)->get();
+        return $courses;
+    }
+
     public static function get_course($id)
     {
         $course = Course::find($id);
@@ -34,6 +40,9 @@ class Course extends Model
         $teacher = User::get_user_by_id($teacher_id);
         return $teacher;
     }
+
+
+
 
 
     protected $fillable = [

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\CourseJoinRequests;
 use App\ScheduleItems;
 use App\UserCourse;
+use App\UserInst;
 use App\UserPreferences;
 use Illuminate\Http\Request;
 use App\models\User;
@@ -32,10 +34,18 @@ class CourseController extends Controller
         if(Auth::check())
         {
             $user = Auth::user();
-            if ($user->hasRole('superadmin') || $user->hasRole('admin'))
+            if ($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin') || $user->hasRole('contadmin'))
             {
-                $courses = Course::get_all_courses();
-                $courses = $courses->toJson();
+                if ($user->hasRole('superadmin') || $user->hasRole('admin')) {
+                    $courses = Course::get_all_courses();
+                    $courses = $courses->toJson();
+                }
+                else
+                {
+                    $institution = User::get_user_institution($user['id']);
+                    $courses = Course::get_courses_by_institution($institution['id']);
+                    $courses = $courses->toJson();
+                }
 //                dd($institutions);
                 return view('/courses/list')->with('courses', $courses);
             }
@@ -55,12 +65,19 @@ class CourseController extends Controller
         if(Auth::check())
         {
             $user = Auth::user();
-            if ($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin'))
+            if ($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin') || $user->hasRole('contadmin'))
             {
                 $course                  = Course::get_course($id);
+                $institution             = User::get_user_institution($user['id']);
                 $teacher                 = User::get_user_by_id($course['teacher_id']);
                 $students                = UserCourse::get_users_by_course($id);
 
+                if(!$user->hasRole('superadmin') || !$user->hasRole('admin')) {
+                    if ($course['id'] != $institution['id'])
+                    {
+                        return view('home');
+                    }
+                }
 
                 $student2 = [];
                 $counter = 0;
@@ -87,8 +104,19 @@ class CourseController extends Controller
                 $course['toedit']        = "false";
                 $course['creator']       = "false";
                 $course['allowuser']     = "true";
+                $course['editinst']      = "false";
+
+                $join_requests = CourseJoinRequests::get_course_join_requests_by_course_id($id);
+
+                if($user->hasRole('superadmin') || $user->hasRole('admin'))
+                {
+                    $course['editinst']    = "true";
+                }
 //                dd($institution);
-                return view('/courses/course')->with('course', $course)->with('students', $student2);
+                return view('/courses/course')
+                    ->with('course', $course)
+                    ->with('students', $student2)
+                    ->with('join_requests', $join_requests);
             }
             else
             {
@@ -122,6 +150,11 @@ class CourseController extends Controller
                 $course['toedit']        = "true";
                 $course['creator']       = "false";
                 $course['allowuser']     = "true";
+                $course['editinst']      = "false";
+                if($user->hasRole('superadmin') || $user->hasRole('admin'))
+                {
+                    $course['editinst']    = "true";
+                }
 //                dd($institution);
                 return view('/courses/course')->with('course', $course);
             }
@@ -141,7 +174,7 @@ class CourseController extends Controller
         if(Auth::check())
         {
             $user = Auth::user();
-            if ($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin'))
+            if ($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin') || $user->hasRole('contadmin'))
             {
                 $course                  = [];
                 $course['id']            = NULL;
@@ -162,7 +195,18 @@ class CourseController extends Controller
                 $course['toedit']        = "true";
                 $course['creator']       = "true";
                 $course['allowuser']     = "false";
-//                dd($institution);
+                $course['editinst']      = "false";
+                if($user->hasRole('superadmin') || $user->hasRole('admin'))
+                {
+                    $course['institution_id'] = NULL;
+                    $course['editinst']    = "true";
+                }
+                else
+                {
+                    $institution = User::get_user_institution($user['id']);
+                    $course['institution_id'] = $institution['id'];
+                }
+
                 return view('/courses/course')->with('course', $course);
             }
             else
@@ -192,6 +236,7 @@ class CourseController extends Controller
             $id                          = $input['id'];
             $name                        = $input['name'];
             $department_id               = $input['department_id'];
+            $institution_id              = $input['institution_id'];
             $teacher_id                  = $input['teacherid'];
             $description                 = $input['description'];
             $start                       = $input['course_start'];
@@ -205,6 +250,7 @@ class CourseController extends Controller
             $the_course->course_name        = $name;
             $the_course->teacher_id         = $teacher_id;
             $the_course->department_id      = $department_id;
+            $the_course->institution_id     = $institution_id;
             $the_course->description        = $description;
             $the_course->course_start_date  = $start;
             $the_course->course_end_date    = $end;
@@ -222,12 +268,12 @@ class CourseController extends Controller
     {
 
         $input = Input::get();
-//        dd($input);
 
         if($input['actions'] == 'insert')
         {
             $name                           = $input['name'];
             $department_id                  = $input['department_id'];
+            $institution_id                 = $input['institution_id'];
             $teacher_id                     = $input['teacherid'];
             $description                    = $input['description'];
             $start                       = $input['course_start'];
@@ -240,6 +286,7 @@ class CourseController extends Controller
             $the_course->course_name        = $name;
             $the_course->teacher_id         = $teacher_id;
             $the_course->department_id      = $department_id;
+            $the_course->institution_id     = $institution_id;
             $the_course->description        = $description;
             $the_course->course_start_date  = $start;
             $the_course->course_end_date    = $end;
@@ -449,6 +496,33 @@ class CourseController extends Controller
 
         }
 
+    }
+
+    public function joinCourse()
+    {
+        $user               = Auth::user();
+        $institution        = UserInst::getUserInstitutionByUserId($user['id']);
+        $courses            = Course::get_courses_by_institution($institution['id']);
+        $requests           = CourseJoinRequests::get_course_join_requests_by_user_id($user['id']);
+        $iterator           = 0;
+
+        foreach ($courses as $course)
+        {
+            foreach ($requests as $req)
+            {
+                if($req['course_id'] == $course['id'])
+                {
+                    $courses[$iterator]['request'] = $req;
+                }
+            }
+            $iterator++;
+        }
+
+        return view('/courses/course-register')
+            ->with('courses', $courses)
+            ->with('institution', $institution)
+            ->with('user', $user)
+            ->with('joinrequests', $requests);
     }
 
 

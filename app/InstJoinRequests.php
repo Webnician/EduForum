@@ -49,6 +49,15 @@ class InstJoinRequests extends Model
         $the_request->save();
         if ($new_status == 'accepted')
         {
+            $the_requests = self::get_join_requests_by_user_id($the_request['user_id']);
+//            dd($the_request);
+            foreach ($the_requests as $req)
+            {
+                if($req['id'] != $the_request['id'])
+                {
+                    $req->delete();
+                }
+            }
             $user_inst = new UserInst();
             $user_inst->institution_id  = $the_request['institution_id'];
             $user_inst->user_id         = $the_request['user_id'];

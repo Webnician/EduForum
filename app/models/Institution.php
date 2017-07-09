@@ -31,6 +31,7 @@ class Institution extends Model
         $user = Institution::find($id);
     }
 
+
     public function get_institution_id($name)
     {
 

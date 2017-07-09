@@ -3,9 +3,10 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 ">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Course List Component<span style="float: right"> <a class="btn-info" style="display: block;margin-left: auto;margin-right: auto; text-align: center" href="/course">Create New Course</a></span></div>
+                    <div class="panel-heading">Course List Component</div>
 
                     <div class="panel-body">
+                        <span style="float: right"> <a class="btn-info" style="color: linen; display: block;margin-left: auto;margin-right: auto; text-align: center" href="/course">Create New Course</a></span>
                         <h3 class="list-heading">Courses</h3>
                         <ul style=" text-decoration: underline;">
                             <li v-for="course of courselist">
