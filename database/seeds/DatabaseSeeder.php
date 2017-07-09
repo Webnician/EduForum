@@ -26,5 +26,8 @@ class DatabaseSeeder extends Seeder
         $this->call(Institution_Contact_Seeder::class);
         $this->call(UserPreferenceSeeder::class);
         $this->call(ScheduleItemsSeeder::class);
+        $this->call(DepartmentsSeeder::class);
+        $this->call(UserDeptSeeder::class);
+
     }
 }

@@ -81,6 +81,9 @@
                         @role('superadmin|admin')
                         <li><a href="{{ url('/institutions') }}">Institution List</a></li>
                         @endrole
+                        @role('instadmin')
+                        <li><a href="{{ url('/departments/institution') }}">Institution and Departments</a></li>
+                        @endrole
                         @role('superadmin|admin|instadmin|contadmin')
                         <li><a href="{{ url('/courses') }}">Course List</a></li>
                         @endrole

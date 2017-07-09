@@ -89,6 +89,10 @@ Route::post('/institution/insert', 'InstitutionController@instInsert')->name('in
 
 Route::post('institution/update', 'InstitutionController@instUpdate')->name('update-institution');
 
+Route::get('/departments/institution', 'InstDepartmentsController@allDepartments')->name('departments-list');
+
+Route::post('/departments/update', 'InstDepartmentsController@departmentsUpdate')->name('update-departments');
+
 Route::get('/join/institution', 'InstitutionController@joinInstitution')->name('join-institution');
 
 Route::get('/join/institution/{id}', 'InstitutionController@viewInstitutionRequests')->name('view-inst-requests');
