@@ -14393,6 +14393,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -14410,14 +14426,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             existingopen: false,
             institution: this.inst,
             dept_add_form: false,
-            dept_editing: false
+            dept_editing: false,
+            faculty_add_form: false
 
         };
     },
 
 
     methods: {
-        itemShow: function itemShow() {
+        itemShow: function itemShow(index) {
             //                this.$modal.show('class-schedule-item');
             this.existingopen = true;
             this.closed = false;
@@ -14431,7 +14448,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         get_selected_item: function get_selected_item(index) {
             this.selected_department = this.departments[index];
-            this.itemShow();
+            this.itemShow(index);
             //                alert(index);
         },
         show_dept_add: function show_dept_add() {
@@ -14448,6 +14465,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         submit_dept_edit: function submit_dept_edit(index) {
             document.getElementById("update-dept-" + index).submit();
+        },
+        show_faculty_add: function show_faculty_add() {
+            this.faculty_add_form = true;
+        },
+        hide_faculty_add: function hide_faculty_add() {
+            this.faculty_add_form = false;
         }
     },
 
@@ -49984,7 +50007,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "aria-hidden": "true"
     }
-  })])]) : _vm._e()]), _vm._v(" "), _c('div', {
+  })])]) : _c('span', {
+    staticStyle: {
+      "float": "right"
+    }
+  }, [_c('a', {
+    on: {
+      "click": function($event) {
+        _vm.show_faculty_add()
+      }
+    }
+  }, [_c('span', {
+    staticStyle: {
+      "margin-right": "2%"
+    }
+  }), _vm._v(" "), _c('i', {
+    staticClass: "fa fa-plus-square",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])])]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
   }, [(_vm.closed) ? _c('div', {
     attrs: {
@@ -50206,7 +50248,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "display": "inline"
       },
       attrs: {
-        "action": "/department/faculty/update",
+        "action": "/departments/faculty/update",
         "method": "post"
       }
     }, [_c('input', {
@@ -50229,13 +50271,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "type": "hidden",
         "name": "action",
-        "value": "remove"
+        "value": "delete"
       }
     }), _vm._v(" "), _c('input', {
       attrs: {
         "type": "hidden",
-        "name": "user_dept_id",
-        "value": "fac.dept_record.id"
+        "name": "user_dept_id"
+      },
+      domProps: {
+        "value": fac.dept_record.id
       }
     }), _vm._v(" "), _c('button', {
       staticClass: "request-denied-button",
@@ -50244,7 +50288,49 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "text-shadow": "#000 1px 1px 1px 1px"
       }
     }, [_vm._v("Remove from Department")])])])])
-  }))])])]), _vm._v(" "), (_vm.dept_add_form) ? _c('div', {
+  })), _vm._v(" "), _c('div', [_c('form', {
+    staticStyle: {
+      "display": "inline"
+    },
+    attrs: {
+      "action": "/departments/faculty/update",
+      "method": "post"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "_token"
+    },
+    domProps: {
+      "value": _vm.csrf
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "action",
+      "value": "insert"
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "dept_id"
+    },
+    domProps: {
+      "value": _vm.selected_department.id
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "text",
+      "name": "user_id",
+      "placeholder": "User Id"
+    }
+  }), _vm._v(" "), _c('button', {
+    staticClass: "request-pending-button",
+    staticStyle: {
+      "color": "white",
+      "text-shadow": "#000 1px 1px 1px 1px"
+    }
+  }, [_vm._v("Add to Department")])])])])])]), _vm._v(" "), (_vm.dept_add_form) ? _c('div', {
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-heading"

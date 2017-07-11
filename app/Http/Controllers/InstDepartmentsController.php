@@ -78,4 +78,20 @@ class InstDepartmentsController extends Controller
         }
     }
 
+    public function departmentFacultyUpdate()
+    {
+        $user = Auth::user();
+
+        if ($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin'))
+        {
+            $input = Input::get();
+
+            InstDepartment::update_department_faculty($input);
+
+            return redirect()->back();
+
+        }
+    }
+
+
 }

@@ -74,4 +74,21 @@ class InstDepartment extends Model
         $department->save();
     }
 
+    public static function update_department_faculty($input)
+    {
+        if($input['action'] == 'delete')
+        {
+            $user_dept = UserDept::find('id', $input['user_dept_id']);
+            $user_dept->delete();
+        }
+        if($input['action'] == 'insert')
+        {
+            $user_dept = new UserDept();
+            $user_dept->user_id = $input['user_id'];
+            $user_dept->department_id = $input['dept_id'];
+            $user_dept->save();
+
+        }
+    }
+
 }

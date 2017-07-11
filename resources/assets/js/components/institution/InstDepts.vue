@@ -16,6 +16,13 @@
                                 <i class="fa fa-plus-square" aria-hidden="true"></i>
                             </a>
                         </span>
+                        <span v-else="closed" style="float: right">
+                            <a @click="show_faculty_add()">
+                                <span style="margin-right: 2%">
+                                </span>
+                                <i class="fa fa-plus-square" aria-hidden="true"></i>
+                            </a>
+                        </span>
                     </div>
 
                     <div class="panel-body">
@@ -76,18 +83,27 @@
                                     </span>
                                     <span style="float: right">
 
-                                        <form style="display: inline;" action="/department/faculty/update" method="post">
+                                        <form style="display: inline;" action="/departments/faculty/update" method="post">
 
                                             <input type="hidden" name="user" :value="fac.id"/>
                                             <input type="hidden" name="_token" :value="csrf">
-                                            <input type="hidden" name="action" value="remove"/>
-                                            <input type="hidden" name="user_dept_id" value="fac.dept_record.id">
+                                            <input type="hidden" name="action" value="delete"/>
+                                            <input type="hidden" name="user_dept_id" :value="fac.dept_record.id">
                                             <button style="color: white; text-shadow: #000 1px 1px 1px 1px;" class="request-denied-button">Remove from Department</button>
                                         </form>
                                     </span>
 
                                 </li>
                             </ul>
+                            <div>
+                                <form style="display: inline;" action="/departments/faculty/update" method="post">
+                                    <input type="hidden" name="_token" :value="csrf">
+                                    <input type="hidden" name="action" value="insert"/>
+                                    <input type="hidden" name="dept_id" :value="selected_department.id"/>
+                                    <input type="text" name="user_id" placeholder="User Id"/>
+                                    <button style="color: white; text-shadow: #000 1px 1px 1px 1px;" class="request-pending-button">Add to Department</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
 
@@ -136,6 +152,7 @@
                 institution             : this.inst,
                 dept_add_form           : false,
                 dept_editing            : false,
+                faculty_add_form        : false,
 
 
             }
@@ -144,7 +161,7 @@
         methods:
             {
 
-                itemShow () {
+                itemShow (index) {
 //                this.$modal.show('class-schedule-item');
                     this.existingopen = true;
                     this.closed = false;
@@ -160,7 +177,7 @@
                 get_selected_item(index)
                 {
                     this.selected_department = this.departments[index];
-                    this.itemShow();
+                    this.itemShow(index);
 //                alert(index);
                 },
                 show_dept_add()
@@ -183,6 +200,14 @@
                 submit_dept_edit(index)
                 {
                     document.getElementById("update-dept-"+ index).submit();
+                },
+                show_faculty_add()
+                {
+                    this.faculty_add_form = true;
+                },
+                hide_faculty_add()
+                {
+                    this.faculty_add_form = false;
                 },
 
             },

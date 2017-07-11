@@ -93,6 +93,8 @@ Route::get('/departments/institution', 'InstDepartmentsController@allDepartments
 
 Route::post('/departments/update', 'InstDepartmentsController@departmentsUpdate')->name('update-departments');
 
+Route::post('/departments/faculty/update', 'InstDepartmentsController@departmentFacultyUpdate')->name('update-departments-faculty');
+
 Route::get('/join/institution', 'InstitutionController@joinInstitution')->name('join-institution');
 
 Route::get('/join/institution/{id}', 'InstitutionController@viewInstitutionRequests')->name('view-inst-requests');
