@@ -45,6 +45,8 @@ Vue.component('joininstitution', require('./components/institution/JoinInstituti
 Vue.component('joinrequests', require('./components/institution/JoinRequests.vue'));
 Vue.component('joincourse', require('./components/courses/JoinCourse.vue'));
 Vue.component('instdepts', require('./components/institution/InstDepts.vue'));
+Vue.component('assignment', require('./components/assignments/Assignment.vue'));
+
 
 
 

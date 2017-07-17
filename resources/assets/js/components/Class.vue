@@ -5,9 +5,6 @@
         <div class="row">
             <div class="panel panel-default" >
                 <div class="panel-heading" v-model="theclass"><h3>{{ theclass.course_name }}</h3></div>
-
-                <div class="panel-body">
-                </div>
             </div>
         </div>
 
@@ -18,7 +15,7 @@
         <button class="btn-info" type="submit">Save Layout</button>
         </form>
 
-        <div class="row theuserinterface" >
+        <div class="row theuserinterface full-screen-user-interface" >
             <draggable v-model="theuiblock"  @start="drag=true" @end="drag=false">
                 <!--<div v-for="(block, index) in theuiblock" :id="'position'+index" v-bind:class="{ mainContentArea: isMainArea(index)}" style="margin-top: 5%">-->
                 <div v-for="(block, index) in theuiblock" :id="'position'+index" v-bind:class="getClasses(index)" style="margin-top: 5%">
@@ -28,6 +25,16 @@
                 </div>
             </draggable>
         </div>
+        <div class="row theuserinterface mobile-user-interface" >
+            <div v-model="theuiblock"  >
+                <!--<div v-for="(block, index) in theuiblock" :id="'position'+index" v-bind:class="{ mainContentArea: isMainArea(index)}" style="margin-top: 5%">-->
+                <div v-for="(block, index) in theuiblock" :id="'position'+index" v-bind:class="getClasses(index)" style="margin-top: 5%">
+                    <component v-bind:is="block.title" v-bind="theProps(block)" >
+                        <!-- component changes when vm.currentView changes! -->
+                    </component>
+                </div>
+            </div>
+        </div>
 
 
     </div>
@@ -36,6 +43,8 @@
 
 <script>
     import draggable from 'vuedraggable';
+
+
 
     var Home3 = {
         template: '<p>Welcome home3!</p>'
@@ -107,9 +116,10 @@
                     }
                     if (block.title === 'assignmentlist') {
                         return {
-                            students: this.studentlist,
-                            teacher : this.instructor,
-                            course  : this.theclass,
+                            students    : this.studentlist,
+                            teacher     : this.instructor,
+                            course      : this.theclass,
+                            adminuser   : this.admin,
                         }
                     }
                     if (block.title === 'classschedule') {
@@ -135,6 +145,8 @@
             },
         mounted() {
             this.csrf = window.Laravel.csrfToken;
+
+
 
         }
     }

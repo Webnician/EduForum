@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Assignment;
 use App\Course;
 use App\CourseJoinRequests;
 use App\ScheduleItems;
@@ -379,6 +380,7 @@ class CourseController extends Controller
                 $schedule_items          = ScheduleItems::get_schedule_items_for_course($course['id']);
                 $files                   = Files::getFilesByCourseId($id);
                 $files                   = \GuzzleHttp\json_encode($files);
+                $assignments             = Assignment::get_assignments_by_class($id);
                 $uiblock                 = [];
                 $course_preferences      = [];
                 $student_ids             = [];
@@ -456,7 +458,8 @@ class CourseController extends Controller
 
                 return view('/courses/class')->with('course', $course)->with('students', $student2)
                     ->with('teacher', $teacher)->with('blocks', $uiblock2)->with('user', $user)->with('schedule', $schedule_items)
-                    ->with('files', $files);
+                    ->with('files', $files)
+                    ->with('assignments', $assignments);
             }
             else
             {
@@ -505,6 +508,11 @@ class CourseController extends Controller
         $courses            = Course::get_courses_by_institution($institution['id']);
         $requests           = CourseJoinRequests::get_course_join_requests_by_user_id($user['id']);
         $iterator           = 0;
+
+        if(!isset($institution))
+        {
+            return redirect('/join/institution');
+        }
 
         foreach ($courses as $course)
         {

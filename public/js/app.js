@@ -11384,6 +11384,7 @@ Vue.component('joininstitution', __webpack_require__(84));
 Vue.component('joinrequests', __webpack_require__(85));
 Vue.component('joincourse', __webpack_require__(82));
 Vue.component('instdepts', __webpack_require__(83));
+Vue.component('assignment', __webpack_require__(123));
 
 // Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content');
 
@@ -12275,14 +12276,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['teacher', 'course', 'students'],
+    props: ['teacher', 'course', 'students', 'adminuser'],
 
     data: function data() {
 
         return {
             studentlist: this.students,
             instructor: this.teacher,
-            theclass: this.course
+            theclass: this.course,
+            admin: this.adminuser
 
         };
     }
@@ -12327,6 +12329,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuedraggable__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuedraggable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuedraggable__);
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -12429,7 +12438,8 @@ var Home3 = {
                 return {
                     students: this.studentlist,
                     teacher: this.instructor,
-                    course: this.theclass
+                    course: this.theclass,
+                    adminuser: this.admin
                 };
             }
             if (block.title === 'classschedule') {
@@ -49358,9 +49368,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "theclass"
     }
-  }, [_c('h3', [_vm._v(_vm._s(_vm.theclass.course_name))])]), _vm._v(" "), _c('div', {
-    staticClass: "panel-body"
-  })])]), _vm._v(" "), _c('form', {
+  }, [_c('h3', [_vm._v(_vm._s(_vm.theclass.course_name))])])])]), _vm._v(" "), _c('form', {
     attrs: {
       "action": "/classpreferences/update",
       "method": "POST"
@@ -49401,7 +49409,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit"
     }
   }, [_vm._v("Save Layout")])], 2), _vm._v(" "), _c('div', {
-    staticClass: "row theuserinterface"
+    staticClass: "row theuserinterface full-screen-user-interface"
   }, [_c('draggable', {
     on: {
       "start": function($event) {
@@ -49430,7 +49438,29 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c(block.title, _vm._b({
       tag: "component"
     }, 'component', _vm.theProps(block)))], 1)
-  }))], 1)])
+  }))], 1), _vm._v(" "), _c('div', {
+    staticClass: "row theuserinterface mobile-user-interface"
+  }, [_c('div', {
+    model: {
+      value: (_vm.theuiblock),
+      callback: function($$v) {
+        _vm.theuiblock = $$v
+      },
+      expression: "theuiblock"
+    }
+  }, _vm._l((_vm.theuiblock), function(block, index) {
+    return _c('div', {
+      class: _vm.getClasses(index),
+      staticStyle: {
+        "margin-top": "5%"
+      },
+      attrs: {
+        "id": 'position' + index
+      }
+    }, [_c(block.title, _vm._b({
+      tag: "component"
+    }, 'component', _vm.theProps(block)))], 1)
+  }))])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -50406,8 +50436,6 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "container"
   }, [_c('div', {
@@ -50418,9 +50446,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-heading"
-  }, [_vm._v("Assignment List")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Assignment List "), (_vm.admin) ? _c('span', {
+    staticStyle: {
+      "float": "right"
+    }
+  }, [_vm._m(0)]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
   }, [_vm._v("\n                    At some point in the near future when the assignment system is in place. Here there shall reside, assignments\n                ")])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
+    attrs: {
+      "href": "/assignment/add"
+    }
+  }, [_c('span', {
+    staticStyle: {
+      "margin-right": "2%"
+    }
+  }), _vm._v(" "), _c('i', {
+    staticClass: "fa fa-plus-square",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -51775,6 +51822,118 @@ module.exports = function(module) {
 __webpack_require__(11);
 module.exports = __webpack_require__(12);
 
+
+/***/ }),
+/* 115 */,
+/* 116 */,
+/* 117 */,
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */,
+/* 122 */,
+/* 123 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(124),
+  /* template */
+  __webpack_require__(125),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Users\\olafbroms\\Desktop\\dev\\homeTest\\scorecard\\eduforum\\eduforum\\resources\\assets\\js\\components\\assignments\\Assignment.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Assignment.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4341ecf5", Component.options)
+  } else {
+    hotAPI.reload("data-v-4341ecf5", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 124 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['teacher', 'course', 'blocks', 'students'],
+
+    data: function data() {
+
+        return {
+            studentlist: this.students,
+            instructor: this.teacher
+
+        };
+    }
+});
+
+/***/ }),
+/* 125 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _vm._m(0)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "container"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-12 col-md-12 col-sm-12 "
+  }, [_c('div', {
+    staticClass: "panel panel-default"
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_vm._v("Manage Assignment")]), _vm._v(" "), _c('div', {
+    staticClass: "panel-body"
+  }, [_c('div', [_vm._v("Assignment")])])])])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-4341ecf5", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
