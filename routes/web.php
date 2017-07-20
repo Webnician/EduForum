@@ -156,7 +156,9 @@ Route::post('/schedule/update', 'ScheduleItemController@ScheduleItemOperations')
 
 Route::get('/files/coursedocuments/{course_id}/{user_id}/{name}', 'UploadController@getFileName')->name('fetch-file');
 
-Route::get('/assignment/add', 'AssignmentController@assignmentInput')->name('add-assignmnet');
+Route::get('/assignment/add/{id}', 'AssignmentController@assignmentInput')->name('add-assignmnet');
+
+Route::post('/assignment/insert', 'AssignmentController@insertAssignment')->name('insert-assignmnet');
 
 //Route::get('registration', )
 //Route::post('institution/create', 'InstitutionController@instCreate')->name('create-institution');

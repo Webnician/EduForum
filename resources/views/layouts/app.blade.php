@@ -46,6 +46,11 @@
         $('.datepicker').datepicker();
     </script>
     <script src="https://use.fontawesome.com/edd99ff75c.js"></script>
+
+    {{--Tiny MCE--}}
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+    <script>tinymce.init({ selector:'textarea' });</script>
+
     <meta id="token" name="token" content="{{ csrf_token() }}">
 </head>
 <body>

@@ -3,7 +3,6 @@
 @section('content')
 
     <div class="container">
-        Welcome to assignments
-<assignment></assignment>
+<assignment :thecourse="{{ $thecourse }}" :theuser="{{ $theuser }}"></assignment>
     </div>
 @endsection

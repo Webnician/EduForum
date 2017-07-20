@@ -94,7 +94,7 @@ body {
 }
 
 .welcome-content{
-  color: $primary-color-text;
+  color: $primary-text-color;
 }
 
 .header-logo {
@@ -222,20 +222,31 @@ background-color: $comp-red;
 .panel{
   background-color: $primary-color-text;
   color: $secondary-text-color;
-  box-shadow: 2px 2px 2px $accent-color;
+  box-shadow: 2px 2px 2px 3px $divider-color;
   .panel-heading{
-    background-color: $accent-color;
+    background-color: $primary-color;
     color: $primary-color-text;
+
   }
-  .panel-body a{
-    color: $primary-text-color;
-    text-shadow: 3px 3px 3px 3px $accent-color;
-    text-decoration: none;
+  .panel-body li{
+      list-style: none;
+      width: 100%;
+      border-bottom: 1px ridge $divider-color;
   }
-  .panel-body a:hover{
+  .panel-body li:hover{
     cursor: pointer;
     background-color: $accent-color;
     color: $primary-color-text;
+    a{
+      color: $primary-color-text;
+    }
+  }
+  .panel-body a{
+    color: $primary-text-color;
+    text-decoration: none;
+  }
+  .panel-body a:hover{
+
   }
 
 }

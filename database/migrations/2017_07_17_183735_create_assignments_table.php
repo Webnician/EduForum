@@ -19,7 +19,10 @@ class CreateAssignmentsTable extends Migration
             $table->integer('course_id')->unsigned()->index()->foreign()->references("id")->on("courses");
             $table->string('assignment_name')->nullable();
             $table->string('assignment_type')->nullable();
-            $table->json('assignment_content')->nullable();
+            $table->string('assignment_description')->nullable();
+            $table->string('assignment_content', 7000)->nullable();
+            $table->datetime('assignment_open_date')->nullable();
+            $table->datetime('assignment_due_date')->nullable();
             $table->timestamps();
         });
     }

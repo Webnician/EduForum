@@ -7,8 +7,8 @@
 
                     <div class="panel-body">
                         <div class="empty-notif" v-if="contacts.length == 0">Your classmates will show up here</div>
-                        <ul>
-                            <li v-for="(course, index) in contacts"><span class="contact-course-title">{{ course.name }}</span>
+                        <div>
+                            <div v-for="(course, index) in contacts"><span class="contact-course-title">{{ course.name }}</span>
                                 <ul>
                                     <li v-if="course.instructor_name"><span style="font-weight: bold;">Instructor : </span> {{ course.instructor_name }}
                                     <br />
@@ -25,8 +25,8 @@
                                         </span>
                                     </li>
                                 </ul>
-                            </li>
-                        </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
