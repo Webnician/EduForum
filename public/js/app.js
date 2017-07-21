@@ -12301,6 +12301,49 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -12315,7 +12358,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             admin: this.adminuser,
             assignments: this.assign,
             selected_assignment: false,
-            assignment_closed: true
+            assignment_closed: true,
+            editAssign: false,
+            csrf: ""
 
         };
     },
@@ -12331,7 +12376,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         hide_selected_assignment: function hide_selected_assignment() {
             this.assignment_closed = true;
+            this.editAssign = false;
+        },
+        editAssignment: function editAssignment() {
+            this.editAssign = true;
+        },
+        deleteAssignment: function deleteAssignment() {
+            document.getElementById("assignment-delete-form").submit();
+        },
+        stopEditing: function stopEditing() {
+            this.editAssign = false;
+        },
+        submitAssignment: function submitAssignment() {
+            document.getElementById("assignment-update-form").submit();
         }
+    },
+    mounted: function mounted() {
+        this.csrf = window.Laravel.csrfToken;
     }
 });
 
@@ -14213,6 +14274,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -49334,6 +49396,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "value": _vm.course.id
     }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "actions",
+      "value": "insert"
+    }
   }), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c('div', {
     staticClass: "row",
     staticStyle: {
@@ -50816,7 +50884,37 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(assign.assignment_due_date))])])
   })) : _c('div', {
     staticClass: "row"
-  }, [_c('h4', [_c('span', {
+  }, [(_vm.admin) ? _c('div', [(_vm.editAssign) ? _c('div', {
+    staticClass: "center"
+  }, [_c('button', {
+    staticClass: "request-accepted-button ",
+    on: {
+      "click": function($event) {
+        _vm.submitAssignment()
+      }
+    }
+  }, [_vm._v("Update Assignment")]), _vm._v(" "), _c('button', {
+    staticClass: "request-pending-button ",
+    on: {
+      "click": function($event) {
+        _vm.stopEditing()
+      }
+    }
+  }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
+    staticClass: "request-denied-button ",
+    on: {
+      "click": function($event) {
+        _vm.deleteAssignment()
+      }
+    }
+  }, [_vm._v("Delete Assignment")])]) : _c('div', [_c('button', {
+    staticClass: "request-pending-button ctr-block",
+    on: {
+      "click": function($event) {
+        _vm.editAssignment()
+      }
+    }
+  }, [_vm._v("Edit Assignment")])])]) : _vm._e(), _vm._v(" "), _c('h4', [_c('span', {
     staticStyle: {
       "margin-left": "10%"
     }
@@ -50831,21 +50929,200 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.hide_selected_assignment()
       }
     }
-  }, [_vm._v("\n                                X\n                            ")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                                X\n                            ")])]), _vm._v(" "), _c('form', {
+    attrs: {
+      "id": "assignment-delete-form",
+      "action": "/assignment/insert",
+      "method": "post"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "_token"
+    },
+    domProps: {
+      "value": _vm.csrf
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "course_id"
+    },
+    domProps: {
+      "value": _vm.course.id
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "actions",
+      "value": "delete"
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "assignment_id"
+    },
+    domProps: {
+      "value": _vm.selected_assignment.id
+    }
+  })]), _vm._v(" "), _c('form', {
+    attrs: {
+      "id": "assignment-update-form",
+      "action": "/assignment/insert",
+      "method": "post"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "_token"
+    },
+    domProps: {
+      "value": _vm.csrf
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "course_id"
+    },
+    domProps: {
+      "value": _vm.course.id
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "actions",
+      "value": "update"
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "assignment_id"
+    },
+    domProps: {
+      "value": _vm.selected_assignment.id
+    }
+  }), _vm._v(" "), _c('div', {
     staticClass: "col-lg-12 col-md-12 col-sm-12 "
-  }, [_c('h5', [_vm._v(_vm._s(_vm.selected_assignment.assignment_name))])]), _vm._v(" "), _c('div', {
+  }, [(_vm.editAssign) ? _c('h5', [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.selected_assignment.assignment_name),
+      expression: "selected_assignment.assignment_name"
+    }],
+    attrs: {
+      "type": "text",
+      "name": "assignname"
+    },
+    domProps: {
+      "value": (_vm.selected_assignment.assignment_name)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.selected_assignment.assignment_name = $event.target.value
+      }
+    }
+  })]) : _c('h5', [_vm._v(_vm._s(_vm.selected_assignment.assignment_name))])]), _vm._v(" "), _c('div', {
     staticClass: "col-lg-12 col-md-12 col-sm-12 "
-  }, [_vm._v("\n                            Opens : "), _c('br'), _vm._v("\n                            " + _vm._s(_vm.selected_assignment.assignment_open_date) + "\n                        ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                            Opens : "), _c('br'), _vm._v(" "), (_vm.editAssign) ? _c('span', [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.selected_assignment.assignment_open_date),
+      expression: "selected_assignment.assignment_open_date"
+    }],
+    attrs: {
+      "type": "datetime-local",
+      "name": "open_date"
+    },
+    domProps: {
+      "value": (_vm.selected_assignment.assignment_open_date)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.selected_assignment.assignment_open_date = $event.target.value
+      }
+    }
+  })]) : _c('span', [_vm._v("\n                                 " + _vm._s(_vm.selected_assignment.assignment_open_date) + "\n                            ")])]), _vm._v(" "), _c('div', {
     staticClass: "col-lg-12 col-md-12 col-sm-12 "
-  }, [_vm._v("\n                            Due : "), _c('br'), _vm._v("\n                            " + _vm._s(_vm.selected_assignment.assignment_due_date) + "\n                        ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                            Due : "), _c('br'), _vm._v(" "), (_vm.editAssign) ? _c('span', [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.selected_assignment.assignment_due_date),
+      expression: "selected_assignment.assignment_due_date"
+    }],
+    attrs: {
+      "type": "datetime-local",
+      "name": "end_date"
+    },
+    domProps: {
+      "value": (_vm.selected_assignment.assignment_due_date)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.selected_assignment.assignment_due_date = $event.target.value
+      }
+    }
+  })]) : _c('span', [_vm._v("\n                                " + _vm._s(_vm.selected_assignment.assignment_due_date) + "\n                            ")])]), _vm._v(" "), _c('div', {
     staticClass: "col-lg-12 col-md-12 col-sm-12 "
-  }, [_vm._v("\n                            " + _vm._s(_vm.selected_assignment.assignment_description) + "\n                        ")]), _vm._v(" "), _c('div', {
+  }, [(_vm.editAssign) ? _c('span', [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.selected_assignment.assignment_description),
+      expression: "selected_assignment.assignment_description"
+    }],
+    staticStyle: {
+      "width": "100%"
+    },
+    attrs: {
+      "type": "text",
+      "name": "assigndesc",
+      "placeholder": "Enter Assignment Description"
+    },
+    domProps: {
+      "value": (_vm.selected_assignment.assignment_description)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.selected_assignment.assignment_description = $event.target.value
+      }
+    }
+  })]) : _c('span', [_vm._v("\n                                " + _vm._s(_vm.selected_assignment.assignment_description) + "\n                            ")])]), _vm._v(" "), _c('div', {
     staticClass: "col-lg-12 col-md-12 col-sm-12 "
-  }, [_c('div', {
+  }, [(_vm.editAssign) ? _c('span', [_c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.selected_assignment.assignment_content),
+      expression: "selected_assignment.assignment_content"
+    }],
+    staticStyle: {
+      "width": "100%"
+    },
+    attrs: {
+      "name": "assigncont",
+      "placeholder": "Enter Assignment Content"
+    },
+    domProps: {
+      "value": (_vm.selected_assignment.assignment_content)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.selected_assignment.assignment_content = $event.target.value
+      }
+    }
+  })]) : _c('span', [_c('span', {
     domProps: {
       "innerHTML": _vm._s(_vm.selected_assignment.assignment_content)
     }
-  })])])])])])])])
+  })])])])])])])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

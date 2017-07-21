@@ -13,6 +13,12 @@ class Assignment extends Model
         return $assignments;
     }
 
+    public static function get_assignment_by_id($id)
+    {
+        $assignment  = Assignment::find($id);
+        return $assignment;
+    }
+
     public static function add_assignment_to_class($input, $content)
     {
 //        dd($input);
@@ -26,5 +32,23 @@ class Assignment extends Model
         $assignment->assignment_due_date    = $input['end_date'];
         $assignment->assignment_content     = $content;
         $assignment->save();
+    }
+
+    public static function update_assignment($input, $content)
+    {
+        $assignment                         = self::get_assignment_by_id($input['assignment_id']);
+        $assignment->course_id              = $input['course_id'];
+        $assignment->assignment_name        = $input['assignname'];
+        $assignment->assignment_description = $input['assigndesc'];
+        $assignment->assignment_open_date   = $input['open_date'];
+        $assignment->assignment_due_date    = $input['end_date'];
+        $assignment->assignment_content     = $content;
+        $assignment->save();
+    }
+
+    public static function delete_assignment($input)
+    {
+        $assignemnt = self::get_assignment_by_id($input['assignment_id']);
+        $assignemnt->delete();
     }
 }

@@ -12,6 +12,7 @@
                             <input type="hidden" name="user_id" :value="user.id">
                             <input type="hidden" name="_token" :value="csrf">
                             <input type="hidden" name="course_id" :value="course.id">
+                            <input type="hidden" name="actions" value="insert">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     Assignment Type : <br/>

@@ -35,15 +35,31 @@ class AssignmentController extends Controller
         if(Auth::check()) {
             $user = Auth::user();
             $input = Input::get();
-            $content = $input['assigncont'];
+
             $teacher = Course::get_teacher_by_course($input['course_id']);
 
             if ($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin') || $user->hasRole('contadmin') || $teacher['id'] == $user['id'])
             {
-                Assignment::add_assignment_to_class($input, $content);
-                return redirect()->back();
+                if($input['actions'] == 'insert')
+                {
+                    $content = $input['assigncont'];
+                    Assignment::add_assignment_to_class($input, $content);
+                    return redirect()->back();
+                }
+                if($input['actions'] == 'update')
+                {
+                    $content = $input['assigncont'];
+                    Assignment::update_assignment($input, $content);
+                    return redirect()->back();
+                }
+                if($input['actions'] == 'delete')
+                {
+                    Assignment::delete_assignment($input);
+                    return redirect()->back();
+                }
             }
-            else{
+            else
+            {
                 return redirect('home');
             }
         }
