@@ -74,7 +74,7 @@ class CourseController extends Controller
                 $students                = UserCourse::get_users_by_course($id);
 
                 if(!$user->hasRole('superadmin') || !$user->hasRole('admin')) {
-                    if ($course['id'] != $institution['id'])
+                    if ($course->institution_id != $institution['id'])
                     {
                         return view('home');
                     }
@@ -391,7 +391,8 @@ class CourseController extends Controller
                     array_push($student_ids, $student['user_id']);
                 }
 
-            if ($user['id'] == $teacher['id'] || $user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin') || in_array($id, $student_ids))
+//                dd($student_ids);
+            if ($user['id'] == $teacher['id'] || $user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin') ||  in_array($user->id, $student_ids))
             {
 
 
@@ -434,11 +435,20 @@ class CourseController extends Controller
                 $course['toedit'] = "false";
                 $course['creator'] = "false";
                 $course['allowuser'] = "true";
-                if ($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin')) {
+                if ($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin') || $user['id'] == $teacher['id']) {
                     $course['admin'] = "true";
                 } else {
                     $course['admin'] = "false";
                 }
+                if (in_array($user->id, $student_ids))
+                {
+                    $course['is_student'] = "true";
+                }
+                else
+                {
+                    $course['is_student'] = "false";
+                }
+
                 $uiblock['first'] = $course_preferences->first;
                 $uiblock['second'] = $course_preferences->second;
                 $uiblock['third'] = $course_preferences->third;

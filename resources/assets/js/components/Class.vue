@@ -53,7 +53,7 @@
 
     export default {
         props:
-            ['students', 'teacher', 'course', 'blocks', 'user', 'adminuser', 'schedule', 'files', 'assign'],
+            ['students', 'teacher', 'course', 'blocks', 'user', 'adminuser', 'schedule', 'files', 'assign', 'a_student'],
 
         data(){
 
@@ -72,6 +72,7 @@
                 schedule_items          : this.schedule,
                 class_files             : this.files,
                 assignments             : this.assign,
+                is_student              : this.a_student,
 
             }
         },
@@ -113,6 +114,7 @@
                             teacher : this.instructor,
                             course  : this.theclass,
                             files   : this.class_files,
+                            cur_stud: this.is_student,
                         }
                     }
                     if (block.title === 'assignmentlist') {
@@ -122,6 +124,8 @@
                             course      : this.theclass,
                             adminuser   : this.admin,
                             assign      : this.assignments,
+                            cur_stud    : this.is_student,
+                            theuser     : this.currentuser,
                         }
                     }
                     if (block.title === 'classschedule') {
@@ -132,6 +136,7 @@
                             schedule    : this.schedule_items,
                             theuser     : this.currentuser,
                             anadmin     : this.admin,
+                            cur_stud    : this.is_student,
                         }
                     }
                     if (block.title === 'fileupload') {
@@ -140,6 +145,7 @@
                             course      : this.theclass,
                             user        : this.currentuser,
                             adminuser   : this.admin,
+                            cur_stud    : this.is_student,
                         }
                     }
                 }

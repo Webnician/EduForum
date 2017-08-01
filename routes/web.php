@@ -68,7 +68,7 @@ Route::get('/profile', 'ProfileController@index')->name('prof');
 
 Route::get('/creator', 'ProfileController@userCreateCont')->name('usercreator');
 
-Route::post('user/update', 'ProfileController@userUpdate')->name('updateuser');
+Route::post('user/update', 'ProfileController@updateUser')->name('updateuser');
 
 Route::post('user/create', 'ProfileController@userCreate')->name('createuser');
 
@@ -158,7 +158,13 @@ Route::get('/files/coursedocuments/{course_id}/{user_id}/{name}', 'UploadControl
 
 Route::get('/assignment/add/{id}', 'AssignmentController@assignmentInput')->name('add-assignmnet');
 
-Route::post('/assignment/insert', 'AssignmentController@insertAssignment')->name('insert-assignmnet');
+Route::post('/assignment/insert', 'AssignmentController@insertAssignment')->name('insert-assignment');
+
+Route::get('/assignment/student-input', 'AssignmentController@StudentAssignment')->name('student-assignment-input');
+
+Route::post('/assignment/student-insert', 'AssignmentController@StudentAssignmentInsert')->name('student-assignment-insert');
+
+Route::get('/assignment/student-submissions', 'AssignmentController@StudentSubmissions')->name('student-assignments');
 
 //Route::get('registration', )
 //Route::post('institution/create', 'InstitutionController@instCreate')->name('create-institution');

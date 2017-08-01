@@ -67,150 +67,6 @@ class ProfileController extends Controller
         }
     }
 
-//    public function users()
-//    {
-//        if(Auth::check()) {
-//            $user = Auth::user();
-//            if($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin') || $user->hasRole('persadmin') || $user->hasRole('instructor'))
-//            {
-//                if ($user->hasRole('superadmin') || $user->hasRole('admin'))
-//                {
-//                  $users = User::all();
-//                }
-//                if ($user->hasRole('instadmin') || $user->hasRole('persadmin') || $user->hasRole('instructor'))
-//                {
-//                    $id = $user['institution'];
-//                    $users = User::where('institution', $id)->get();
-//                }
-//                $users = $users->toArray();
-//                return view('/profile-user/userlist')->with('users', $users);
-//            }
-//            else
-//            {
-//                return view('home');
-//            }
-//        }
-//        else
-//        {
-//            return redirect('/login');
-//        }
-//
-//    }
-//
-//    public function userUpdate()
-//    {
-//
-//            $input = Input::get();
-//            if($input['actions'] == 'delete')
-//            {
-//                $user_id    = $input['id'];
-//                $user = User::find($user_id);
-//                $user->delete();
-//                return redirect()->route('users');
-//            }
-//            if($input['actions'] == 'update') {
-//
-//
-////            $this->validate($input, [
-////                  'actions' => 'required',
-////                  'fname'   => 'required',
-////                  'lname'   => 'required',
-////            ]);
-//                $user_id    = $input['id'];
-//                $the_action = $input['actions'];
-//                $first_name = $input['fname'];
-//                $last_name = $input['lname'];
-//                $email_address = $input['email'];
-//                $title = $input['title'];
-//                $institution = $input['institution'];
-//                $avatar_source = $input['avatar'];
-//                $biography = $input['biography'];
-//
-//                $the_user                = User::find($user_id);
-//                $the_user->fname         = $first_name;
-//                $the_user->lname         = $last_name;
-//                $the_user->email         = $email_address;
-//                $the_user->title         = $title;
-//                $the_user->institution   = $institution;
-//                $the_user->avatar        = $avatar_source;
-//                $the_user->biography     = $biography;
-//                $the_user->save();
-//                return redirect()->route('userprofile', $user_id);
-//        }
-//
-//        else
-//        {
-//            return view('home');
-//        }
-//    }
-//
-//    public function userCreateCont()
-//    {
-//        if(Auth::check()) {
-//            $user = Auth::user();
-//            $args = [];
-//            if($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin') || $user->hasRole('persadmin') || $user->hasRole('instructor'))
-//            {
-//                if ($user->hasRole('superadmin') || $user->hasRole('admin'))
-//                {
-//                    $args['allowinst'] = 'true';
-//                    $args['institution'] = $user['institution'];
-////                    dd($args);
-//                    return view('profile-user.user-creator')->with('args', $args);
-//                }
-//                if ($user->hasRole('instadmin') || $user->hasRole('persadmin') || $user->hasRole('instructor'))
-//                {
-//                    $args['allowinst'] = 'false';
-//                    $args['institution'] = $user['institution'];
-////                    dd($args);
-//                    return view('profile-user.user-creator')->with('args', $args);
-////                    return view('profile-user.user-creator')->with('institution', $user['institution']);
-//                }
-//            }
-//            else
-//            {
-//                return view('home');
-//            }
-//        }
-//        else
-//        {
-//            return redirect('/login');
-//        }
-//
-//    }
-//
-//    public function userCreate()
-//    {
-//        $input = Input::get();
-//        if($input['actions'] == 'update')
-//        {
-//            $user_id    = $input['id'];
-//            $the_action = $input['actions'];
-//            $first_name = $input['fname'];
-//            $last_name = $input['lname'];
-//            $email_address = $input['email'];
-//            $title = $input['title'];
-//            $institution = $input['institution'];
-//            $avatar_source = $input['avatar'];
-//            $biography = $input['biography'];
-//
-//            $the_user                = new User();
-//            $the_user->password      = Hash::make('secret');
-//            $the_user->fname         = $first_name;
-//            $the_user->lname         = $last_name;
-//            $the_user->email         = $email_address;
-//            $the_user->title         = $title;
-//            $the_user->institution   = $institution;
-//            $the_user->avatar        = $avatar_source;
-//            $the_user->biography     = $biography;
-//            $the_user->save();
-//            return redirect()->route('users');
-//        }
-//        else
-//        {
-//            return view('home');
-//        }
-//    }
 
     public function viewUsers()
     {
@@ -309,7 +165,7 @@ class ProfileController extends Controller
         if(Auth::check())
         {
             $user = Auth::user();
-            if ($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin'))
+            if ($user->hasRole('superadmin') || $user->hasRole('admin') || $user->hasRole('instadmin') || $user-id == $id)
             {
                 $user                   = User::get_user_by_id($id);
                 $contact                = UserContact::get_contact_by_user_id($id);
@@ -384,7 +240,8 @@ class ProfileController extends Controller
     public function updateUser()
     {
         $input = Input::get();
-//        dd($input);
+
+
         if($input['actions'] == 'delete')
         {
             $user_id    = $input['id'];
@@ -414,7 +271,12 @@ class ProfileController extends Controller
             $type                       = $input['type'];
 
             $the_user                   = User::find($user_id);
-            $the_contact                = UserContact::get_contact_by_user_id($user_id);
+            if(UserContact::get_contact_by_user_id($user_id)) {
+                $the_contact = UserContact::get_contact_by_user_id($user_id);
+            }
+            else{
+                $the_contact                = new UserContact();
+            }
             $the_user->fname            = $first_name;
             $the_user->lname            = $last_name;
             $the_user->email            = $email_address;
@@ -422,6 +284,7 @@ class ProfileController extends Controller
             $the_user->institution      = $institution;
             $the_user->avatar           = $avatar_source;
             $the_user->biography        = $biography;
+            $the_contact->user_id       = $user_id;
             $the_contact->contact_address = $address;
             $the_contact->contact_city  = $city;
             $the_contact->contact_state = $state;
@@ -429,7 +292,6 @@ class ProfileController extends Controller
             $the_contact->contact_country = $country;
             $the_contact->contact_phone = $phone;
             $the_contact->contact_type  = $type;
-
             $the_user->save();
             $the_contact->save();
             return redirect()->route('single-user', $user_id);
@@ -443,9 +305,9 @@ class ProfileController extends Controller
     public function insertUser()
     {
         $input = Input::get();
-//        dd($input);
         if($input['actions'] == 'insert')
         {
+
 //            $user_id                    = $input['id'];
 //            $the_action                 = $input['actions'];
             $first_name                 = $input['fname'];
@@ -462,7 +324,6 @@ class ProfileController extends Controller
             $country                    = $input['country'];
             $phone                      = $input['phone'];
             $type                       = $input['type'];
-
             $the_user                   = new User();
 
             $the_contact                = new UserContact();
@@ -475,8 +336,8 @@ class ProfileController extends Controller
             $the_user->institution      = $institution;
             $the_user->avatar           = $avatar_source;
             $the_user->biography        = $biography;
-
             $the_user->save();
+
 
             $the_contact->user_id           = $the_user->id;
             $the_contact->contact_address   = $address;

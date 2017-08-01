@@ -13,6 +13,9 @@
                             </li>
                         </ul>
                         <div v-else="assignment_closed" class="row">
+                            <div v-if="a_student">
+                                <button class="request-pending-button ctr-block" v-on:click="uploadSubmission()">Submit Assignment</button>
+                            </div>
                             <div v-if="admin">
                                 <div class="center" v-if="editAssign">
                                     <button class="request-accepted-button " v-on:click="submitAssignment()">Update Assignment</button>
@@ -21,6 +24,7 @@
                                 </div>
                                 <div v-else="editAssign">
                                     <button class="request-pending-button ctr-block" v-on:click="editAssignment()">Edit Assignment</button>
+                                    <button class="request-accepted-button ctr-block top-margin" v-on:click="viewSubmissions()">View Submissions</button>
                                 </div>
                             </div>
                             <h4 ><span style="margin-left: 10%">Assignment</span>
@@ -78,6 +82,20 @@
                                 </span>
                             </div>
                             </form>
+                            <form id="student-submission" action="/assignment/student-input">
+                                <input type="hidden" name="_token" :value="csrf">
+                                <input type="hidden" name="course_id" :value="course.id">
+                                <input type="hidden" name="actions" value="insert">
+                                <input type="hidden" name="assignment_id" :value="selected_assignment.id">
+                                <input type="hidden" name="actions" :value="current_user.id">
+                            </form>
+                            <form id="view-submissions" action="/assignment/student-submissions">
+                                <input type="hidden" name="_token" :value="csrf">
+                                <input type="hidden" name="course_id" :value="course.id">
+                                <input type="hidden" name="actions" value="insert">
+                                <input type="hidden" name="assignment_id" :value="selected_assignment.id">
+                                <input type="hidden" name="actions" :value="current_user.id">
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -92,7 +110,7 @@
 
 
     export default {
-        props: [ 'teacher', 'course', 'students', 'adminuser', 'assign'],
+        props: [ 'teacher', 'course', 'students', 'adminuser', 'assign', 'cur_stud', 'theuser', ],
 
         data(){
 
@@ -107,6 +125,8 @@
                 assignment_closed   : true,
                 editAssign          : false,
                 csrf                : "" ,
+                a_student           : this.cur_stud,
+                current_user        : this.theuser,
 
             }
         },
@@ -143,6 +163,14 @@
                 submitAssignment()
                 {
                     document.getElementById("assignment-update-form").submit();
+                },
+                uploadSubmission()
+                {
+                    document.getElementById("student-submission").submit();
+                },
+                viewSubmissions()
+                {
+                    document.getElementById("view-submissions").submit();
                 },
             },
         mounted() {

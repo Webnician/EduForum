@@ -11385,6 +11385,8 @@ Vue.component('joinrequests', __webpack_require__(87));
 Vue.component('joincourse', __webpack_require__(84));
 Vue.component('instdepts', __webpack_require__(85));
 Vue.component('assignment', __webpack_require__(83));
+Vue.component('studassignment', __webpack_require__(126));
+Vue.component('studassignmentlist', __webpack_require__(129));
 
 // Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content');
 
@@ -12344,10 +12346,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['teacher', 'course', 'students', 'adminuser', 'assign'],
+    props: ['teacher', 'course', 'students', 'adminuser', 'assign', 'cur_stud', 'theuser'],
 
     data: function data() {
 
@@ -12360,7 +12380,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             selected_assignment: false,
             assignment_closed: true,
             editAssign: false,
-            csrf: ""
+            csrf: "",
+            a_student: this.cur_stud,
+            current_user: this.theuser
 
         };
     },
@@ -12389,6 +12411,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         submitAssignment: function submitAssignment() {
             document.getElementById("assignment-update-form").submit();
+        },
+        uploadSubmission: function uploadSubmission() {
+            document.getElementById("student-submission").submit();
+        },
+        viewSubmissions: function viewSubmissions() {
+            document.getElementById("view-submissions").submit();
         }
     },
     mounted: function mounted() {
@@ -12486,7 +12514,7 @@ var Home3 = {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['students', 'teacher', 'course', 'blocks', 'user', 'adminuser', 'schedule', 'files', 'assign'],
+    props: ['students', 'teacher', 'course', 'blocks', 'user', 'adminuser', 'schedule', 'files', 'assign', 'a_student'],
 
     data: function data() {
 
@@ -12503,7 +12531,8 @@ var Home3 = {
             currentuser: this.user,
             schedule_items: this.schedule,
             class_files: this.files,
-            assignments: this.assign
+            assignments: this.assign,
+            is_student: this.a_student
 
         };
     },
@@ -12538,7 +12567,8 @@ var Home3 = {
                     students: this.studentlist,
                     teacher: this.instructor,
                     course: this.theclass,
-                    files: this.class_files
+                    files: this.class_files,
+                    cur_stud: this.is_student
                 };
             }
             if (block.title === 'assignmentlist') {
@@ -12547,7 +12577,9 @@ var Home3 = {
                     teacher: this.instructor,
                     course: this.theclass,
                     adminuser: this.admin,
-                    assign: this.assignments
+                    assign: this.assignments,
+                    cur_stud: this.is_student,
+                    theuser: this.currentuser
                 };
             }
             if (block.title === 'classschedule') {
@@ -12557,7 +12589,8 @@ var Home3 = {
                     thecourse: this.theclass,
                     schedule: this.schedule_items,
                     theuser: this.currentuser,
-                    anadmin: this.admin
+                    anadmin: this.admin,
+                    cur_stud: this.is_student
                 };
             }
             if (block.title === 'fileupload') {
@@ -12565,7 +12598,8 @@ var Home3 = {
                     teacher: this.instructor,
                     course: this.theclass,
                     user: this.currentuser,
-                    adminuser: this.admin
+                    adminuser: this.admin,
+                    cur_stud: this.is_student
                 };
             }
         }
@@ -50884,7 +50918,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(assign.assignment_due_date))])])
   })) : _c('div', {
     staticClass: "row"
-  }, [(_vm.admin) ? _c('div', [(_vm.editAssign) ? _c('div', {
+  }, [(_vm.a_student) ? _c('div', [_c('button', {
+    staticClass: "request-pending-button ctr-block",
+    on: {
+      "click": function($event) {
+        _vm.uploadSubmission()
+      }
+    }
+  }, [_vm._v("Submit Assignment")])]) : _vm._e(), _vm._v(" "), (_vm.admin) ? _c('div', [(_vm.editAssign) ? _c('div', {
     staticClass: "center"
   }, [_c('button', {
     staticClass: "request-accepted-button ",
@@ -50914,7 +50955,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.editAssignment()
       }
     }
-  }, [_vm._v("Edit Assignment")])])]) : _vm._e(), _vm._v(" "), _c('h4', [_c('span', {
+  }, [_vm._v("Edit Assignment")]), _vm._v(" "), _c('button', {
+    staticClass: "request-accepted-button ctr-block top-margin",
+    on: {
+      "click": function($event) {
+        _vm.viewSubmissions()
+      }
+    }
+  }, [_vm._v("View Submissions")])])]) : _vm._e(), _vm._v(" "), _c('h4', [_c('span', {
     staticStyle: {
       "margin-left": "10%"
     }
@@ -51122,7 +51170,93 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "innerHTML": _vm._s(_vm.selected_assignment.assignment_content)
     }
-  })])])])])])])])])])
+  })])])]), _vm._v(" "), _c('form', {
+    attrs: {
+      "id": "student-submission",
+      "action": "/assignment/student-input"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "_token"
+    },
+    domProps: {
+      "value": _vm.csrf
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "course_id"
+    },
+    domProps: {
+      "value": _vm.course.id
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "actions",
+      "value": "insert"
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "assignment_id"
+    },
+    domProps: {
+      "value": _vm.selected_assignment.id
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "actions"
+    },
+    domProps: {
+      "value": _vm.current_user.id
+    }
+  })]), _vm._v(" "), _c('form', {
+    attrs: {
+      "id": "view-submissions",
+      "action": "/assignment/student-submissions"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "_token"
+    },
+    domProps: {
+      "value": _vm.csrf
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "course_id"
+    },
+    domProps: {
+      "value": _vm.course.id
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "actions",
+      "value": "insert"
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "assignment_id"
+    },
+    domProps: {
+      "value": _vm.selected_assignment.id
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "actions"
+    },
+    domProps: {
+      "value": _vm.current_user.id
+    }
+  })])])])])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -52477,6 +52611,444 @@ module.exports = function(module) {
 __webpack_require__(11);
 module.exports = __webpack_require__(12);
 
+
+/***/ }),
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */,
+/* 122 */,
+/* 123 */,
+/* 124 */,
+/* 125 */,
+/* 126 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(127),
+  /* template */
+  __webpack_require__(128),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Users\\olafbroms\\Desktop\\dev\\homeTest\\scorecard\\eduforum\\eduforum\\resources\\assets\\js\\components\\assignments\\StudentAssignment.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] StudentAssignment.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-576bfc20", Component.options)
+  } else {
+    hotAPI.reload("data-v-576bfc20", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 127 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['theuser', 'thecourse', 'assign'],
+
+    data: function data() {
+
+        return {
+            user: this.theuser,
+            course: this.thecourse,
+            assignment: this.assign,
+            csrf: ""
+
+        };
+    },
+
+    methods: {
+        submitAssignment: function submitAssignment() {
+            document.getElementById("assignment-insert-form").submit();
+        }
+    },
+    mounted: function mounted() {
+        this.csrf = window.Laravel.csrfToken;
+    }
+});
+
+/***/ }),
+/* 128 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "container"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-12 col-md-12 col-sm-12 "
+  }, [_c('div', {
+    staticClass: "panel panel-default"
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_vm._v("Submit Assignment")]), _vm._v(" "), _c('div', {
+    staticClass: "panel-body"
+  }, [_c('form', {
+    attrs: {
+      "id": "assignment-insert-form",
+      "method": "post",
+      "action": "/assignment/student-insert"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "user_id"
+    },
+    domProps: {
+      "value": _vm.user.id
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "_token"
+    },
+    domProps: {
+      "value": _vm.csrf
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "course_id"
+    },
+    domProps: {
+      "value": _vm.course.id
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "assignment_id"
+    },
+    domProps: {
+      "value": _vm.assignment.id
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "actions",
+      "value": "insert"
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-6 col-md-6 col-sm-12"
+  }, [_vm._v("\n                                Assignment Title : "), _c('br'), _vm._v(" "), _c('div', [_c('h4', [_vm._v(_vm._s(_vm.assignment.assignment_description))])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "margin-top": "3%"
+    }
+  }, [_vm._v("\n                                    Assignment : "), _c('br'), _vm._v(" "), _c('div', {
+    domProps: {
+      "innerHTML": _vm._s(_vm.assignment.assignment_content)
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-6 col-md-6 col-sm-12"
+  }, [_c('div', {
+    staticClass: "top-margin"
+  }, [_vm._v("\n                                    Assignment open date : "), _c('br'), _vm._v(" "), _c('div', [_vm._v(_vm._s(_vm.assignment.assignment_open_date))])]), _vm._v(" "), _c('div', {
+    staticClass: "top-margin"
+  }, [_vm._v("\n                                    Assignment due date : "), _c('br'), _vm._v(" "), _c('div', [_vm._v(_vm._s(_vm.assignment.assignment_due_date))])])])]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
+    staticClass: "row",
+    staticStyle: {
+      "text-align": "center",
+      "margin-top": "3%"
+    }
+  }, [_c('button', {
+    staticClass: "request-accepted-button",
+    staticStyle: {
+      "color": "white",
+      "text-shadow": "#000 1px 1px 1px 1px"
+    },
+    on: {
+      "click": function($event) {
+        _vm.submitAssignment()
+      }
+    }
+  }, [_vm._v("Submit Assignment")]), _vm._v(" "), _c('button', {
+    staticClass: "request-denied-button",
+    staticStyle: {
+      "color": "white",
+      "text-shadow": "#000 1px 1px 1px 1px"
+    }
+  }, [_c('a', {
+    staticStyle: {
+      "color": "white"
+    },
+    attrs: {
+      "href": '/class/' + _vm.course.id
+    }
+  }, [_vm._v("Back")])])])])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row top-margin"
+  }, [_c('div', {
+    staticClass: "col-lg-12 col-md-12 col-sm-12"
+  }, [_vm._v("\n                                Assignment Submission : "), _c('br'), _vm._v(" "), _c('textarea', {
+    staticStyle: {
+      "width": "100%"
+    },
+    attrs: {
+      "name": "assigncont",
+      "placeholder": "Enter Assignment Content"
+    }
+  })])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-576bfc20", module.exports)
+  }
+}
+
+/***/ }),
+/* 129 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(130),
+  /* template */
+  __webpack_require__(131),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Users\\olafbroms\\Desktop\\dev\\homeTest\\scorecard\\eduforum\\eduforum\\resources\\assets\\js\\components\\assignments\\StudentAssignmentList.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] StudentAssignmentList.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-34ca2bae", Component.options)
+  } else {
+    hotAPI.reload("data-v-34ca2bae", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 130 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['theuser', 'thecourse', 'assign', 'assignm'],
+
+    data: function data() {
+
+        return {
+            user: this.theuser,
+            course: this.thecourse,
+            assignments: this.assign,
+            the_assign: this.assignm,
+            csrf: ""
+
+        };
+    },
+
+    methods: {},
+    mounted: function mounted() {
+        this.csrf = window.Laravel.csrfToken;
+    }
+});
+
+/***/ }),
+/* 131 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "container"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-12 col-md-12 col-sm-12 "
+  }, [_c('div', {
+    staticClass: "panel panel-default"
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_vm._v("Student Assignments")]), _vm._v(" "), _c('div', {
+    staticClass: "panel-body"
+  }, [_c('h4', {
+    staticStyle: {
+      "margin-bottom": "5%"
+    }
+  }, [_c('span', {
+    staticStyle: {
+      "float": "left"
+    }
+  }, [_vm._v(_vm._s(_vm.the_assign.assignment_name))]), _vm._v(" "), _c('span', {
+    staticStyle: {
+      "float": "right"
+    }
+  }, [_vm._v(_vm._s(_vm.the_assign.assignment_description))])]), _vm._v(" "), _vm._l((_vm.assignments), function(assign, index) {
+    return _c('div', {
+      staticClass: "row",
+      staticStyle: {
+        "border-top": "2px solid #000",
+        "padding-top": "2%"
+      }
+    }, [_c('div', {
+      staticClass: "ctr-block center"
+    }, [_c('span', [_vm._v(_vm._s(assign.user.fname) + " " + _vm._s(assign.user.lname))]), _c('span', {
+      staticStyle: {
+        "margin-left": "3%"
+      }
+    }, [_vm._v(_vm._s(assign.user.email))])]), _vm._v(" "), _c('div', {
+      domProps: {
+        "innerHTML": _vm._s(assign.submission)
+      }
+    })])
+  }), _vm._v(" "), _c('div', {
+    staticClass: "row",
+    staticStyle: {
+      "text-align": "center",
+      "margin-top": "3%"
+    }
+  }, [_c('button', {
+    staticClass: "request-denied-button",
+    staticStyle: {
+      "color": "white",
+      "text-shadow": "#000 1px 1px 1px 1px"
+    }
+  }, [_c('a', {
+    staticStyle: {
+      "color": "white"
+    },
+    attrs: {
+      "href": '/class/' + _vm.course.id
+    }
+  }, [_vm._v("Back")])])])], 2)])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-34ca2bae", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
